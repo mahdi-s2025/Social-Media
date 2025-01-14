@@ -6,13 +6,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.loginPageController">
    <children>
       <TextField fx:id="username_txt" layoutX="70.0" layoutY="86.0" />
-      <Button fx:id="login_btn" layoutX="70.0" layoutY="252.0" mnemonicParsing="false" text="login" />
+      <PasswordField fx:id="password_txt" layoutX="71.0" layoutY="156.0" />
+      <Button fx:id="login_btn" layoutX="70.0" layoutY="252.0" mnemonicParsing="false" onAction="#loginClick" text="login" />
       <Label fx:id="username_lbl" layoutX="70.0" layoutY="58.0" text="username" />
       <Label fx:id="password_lbl" layoutX="70.0" layoutY="126.0" text="password" />
-      <PasswordField fx:id="password_txt" layoutX="71.0" layoutY="156.0" />
+      <Button fx:id="signup_btn" layoutX="138.0" layoutY="252.0" mnemonicParsing="false" onAction="#signupClick" text="signup" />
    </children>
 </AnchorPane>

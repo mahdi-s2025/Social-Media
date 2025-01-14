@@ -7,4 +7,6 @@ module org.example.socialmedia {
 
     opens org.example.socialmedia to javafx.fxml;
     exports org.example.socialmedia;
+    exports org.example.socialmedia.Views;
+    opens org.example.socialmedia.Views to javafx.fxml;
 }

@@ -1,4 +1,4 @@
-package org.example.socialmedia.Views;
+package org.example.socialmedia;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,13 +10,18 @@ import org.example.socialmedia.Models.Account;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+
+    private static Stage stage;
+
+    public static Stage getStage(){
+        return stage;
+    }
     @Override
     public void start(Stage stage) throws IOException {
+        HelloApplication.stage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("loginPage.fxml"));
-        System.out.println(fxmlLoader);
-        fxmlLoader.load();
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
     }
@@ -27,7 +32,7 @@ public class HelloApplication extends Application {
 
         Account account1 = new Account("mohammad" , "Mohammad" , "mohammad");
 
-        database.AddNewAccount(account1.getName() , account1.getUsername() , account1.getPassword());
+        database.addNewAccount(account1.getName() , account1.getUsername() , account1.getPassword());
         launch();
     }
 }
