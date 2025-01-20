@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.Getter;
 import org.example.socialmedia.Database.Database;
 import org.example.socialmedia.Models.Account;
 
@@ -11,17 +12,15 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
 
+    @Getter
     private static Stage stage;
 
-    public static Stage getStage(){
-        return stage;
-    }
     @Override
     public void start(Stage stage) throws IOException {
         HelloApplication.stage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("loginPage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("welcomePage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Login");
+        stage.setTitle("Welcome!");
         stage.setScene(scene);
         stage.show();
     }
@@ -32,7 +31,7 @@ public class HelloApplication extends Application {
 
         Account account1 = new Account("mohammad" , "Mohammad" , "mohammad");
 
-        database.addNewAccount(account1.getName() , account1.getUsername() , account1.getPassword());
+        //database.addNewAccount(account1.getName() , account1.getUsername() , account1.getPassword());
         launch();
     }
 }
