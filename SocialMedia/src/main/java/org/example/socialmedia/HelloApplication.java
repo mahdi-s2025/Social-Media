@@ -5,7 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.Getter;
+import org.example.socialmedia.Controller.DataCenterController;
 import org.example.socialmedia.Models.Account;
+import org.example.socialmedia.Models.Graph;
 
 import java.io.IOException;
 
@@ -26,11 +28,18 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
 
-
-
         Account account1 = new Account("mohammad" , "Mohammad" , "mohammad");
+        Account account2 = new Account("poone" , "poone" , "p");
+        Account account3 = new Account("Mehdi" , "mehdi" , "mehdi");
 
-        //database.addNewAccount(account1.getName() , account1.getUsername() , account1.getPassword());
+        Graph graph = Graph.getGraph() ;
+        graph.addVertex(account1.getUsername());
+        graph.addVertex(account2.getUsername());
+        graph.addVertex(account3.getUsername());
+        DataCenterController.getInstance().getUsers().add(account1);
+        DataCenterController.getInstance().getUsers().add(account2);
+        DataCenterController.getInstance().getUsers().add(account3);
+
         launch();
     }
 }
