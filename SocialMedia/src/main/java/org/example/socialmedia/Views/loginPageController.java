@@ -37,13 +37,20 @@ public class loginPageController {
     private TextField username_txt;
 
     @FXML
-    void loginClick(ActionEvent event) throws SQLException {
+    void loginClick(ActionEvent event) throws Exception {
         String username = username_txt.getText();
         String password = password_txt.getText();
 
         AccountController ac = new AccountController();
 
         ac.login(username , password);
+
+        Stage stage = HelloApplication.getStage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homePage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Home");
+        stage.setScene(scene);
+        stage.show();
 
     }
 

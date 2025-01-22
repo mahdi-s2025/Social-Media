@@ -43,7 +43,7 @@ public class signupPageController {
     private TextField username_txt;
 
     @FXML
-    void signupClick(ActionEvent event) throws SQLException {
+    void signupClick(ActionEvent event) throws Exception {
 
         String name = name_txt.getText();
         String username = username_txt.getText();
@@ -51,6 +51,13 @@ public class signupPageController {
 
         AccountController ac = new AccountController();
         ac.signup(name , username , password);
+
+        Stage stage = HelloApplication.getStage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homePage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Home");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
