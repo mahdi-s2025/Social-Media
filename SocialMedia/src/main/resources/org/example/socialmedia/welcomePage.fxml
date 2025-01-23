@@ -4,15 +4,22 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.welcomePageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="578.0" prefWidth="859.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.welcomePageController">
     <children>
-        <ImageView fitHeight="545.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ImageView fitHeight="578.0" fitWidth="876.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-17.0" AnchorPane.topAnchor="0.0">
             <image>
-                <Image url="@../pictures/welcome%20-%20Copy.png" />
+                <Image url="@../pictures/12.jpg" />
             </image>
         </ImageView>
-      <Button fx:id="start_btn" alignment="CENTER" contentDisplay="CENTER" layoutX="330.0" layoutY="374.0" mnemonicParsing="false" onAction="#startClick" prefHeight="45.0" prefWidth="140.0" text="Start Communicating" />
-      <Button fx:id="cancel_btn" alignment="CENTER" contentDisplay="CENTER" layoutX="330.0" layoutY="438.0" mnemonicParsing="false" onAction="#cancelClick" prefHeight="45.0" prefWidth="140.0" text="Cancel" />
+      <Button fx:id="start_btn" alignment="CENTER" contentDisplay="CENTER" layoutX="362.0" layoutY="420.0" mnemonicParsing="false" onAction="#startClick" prefHeight="54.0" prefWidth="144.0" text="START">
+         <font>
+            <Font name="Franklin Gothic Medium" size="25.0" />
+         </font></Button>
+      <Button fx:id="cancel_btn" alignment="CENTER" contentDisplay="CENTER" layoutX="368.0" layoutY="490.0" mnemonicParsing="false" onAction="#cancelClick" prefHeight="52.0" prefWidth="136.0" text="EXIT">
+         <font>
+            <Font name="Franklin Gothic Medium Cond" size="28.0" />
+         </font></Button>
     </children>
 </AnchorPane>

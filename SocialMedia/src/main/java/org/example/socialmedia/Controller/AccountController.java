@@ -1,5 +1,6 @@
 package org.example.socialmedia.Controller;
 
+import javafx.scene.control.Alert;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.socialmedia.Exceptions.*;
@@ -18,17 +19,20 @@ public class AccountController {
     public void signup(String name , String username , String password) throws Exception {
 
         if (name.isEmpty()){
-            throw new EmptyFieldException("Name Can Not Be Empty");
+            showAlert("Name Can Not Be Empty");
+            //throw new EmptyFieldException("Name Can Not Be Empty");
         }
         else if (username.isEmpty()){
-            throw new EmptyFieldException("Username Can Not Be Empty");
+            showAlert("Username Can Not Be Empty");
+            //throw new EmptyFieldException("Username Can Not Be Empty");
         }
         else if (password.isEmpty()){
-            throw new EmptyFieldException("Password Can Not Be Empty");
+            showAlert("Password Can Not Be Empty");
+            //throw new EmptyFieldException("Password Can Not Be Empty");
         }
         else {
-            checkUsername(username);
-            checkPassword(password);
+            //checkUsername(username);
+            //checkPassword(password);
             currentAccount = new Account(name, username, password);
             data.getUsers().add(currentAccount);
             System.out.println("Signup :)");
@@ -38,13 +42,16 @@ public class AccountController {
     public void login(String username , String password) throws Exception {
 
         if (username.isEmpty()) {
-            throw new EmptyFieldException("Username Can Not Be Empty");
+            showAlert("Username Can Not Be Empty");
+            //throw new EmptyFieldException("Username Can Not Be Empty");
         } else if (password.isEmpty()) {
-            throw new EmptyFieldException("Password Can Not Be Empty");
+            showAlert("Password Can Not Be Empty");
+            //throw new EmptyFieldException("Password Can Not Be Empty");
         } else {
             Account tmp = data.getUser(username);
             if (tmp == null || !tmp.getPassword().equals(password))
-                throw new Exception("Username or password is invalid!");
+                showAlert("Username or password is invalid!");
+                //throw new Exception("Username or password is invalid!");
             currentAccount = tmp;
             System.out.println("Login :)");
         }
@@ -133,5 +140,12 @@ public class AccountController {
 
         if (strength == 0) return 6;
         return strength;
+    }
+    public void showAlert(String msg){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("ٌWarning");
+        alert.setHeaderText("Error");
+        alert.setContentText(msg);
+        alert.showAndWait();
     }
 }

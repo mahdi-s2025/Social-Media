@@ -48,9 +48,9 @@ public class homePageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         name_lbl.setText(AccountController.getCurrentAccount().getName());
-        lb1.setText(DataCenterController.getInstance().getUsers().get(0).getUsername());
-        lb2.setText(DataCenterController.getInstance().getUsers().get(1).getUsername());
-        lb3.setText(DataCenterController.getInstance().getUsers().get(2).getUsername());
+//        lb1.setText(DataCenterController.getInstance().getUsers().get(0).getUsername());
+//        lb2.setText(DataCenterController.getInstance().getUsers().get(1).getUsername());
+//        lb3.setText(DataCenterController.getInstance().getUsers().get(2).getUsername());
     }
 
 
