@@ -1,11 +1,16 @@
 package org.example.socialmedia.Controller;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.socialmedia.Exceptions.*;
+import org.example.socialmedia.HelloApplication;
 import org.example.socialmedia.Models.Account;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,15 +24,15 @@ public class AccountController {
     public void signup(String name , String username , String password) throws Exception {
 
         if (name.isEmpty()){
-            showAlert("Name Can Not Be Empty");
+            showAlert("Name Can Not Be Empty",Alert.AlertType.WARNING,"Error");
             //throw new EmptyFieldException("Name Can Not Be Empty");
         }
         else if (username.isEmpty()){
-            showAlert("Username Can Not Be Empty");
+            showAlert("Username Can Not Be Empty",Alert.AlertType.WARNING,"Error");
             //throw new EmptyFieldException("Username Can Not Be Empty");
         }
         else if (password.isEmpty()){
-            showAlert("Password Can Not Be Empty");
+            showAlert("Password Can Not Be Empty",Alert.AlertType.WARNING,"Error");
             //throw new EmptyFieldException("Password Can Not Be Empty");
         }
         else {
@@ -42,15 +47,15 @@ public class AccountController {
     public void login(String username , String password) throws Exception {
 
         if (username.isEmpty()) {
-            showAlert("Username Can Not Be Empty");
+            showAlert("Username Can Not Be Empty",Alert.AlertType.WARNING,"Error");
             //throw new EmptyFieldException("Username Can Not Be Empty");
         } else if (password.isEmpty()) {
-            showAlert("Password Can Not Be Empty");
+            showAlert("Password Can Not Be Empty",Alert.AlertType.WARNING,"Error");
             //throw new EmptyFieldException("Password Can Not Be Empty");
         } else {
             Account tmp = data.getUser(username);
             if (tmp == null || !tmp.getPassword().equals(password))
-                showAlert("Username or password is invalid!");
+                showAlert("Username or password is invalid!",Alert.AlertType.WARNING,"Error");
                 //throw new Exception("Username or password is invalid!");
             currentAccount = tmp;
             System.out.println("Login :)");
@@ -141,11 +146,18 @@ public class AccountController {
         if (strength == 0) return 6;
         return strength;
     }
-    public void showAlert(String msg){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("ٌWarning");
-        alert.setHeaderText("Error");
+    public static void showAlert(String msg,Alert.AlertType alertType,String header){
+        Alert alert = new Alert(alertType);
+        alert.setHeaderText(header);
         alert.setContentText(msg);
         alert.showAndWait();
+    }
+    public static void setStage(String page ) throws IOException {
+        Stage stage = HelloApplication.getStage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("newPost");
+        stage.setScene(scene);
+        stage.show();
     }
 }

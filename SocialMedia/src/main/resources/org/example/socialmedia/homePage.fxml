@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="803.0" prefWidth="879.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.homePageController">
@@ -91,7 +92,7 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="519.0" layoutY="553.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="127.0" text="Add new Post">
+      <Button layoutX="519.0" layoutY="553.0" mnemonicParsing="false" onAction="#addNewPost" prefHeight="28.0" prefWidth="127.0" text="Add new Post">
          <font>
             <Font size="17.0" />
          </font>
@@ -101,8 +102,11 @@
             <Font size="17.0" />
          </font>
       </Button>
-      <ScrollPane layoutX="194.0" layoutY="75.0" prefHeight="458.0" prefWidth="453.0" />
-      <ScrollPane layoutX="675.0" layoutY="75.0" prefHeight="516.0" prefWidth="191.0" />
+      <ScrollPane fx:id="postsSP" layoutX="194.0" layoutY="75.0" prefHeight="458.0" prefWidth="453.0">
+         <content>
+            <VBox fx:id="postsVbox" prefHeight="460.0" prefWidth="447.0" />
+         </content></ScrollPane>
+      <ScrollPane fx:id="connectionsSP" layoutX="675.0" layoutY="75.0" prefHeight="516.0" prefWidth="191.0" />
       <Label layoutX="194.0" layoutY="40.0" prefHeight="28.0" prefWidth="127.0" text="Your Posts">
          <font>
             <Font size="19.0" />
