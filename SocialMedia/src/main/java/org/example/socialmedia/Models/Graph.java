@@ -23,7 +23,18 @@ public class Graph {
     PriorityQueue<Pair> pbTable;
     private Graph(){
         currentUsers = new ArrayList<>();
-        pbTable = new PriorityQueue<>(Comparator.comparingDouble(user -> user.probability));
+        pbTable = new PriorityQueue<>((user1 , user2) -> {
+            if (user1.probability < user2.probability){
+                return 1;
+            }
+            else if (user1.probability > user2.probability){
+                return -1;
+            }
+            else {
+                return 0;
+            }
+
+        });
     }
     public static Graph getGraph(){
         if(graph == null){
@@ -39,7 +50,6 @@ public class Graph {
 
             if(userConnection.get(0).equals(currentUser)){
                 userConnection.add(user2);
-                username = currentUser;
             }
             if(userConnection.get(0).equals(user2)){
                 userConnection.add(currentUser);
@@ -62,10 +72,8 @@ public class Graph {
         return null;
     }
     public void setProbability(){
-        List<String> currentUserConnections = findConnection(AccountController.getCurrentAccount().getUsername());
-
+        List<String> currentUserConnections = findConnection(AccountController.getAccountController().getCurrentAccount().getUsername());
         for(List<String> connections : currentUsers){
-
             int isPair=0;
 
             if(connections.get(0).equals(username)){
@@ -87,6 +95,7 @@ public class Graph {
             }
 
             int notPair = (connections.size() - isPair) + (currentUserConnections.size() - isPair);
+
 
             double pb = (notPair > 0) ? (double) isPair / notPair : (double) isPair;
             int index = currentUsers.indexOf(connections);
