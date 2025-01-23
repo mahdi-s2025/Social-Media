@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 import org.example.socialmedia.Controller.AccountController;
 import org.example.socialmedia.Controller.DataCenterController;
@@ -25,6 +26,7 @@ import org.example.socialmedia.Models.Post;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 public class homePageController implements Initializable {
@@ -94,7 +96,9 @@ public class homePageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nameLB.setText(AccountController.getCurrentAccount().getName());
-        //prof.setImage(new Image(AccountController.currentAccount.getProfilePicture()));
+        String path = Paths.get(AccountController.currentAccount.getProfilePicture()).toAbsolutePath().toString();
+        System.out.println(path);
+        prof.setImage(new Image("file:" + path));
         bioLB.setText(AccountController.currentAccount.getBio());
         name_lbl.setText(AccountController.getCurrentAccount().getName());
         for (Post post:AccountController.getCurrentAccount().getPosts()){
