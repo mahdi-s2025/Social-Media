@@ -47,7 +47,7 @@ public class homePageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        name_lbl.setText(AccountController.getCurrentAccount().getName());
+        name_lbl.setText(AccountController.getAccountController().getCurrentAccount().getName());
 //        lb1.setText(DataCenterController.getInstance().getUsers().get(0).getUsername());
 //        lb2.setText(DataCenterController.getInstance().getUsers().get(1).getUsername());
 //        lb3.setText(DataCenterController.getInstance().getUsers().get(2).getUsername());
@@ -65,7 +65,7 @@ public class homePageController implements Initializable {
     }
     @FXML
     void connect(){
-        Graph.getGraph().addEdge(AccountController.getCurrentAccount().getUsername(),lb1.getText());
+        Graph.getGraph().addEdge(AccountController.getAccountController().getCurrentAccount().getUsername(),lb1.getText());
         Graph.getGraph().setProbability();
     }
 

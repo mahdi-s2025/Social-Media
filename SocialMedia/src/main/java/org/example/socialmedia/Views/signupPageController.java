@@ -47,10 +47,11 @@ public class signupPageController {
 
         String name = name_txt.getText();
         String username = username_txt.getText();
+        String email = "";
         String password = password_txt.getText();
 
-        AccountController ac = new AccountController();
-        ac.signup(name , username , password);
+        AccountController ac = AccountController.getAccountController();
+        ac.signup(name , username , email , password);
 
         Stage stage = HelloApplication.getStage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homePage.fxml"));

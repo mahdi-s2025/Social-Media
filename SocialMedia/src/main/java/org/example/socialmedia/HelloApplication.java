@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.Getter;
+import org.example.socialmedia.Controller.AccountController;
 import org.example.socialmedia.Controller.DataCenterController;
 import org.example.socialmedia.Models.Account;
 import org.example.socialmedia.Models.Graph;
@@ -28,18 +29,21 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
 
-        Account account1 = new Account("mohammad" , "mohammad" , "mohammad");
-        Account account2 = new Account("poone" , "poone" , "p");
-        Account account3 = new Account("Mehdi" , "mehdi" , "mehdi");
+        DataCenterController dataCenterController = DataCenterController.getDataCenterController();
 
+        Account account1 = new Account("mohammad" , "mohammad" , "" , "mohammad");
+        Account account2 = new Account("poone" , "poone" , "" , "p");
+        Account account3 = new Account("Mehdi" , "mehdi" , "" ,  "mehdi");
+        
         Graph graph = Graph.getGraph() ;
 
         graph.addVertex(account1.getUsername());
         graph.addVertex(account2.getUsername());
         graph.addVertex(account3.getUsername());
-        DataCenterController.getInstance().getUsers().add(account1);
-        DataCenterController.getInstance().getUsers().add(account2);
-        DataCenterController.getInstance().getUsers().add(account3);
+
+        dataCenterController.addUser(account1);
+        dataCenterController.addUser(account2);
+        dataCenterController.addUser(account3);
 
 
         launch();

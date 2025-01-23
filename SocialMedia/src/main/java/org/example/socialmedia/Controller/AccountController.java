@@ -9,14 +9,24 @@ import org.example.socialmedia.Models.Account;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Getter
+@Setter
 public class AccountController {
-    DataCenterController data = DataCenterController.getInstance();
+    DataCenterController data = DataCenterController.getDataCenterController();
 
-    @Getter
-    @Setter
-    public static Account currentAccount;  // should convert into singleton
+    private Account currentAccount;
 
-    public void signup(String name , String username , String password) throws Exception {
+    private static AccountController accountController;
+
+    private AccountController(){}
+
+    public static AccountController getAccountController(){
+        if (accountController == null){
+            accountController = new AccountController();
+        }
+        return accountController;
+    }
+    public void signup(String name , String username , String email , String password) throws Exception {
 
         if (name.isEmpty()){
             showAlert("Name Can Not Be Empty");
@@ -33,8 +43,8 @@ public class AccountController {
         else {
             //checkUsername(username);
             //checkPassword(password);
-            currentAccount = new Account(name, username, password);
-            data.getUsers().add(currentAccount);
+            currentAccount = new Account(name, username, email , password);
+            data.addUser(currentAccount);
             System.out.println("Signup :)");
         }
     }
@@ -48,7 +58,7 @@ public class AccountController {
             showAlert("Password Can Not Be Empty");
             //throw new EmptyFieldException("Password Can Not Be Empty");
         } else {
-            Account tmp = data.getUser(username);
+            Account tmp = data.findByUsername(username);
             if (tmp == null || !tmp.getPassword().equals(password))
                 showAlert("Username or password is invalid!");
                 //throw new Exception("Username or password is invalid!");
@@ -71,7 +81,7 @@ public class AccountController {
      */
 
     public void checkUsername(String username) throws Exception {
-        if (data.getUser(username) != null)
+        if (data.findByUsername(username) != null)
             throw new Exception("Username already exists!");
         Pattern usernamePattern = Pattern.compile("^[A-Za-z1-9]+(_)?[A-Za-z1-9]+$");
         Matcher usernameMatcher = usernamePattern.matcher(username);
@@ -141,6 +151,20 @@ public class AccountController {
         if (strength == 0) return 6;
         return strength;
     }
+
+
+    public void editAccount(String name , String email , String password , String bio , String profilePicture){
+        currentAccount.setName(name);
+        currentAccount.setEmail(email);
+        currentAccount.setPassword(password);
+        currentAccount.setBio(bio);
+        currentAccount.setProfilePicture(profilePicture);
+    }
+
+    public void deleteAccount(){
+        DataCenterController.getDataCenterController().deleteUser(currentAccount);
+    }
+
     public void showAlert(String msg){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("ٌWarning");

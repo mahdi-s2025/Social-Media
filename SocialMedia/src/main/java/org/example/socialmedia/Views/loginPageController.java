@@ -41,7 +41,7 @@ public class loginPageController {
         String username = username_txt.getText();
         String password = password_txt.getText();
 
-        AccountController ac = new AccountController();
+        AccountController ac = AccountController.getAccountController();
 
         ac.login(username , password);
 
