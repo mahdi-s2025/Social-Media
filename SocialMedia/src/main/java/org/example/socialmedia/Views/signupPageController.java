@@ -53,17 +53,20 @@ public class signupPageController {
 
         String name = name_txt.getText();
         String username = username_txt.getText();
+        String email = "";
         String password = password_txt.getText();
 
-        AccountController ac = new AccountController();
-        ac.signup(name , username , password,bioText.getText(),file);
+        AccountController ac = AccountController.getAccountController();
+        boolean signup = ac.signup(name , username , email , password , file);
 
-        Stage stage = HelloApplication.getStage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homePage.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Home");
-        stage.setScene(scene);
-        stage.show();
+        if (signup) {
+            Stage stage = HelloApplication.getStage();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homePage.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Home");
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     @FXML

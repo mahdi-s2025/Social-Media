@@ -41,16 +41,18 @@ public class loginPageController {
         String username = username_txt.getText();
         String password = password_txt.getText();
 
-        AccountController ac = new AccountController();
+        AccountController ac = AccountController.getAccountController();
 
-        ac.login(username , password);
+        boolean login = ac.login(username , password);
 
-        Stage stage = HelloApplication.getStage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homePage.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Home");
-        stage.setScene(scene);
-        stage.show();
+        if (login) {
+            Stage stage = HelloApplication.getStage();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homePage.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Home");
+            stage.setScene(scene);
+            stage.show();
+        }
 
     }
 

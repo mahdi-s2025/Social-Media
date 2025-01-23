@@ -95,13 +95,13 @@ public class homePageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        nameLB.setText(AccountController.getCurrentAccount().getName());
-        String path = Paths.get(AccountController.currentAccount.getProfilePicture()).toAbsolutePath().toString();
+        nameLB.setText(AccountController.getAccountController().getCurrentAccount().getName());
+        String path = Paths.get(AccountController.getAccountController().getCurrentAccount().getProfilePicture()).toAbsolutePath().toString();
         System.out.println(path);
         prof.setImage(new Image("file:" + path));
-        bioLB.setText(AccountController.currentAccount.getBio());
-        name_lbl.setText(AccountController.getCurrentAccount().getName());
-        for (Post post:AccountController.getCurrentAccount().getPosts()){
+        bioLB.setText(AccountController.getAccountController().getCurrentAccount().getBio());
+        name_lbl.setText(AccountController.getAccountController().getCurrentAccount().getName());
+        for (Post post:AccountController.getAccountController().getCurrentAccount().getPosts()){
             Label description = new Label(post.getDescription());
             Image image = new Image(post.getFile());
             ImageView postCover = new ImageView(image);
@@ -125,7 +125,8 @@ public class homePageController implements Initializable {
     }
     @FXML
     void connect(){
-        Graph.getGraph().addEdge(AccountController.getCurrentAccount().getUsername(),name1.getText());
+        Graph.getGraph().addEdge(AccountController.getAccountController().getCurrentAccount().getUsername(),name1.getText());
+
         Graph.getGraph().setProbability();
     }
     @FXML

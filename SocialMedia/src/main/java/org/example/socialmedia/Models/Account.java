@@ -11,21 +11,18 @@ public class Account {
     private int ID;
     private String name;
     private String username;
+    private String email;
     private String password;
     private String bio;
     private String profilePicture;
-    private ArrayList<Account> followers;
-    private ArrayList<Account> followings;
     private ArrayList<Post> posts;
 
-    public Account(String name , String username , String password,String bio,String profilePicture){
+    public Account(String name , String username , String email , String password , String profilePicture){
         this.name = name;
         this.username = username;
+        this.email = email;
         this.password = password;
-        this.followers = new ArrayList<>();
-        this.followings = new ArrayList<>();
         this.posts = new ArrayList<>();
-        this.bio=bio;
         this.profilePicture=profilePicture;
     }
 }
