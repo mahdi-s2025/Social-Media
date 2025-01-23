@@ -1,14 +1,29 @@
 package org.example.socialmedia.Models;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import org.example.socialmedia.Controller.AccountController;
+
+import java.util.*;
+
+class Pair {
+
+    String username;
+    double probability;
+
+    Pair(String username , double probability){
+        this.username = username;
+        this.probability = probability;
+    }
+}
 
 public class Graph {
 
     private static Graph graph;
+    String username;
+    List<List<String>> currentUsers;
+    PriorityQueue<Pair> pbTable;
     private Graph(){
-
+        currentUsers = new ArrayList<>();
+        pbTable = new PriorityQueue<>(Comparator.comparingDouble(user -> user.probability));
     }
     public static Graph getGraph(){
         if(graph == null){
@@ -16,55 +31,67 @@ public class Graph {
         }
         return graph;
     }
-    int currentIndex=0;
-    List<List<String>> currentUsers=new ArrayList<>();
-    ArrayList<Double> pbTable=new ArrayList<>();
-    public void addEdge(String currentUser,String user2){
-        for(List<String> current:currentUsers){
-            if(current.get(0).equals(currentUser)){
-                current.add(user2);
-                currentIndex=currentUsers.indexOf(current);
+
+
+    public void addEdge(String currentUser, String user2){
+
+        for(List<String> userConnection : currentUsers){
+
+            if(userConnection.get(0).equals(currentUser)){
+                userConnection.add(user2);
+                username = currentUser;
             }
-            if(current.get(0).equals(user2)){
-                current.add(currentUser);
-                for (String name:current){
-                    System.out.println(name);
-                }
+            if(userConnection.get(0).equals(user2)){
+                userConnection.add(currentUser);
             }
         }
     }
-    public void addVertex(String usernme){
+    public void addVertex(String username){
         List<String> connections=new ArrayList<>();
-        connections.add(usernme);
+        connections.add(username);
         currentUsers.add(connections);
     }
-    public void setProbability(){
-        for (int i = 0; i <currentUsers.size() ; i++) {
-            pbTable.add(-1.0);
+
+
+    private List<String> findConnection(String usename){
+        for (List<String> connections : currentUsers){
+            if (connections.get(0).equals(usename)){
+                return connections;
+            }
         }
-        List<String> currentConnections=currentUsers.get(currentIndex);
-        int isPair=0;
-        int notPair=0;
-        for(List<String> connections:currentUsers){
-            if(currentIndex == currentUsers.indexOf(connections)){
+        return null;
+    }
+    public void setProbability(){
+        List<String> currentUserConnections = findConnection(AccountController.getCurrentAccount().getUsername());
+
+        for(List<String> connections : currentUsers){
+
+            int isPair=0;
+
+            if(connections.get(0).equals(username)){
                 continue;
             }
-            for (String usernameC1:currentConnections){
-                if(usernameC1.equals(currentConnections.get(0))){
+
+            if (connections.contains(currentUserConnections.get(0))){
+                continue;
+            }
+            for (String username : currentUserConnections){
+
+                if(username.equals(currentUserConnections.get(0))){
                     continue;
                 }
-                if(connections.contains(usernameC1)){
+
+                if(connections.contains(username)){
                     isPair++;
                 }
             }
-            notPair=(connections.size() + currentConnections.size()-2*isPair)-1;
-            System.out.println(notPair);
-           double pb=(double)isPair/notPair;
-            int index=currentUsers.indexOf(connections);
-            pbTable.set(index,pb);
-        }
-        for (double d:pbTable) {
-            System.out.println(d);
+
+            int notPair = (connections.size() - isPair) + (currentUserConnections.size() - isPair);
+
+            double pb = (notPair > 0) ? (double) isPair / notPair : (double) isPair;
+            int index = currentUsers.indexOf(connections);
+            Pair pair = new Pair(currentUsers.get(index).get(0) , pb);
+            pbTable.add(pair);
         }
     }
 }

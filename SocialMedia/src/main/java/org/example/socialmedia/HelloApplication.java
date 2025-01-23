@@ -28,17 +28,19 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
 
-        Account account1 = new Account("mohammad" , "Mohammad" , "mohammad");
+        Account account1 = new Account("mohammad" , "mohammad" , "mohammad");
         Account account2 = new Account("poone" , "poone" , "p");
         Account account3 = new Account("Mehdi" , "mehdi" , "mehdi");
 
         Graph graph = Graph.getGraph() ;
+
         graph.addVertex(account1.getUsername());
         graph.addVertex(account2.getUsername());
         graph.addVertex(account3.getUsername());
         DataCenterController.getInstance().getUsers().add(account1);
         DataCenterController.getInstance().getUsers().add(account2);
         DataCenterController.getInstance().getUsers().add(account3);
+
 
         launch();
     }
