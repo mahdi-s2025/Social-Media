@@ -28,6 +28,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class homePageController implements Initializable {
+    @FXML
+    private Label bioLB;
 
     @FXML
     private ScrollPane connectionsSP;
@@ -57,19 +59,19 @@ public class homePageController implements Initializable {
     private Label name6;
 
     @FXML
+    private Label nameLB;
+
+    @FXML
     private Label name_lbl;
 
     @FXML
-    private Label postDescript;
-
-    @FXML
-    private ImageView postImage;
-
-    @FXML
-    private Pane postPane;
-
-    @FXML
     private ScrollPane postsSP;
+
+    @FXML
+    private VBox postsVbox;
+
+    @FXML
+    private ImageView prof;
 
     @FXML
     private ImageView prof1;
@@ -88,11 +90,12 @@ public class homePageController implements Initializable {
 
     @FXML
     private ImageView prof6;
-    @FXML
-    private VBox  postsVbox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        nameLB.setText(AccountController.getCurrentAccount().getName());
+        //prof.setImage(new Image(AccountController.currentAccount.getProfilePicture()));
+        bioLB.setText(AccountController.currentAccount.getBio());
         name_lbl.setText(AccountController.getCurrentAccount().getName());
         for (Post post:AccountController.getCurrentAccount().getPosts()){
             Label description = new Label(post.getDescription());
@@ -106,7 +109,6 @@ public class homePageController implements Initializable {
             description.setLayoutX(250);
             description.setLayoutY(20);
             infoPane.getChildren().addAll( postCover,description);
-
             postsVbox.getChildren().add(infoPane);
 
         }

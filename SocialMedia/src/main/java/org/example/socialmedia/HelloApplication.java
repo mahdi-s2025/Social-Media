@@ -28,9 +28,9 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
 
-        Account account1 = new Account("mohammad" , "mohammad" , "mohammad");
-        Account account2 = new Account("poone" , "poone" , "p");
-        Account account3 = new Account("Mehdi" , "mehdi" , "mehdi");
+        Account account1 = new Account("mohammad" , "mohammad" , "mh",":)","/pictures/mohammad.jpg");
+        Account account2 = new Account("poone" , "poone" , "pm",":)","/pictures/me.jpg");
+        Account account3 = new Account("Mehdi" , "mehdi" , "ms",":)","/pictures/mehdii.jpg");
 
         Graph graph = Graph.getGraph() ;
 

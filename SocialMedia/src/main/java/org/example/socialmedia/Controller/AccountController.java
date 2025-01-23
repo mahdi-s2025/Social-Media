@@ -21,7 +21,7 @@ public class AccountController {
     @Setter
     public static Account currentAccount;  // should convert into singleton
 
-    public void signup(String name , String username , String password) throws Exception {
+    public void signup(String name , String username , String password ,String bio,String profilePhoto) throws Exception {
 
         if (name.isEmpty()){
             showAlert("Name Can Not Be Empty",Alert.AlertType.WARNING,"Error");
@@ -38,7 +38,7 @@ public class AccountController {
         else {
             //checkUsername(username);
             //checkPassword(password);
-            currentAccount = new Account(name, username, password);
+            currentAccount = new Account(name, username, password,bio,profilePhoto);
             data.getUsers().add(currentAccount);
             System.out.println("Signup :)");
         }
