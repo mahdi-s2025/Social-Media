@@ -9,11 +9,12 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="803.0" prefWidth="879.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.homePageController">
    <children>
-      <Label fx:id="name_lbl" layoutX="19.0" layoutY="236.0" prefHeight="53.0" prefWidth="163.0">
+      <Label fx:id="name_lbl" layoutX="11.0" layoutY="255.0" prefHeight="53.0" prefWidth="163.0">
          <font>
             <Font name="Franklin Gothic Demi" size="28.0" />
          </font>
@@ -79,7 +80,7 @@
             </Pane>
          </children>
       </GridPane>
-      <ImageView fitHeight="166.0" fitWidth="163.0" layoutX="21.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="prof" fitHeight="179.0" fitWidth="163.0" layoutX="13.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="26.0" layoutY="7.0" prefHeight="47.0" prefWidth="153.0" text="Profile">
          <font>
             <Font name="Yu Gothic Regular" size="37.0" />
@@ -91,7 +92,7 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="519.0" layoutY="553.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="127.0" text="Add new Post">
+      <Button layoutX="519.0" layoutY="553.0" mnemonicParsing="false" onAction="#addNewPost" prefHeight="28.0" prefWidth="127.0" text="Add new Post">
          <font>
             <Font size="17.0" />
          </font>
@@ -101,8 +102,11 @@
             <Font size="17.0" />
          </font>
       </Button>
-      <ScrollPane layoutX="194.0" layoutY="75.0" prefHeight="458.0" prefWidth="453.0" />
-      <ScrollPane layoutX="675.0" layoutY="75.0" prefHeight="516.0" prefWidth="191.0" />
+      <ScrollPane fx:id="postsSP" layoutX="194.0" layoutY="75.0" prefHeight="458.0" prefWidth="453.0">
+         <content>
+            <VBox fx:id="postsVbox" prefHeight="460.0" prefWidth="447.0" />
+         </content></ScrollPane>
+      <ScrollPane fx:id="connectionsSP" layoutX="675.0" layoutY="75.0" prefHeight="516.0" prefWidth="191.0" />
       <Label layoutX="194.0" layoutY="40.0" prefHeight="28.0" prefWidth="127.0" text="Your Posts">
          <font>
             <Font size="19.0" />
@@ -113,15 +117,18 @@
             <Font size="19.0" />
          </font>
       </Label>
-      <Label layoutX="20.0" layoutY="367.0" text="Bio">
+      <Label layoutX="18.0" layoutY="371.0" text="Bio">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="20.0" layoutY="316.0" text="Name">
+      <Label layoutX="16.0" layoutY="316.0" text="Name">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
+      <Label layoutX="113.0" layoutY="300.0" prefHeight="17.0" prefWidth="0.0" />
+      <Label fx:id="nameLB" layoutX="130.0" layoutY="325.0" text="Label" />
+      <Label fx:id="bioLB" layoutX="130.0" layoutY="376.0" text="Label" />
    </children>
 </AnchorPane>

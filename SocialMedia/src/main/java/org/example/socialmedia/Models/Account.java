@@ -18,12 +18,14 @@ public class Account {
     private ArrayList<Account> followings;
     private ArrayList<Post> posts;
 
-    public Account(String name , String username , String password){
+    public Account(String name , String username , String password,String bio,String profilePicture){
         this.name = name;
         this.username = username;
         this.password = password;
         this.followers = new ArrayList<>();
         this.followings = new ArrayList<>();
         this.posts = new ArrayList<>();
+        this.bio=bio;
+        this.profilePicture=profilePicture;
     }
 }

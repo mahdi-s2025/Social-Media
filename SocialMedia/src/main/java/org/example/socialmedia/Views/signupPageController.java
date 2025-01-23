@@ -4,25 +4,24 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.socialmedia.Controller.AccountController;
 import org.example.socialmedia.HelloApplication;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class signupPageController {
-
+    @FXML
+    private TextArea bioText;
 
     @FXML
     private Button login_btn;
-
-    @FXML
-    private Label name_lbl;
 
     @FXML
     private TextField name_txt;
@@ -34,14 +33,21 @@ public class signupPageController {
     private PasswordField password_txt;
 
     @FXML
+    private ImageView profPhoto;
+
+    @FXML
     private Button signup_btn;
 
     @FXML
     private Label username_lbl;
 
     @FXML
+    private Label username_lbl1;
+
+    @FXML
     private TextField username_txt;
 
+    String file;
     @FXML
     void signupClick(ActionEvent event) throws Exception {
 
@@ -50,7 +56,7 @@ public class signupPageController {
         String password = password_txt.getText();
 
         AccountController ac = new AccountController();
-        ac.signup(name , username , password);
+        ac.signup(name , username , password,bioText.getText(),file);
 
         Stage stage = HelloApplication.getStage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homePage.fxml"));
@@ -68,5 +74,24 @@ public class signupPageController {
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
+    }
+    @FXML
+    void onChooseImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select an Image");
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif")
+        );
+
+
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        if (selectedFile != null) {
+             file=selectedFile.toURI().toString();
+            Image image = new Image(file);
+            profPhoto.setImage(image);
+            profPhoto.setFitWidth(400);
+            profPhoto.setPreserveRatio(true);
+        }
     }
 }

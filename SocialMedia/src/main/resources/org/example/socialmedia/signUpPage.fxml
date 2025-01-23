@@ -20,9 +20,7 @@
       <TextField fx:id="name_txt" layoutX="523.0" layoutY="63.0" />
       <TextField fx:id="username_txt" layoutX="523.0" layoutY="139.0" />
       <PasswordField fx:id="password_txt" layoutX="523.0" layoutY="215.0" />
-      <Button fx:id="signup_btn" layoutX="606.0" layoutY="499.0" mnemonicParsing="false" onAction="#signupClick" text="signup" />
-      <Button fx:id="login_btn" layoutX="672.0" layoutY="499.0" mnemonicParsing="false" onAction="#loginClick" text="login" />
-      <Label fx:id="username_lbl" layoutX="523.0" layoutY="21.0" prefHeight="42.0" prefWidth="127.0" text="Name">
+      <Label fx:id="username_lbl" layoutX="523.0" layoutY="11.0" prefHeight="42.0" prefWidth="127.0" text="Name">
          <font>
             <Font name="Franklin Gothic Demi Cond" size="23.0" />
          </font>
@@ -42,11 +40,27 @@
             <Font name="Franklin Gothic Demi Cond" size="23.0" />
          </font>
       </Label>
-      <Label layoutX="524.0" layoutY="346.0" prefHeight="35.0" prefWidth="127.0" text="Profile photo">
+      <Label layoutX="478.0" layoutY="336.0" prefHeight="35.0" prefWidth="127.0" text="Profile photo">
          <font>
             <Font name="Franklin Gothic Demi Cond" size="23.0" />
          </font>
       </Label>
       <TextArea fx:id="bioText" layoutX="525.0" layoutY="285.0" prefHeight="25.0" prefWidth="162.0" />
+      <ImageView fx:id="profPhoto" fitHeight="138.0" fitWidth="127.0" layoutX="471.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="605.0" layoutY="346.0" mnemonicParsing="false" onAction="#onChooseImage" prefHeight="35.0" prefWidth="127.0" text="Upload from PC">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="signup_btn" layoutX="624.0" layoutY="409.0" mnemonicParsing="false" onAction="#signupClick" prefHeight="42.0" prefWidth="96.0" style="-fx-background-color: #1b2465;" text="Signup" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="23.0" />
+         </font>
+      </Button>
+      <Button fx:id="login_btn" layoutX="627.0" layoutY="463.0" mnemonicParsing="false" onAction="#loginClick" prefHeight="42.0" prefWidth="90.0" style="-fx-background-color: #6e1313;" text="Login" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="23.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
