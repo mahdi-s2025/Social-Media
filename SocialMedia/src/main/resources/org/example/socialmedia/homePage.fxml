@@ -97,7 +97,7 @@
             <Font size="17.0" />
          </font>
       </Button>
-      <Button layoutX="31.0" layoutY="468.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="127.0" text="Edit Profile">
+      <Button layoutX="31.0" layoutY="468.0" mnemonicParsing="false" onAction="#editProfile" prefHeight="38.0" prefWidth="127.0" text="Edit Profile">
          <font>
             <Font size="17.0" />
          </font>

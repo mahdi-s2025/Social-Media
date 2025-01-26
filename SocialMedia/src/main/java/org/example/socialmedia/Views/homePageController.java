@@ -97,7 +97,6 @@ public class homePageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nameLB.setText(AccountController.getAccountController().getCurrentAccount().getName());
         String path = Paths.get(AccountController.getAccountController().getCurrentAccount().getProfilePicture()).toAbsolutePath().toString();
-        System.out.println(path);
         prof.setImage(new Image("file:" + path));
         bioLB.setText(AccountController.getAccountController().getCurrentAccount().getBio());
         name_lbl.setText(AccountController.getAccountController().getCurrentAccount().getName());
@@ -132,5 +131,10 @@ public class homePageController implements Initializable {
     @FXML
     void addNewPost() throws IOException {
         AccountController.setStage("newPostPage.fxml");
+    }
+
+    @FXML
+    void editProfile() throws IOException {
+        AccountController.setStage("EditProfilePage.fxml");
     }
 }
