@@ -26,12 +26,12 @@
             </font>
         </Label>
         <ImageView fitHeight="103.0" fitWidth="108.0" layoutX="211.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true" />
-        <Button fx:id="logout_btn1" layoutX="25.0" layoutY="485.0" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="38.0" prefWidth="143.0" text="Delete Account">
+        <Button fx:id="deleteAccount" layoutX="25.0" layoutY="485.0" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="38.0" prefWidth="143.0" text="Delete Account">
             <font>
                 <Font size="17.0" />
             </font>
         </Button>
-        <Button layoutX="24.0" layoutY="420.0" mnemonicParsing="false" onAction="#editProfile" prefHeight="38.0" prefWidth="143.0" text="Edit Profile">
+        <Button fx:id="editPost" layoutX="24.0" layoutY="420.0" mnemonicParsing="false" onAction="#editProfile" prefHeight="38.0" prefWidth="143.0" text="Edit Profile">
             <font>
                 <Font size="17.0" />
             </font>
@@ -40,13 +40,16 @@
             <content>
                 <VBox fx:id="postsVbox" prefHeight="511.0" prefWidth="447.0" />
             </content></ScrollPane>
-        <ScrollPane fx:id="connectionsSP" layoutX="675.0" layoutY="181.0" prefHeight="516.0" prefWidth="191.0" />
-        <Label layoutX="211.0" layoutY="143.0" prefHeight="28.0" prefWidth="127.0" text="Your Posts">
+        <ScrollPane fx:id="connectionsSP" layoutX="675.0" layoutY="181.0" prefHeight="516.0" prefWidth="191.0">
+         <content>
+            <VBox fx:id="connectionVbox" prefHeight="498.0" prefWidth="186.0" />
+         </content></ScrollPane>
+        <Label layoutX="211.0" layoutY="143.0" prefHeight="28.0" prefWidth="127.0" text="Posts">
             <font>
                 <Font size="19.0" />
             </font>
         </Label>
-        <Label layoutX="675.0" layoutY="143.0" prefHeight="28.0" prefWidth="163.0" text="Your Connections">
+        <Label layoutX="675.0" layoutY="143.0" prefHeight="28.0" prefWidth="163.0" text="Connections">
             <font>
                 <Font size="19.0" />
             </font>
