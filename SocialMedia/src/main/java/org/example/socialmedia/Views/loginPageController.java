@@ -38,6 +38,7 @@ public class loginPageController {
 
     @FXML
     void loginClick(ActionEvent event) throws Exception {
+
         String username = username_txt.getText();
         String password = password_txt.getText();
 
