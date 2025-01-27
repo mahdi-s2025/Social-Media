@@ -4,7 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import lombok.Getter;
+import lombok.Setter;
 import org.example.socialmedia.Controller.AccountController;
 import org.example.socialmedia.Controller.DataCenterController;
 import org.example.socialmedia.Models.Account;
@@ -16,14 +18,17 @@ import java.nio.file.Paths;
 public class HelloApplication extends Application {
 
     @Getter
+    @Setter
     private static Stage stage;
 
     @Override
     public void start(Stage stage) throws IOException {
         HelloApplication.stage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("welcomePage.fxml"));
+        stage.centerOnScreen();
+        stage.setResizable(false);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("loadPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Welcome!");
         stage.setScene(scene);
         stage.show();
     }

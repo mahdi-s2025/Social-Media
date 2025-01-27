@@ -8,29 +8,32 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.example.socialmedia.HelloApplication;
 
-import java.io.IOException;
-
 public class welcomePageController {
+    private final Stage stage = HelloApplication.getStage();
 
     @FXML
-    private Button cancel_btn;
+    private Button close_btn;
 
     @FXML
     private Button start_btn;
 
     @FXML
-    void cancelClick(ActionEvent event) {
-        HelloApplication.getStage().close();
+    void closeClick(ActionEvent event) {
+        stage.close();
     }
 
     @FXML
-    void startClick(ActionEvent event) throws IOException {
-        Stage stage = HelloApplication.getStage();
+    void startClick(ActionEvent event) throws Exception {
+        stage.close();
+        Thread.sleep(500);
+        Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("loginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
+        HelloApplication.setStage(stage);
     }
 
 }
+
