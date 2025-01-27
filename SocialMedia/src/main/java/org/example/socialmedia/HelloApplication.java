@@ -39,9 +39,9 @@ public class HelloApplication extends Application {
         String path3 = Paths.get("src/main/resources/org/example/pictures/mehdii.jpg").toAbsolutePath().toString();
 
 
-        Account account1 = new Account("mohammad" , "mohammad" , "mh","m","file:"+path1);
-        Account account2 = new Account("poone" , "poone" , "pm","p","file:"+path2);
-        Account account3 = new Account("Mehdi" , "mehdi" , "ms","mh","file:"+path3);
+        Account account1 = new Account("mohammad" , "mohammad" , "mh","mohammadjamshidi","file:"+path1);
+        Account account2 = new Account("poone" , "poone" , "pm","poonehmirfatah","file:"+path2);
+        Account account3 = new Account("Mehdi" , "mehdi" , "ms","mehdisemsarzade","file:"+path3);
 
         DataCenterController dataCenterController = DataCenterController.getDataCenterController();
 
