@@ -60,43 +60,19 @@ public class AccountController {
             }
         }
 
-        public boolean login(String username , String password) throws Exception {
+        public void login(String username , String password) throws Exception {
 
-            if (username.isEmpty()) {
-                showAlert("Username Can Not Be Empty",Alert.AlertType.WARNING,"Error");
-                return false;
-                //throw new EmptyFieldException("Username Can Not Be Empty");
-            } else if (password.isEmpty()) {
-                showAlert("Password Can Not Be Empty",Alert.AlertType.WARNING,"Error");
-                return false;
-                //throw new EmptyFieldException("Password Can Not Be Empty");
-            } else {
-                Account tmp = data.findByUsername(username);
-                if (tmp == null || !tmp.getPassword().equals(password)) {
-                    showAlert("Username or password is invalid!", Alert.AlertType.WARNING, "Error");
-                    return false;
-                    //throw new Exception("Username or password is invalid!");
-                }
 
-                currentAccount = tmp;
-                System.out.println("Login :)");
-
-                return true;
+            Account tmp = data.findByUsername(username);
+            if (tmp == null || !tmp.getPassword().equals(password)) {
+                //showAlert("Username or password is invalid!", Alert.AlertType.WARNING, "Error");
+                throw new Exception("Username or password is invalid!");
             }
 
+            currentAccount = tmp;
+            System.out.println("Login :)");
         }
 
-
-        /**
-         * Hi there again! Or if you are visiting me for the first time, Hello! Also, this is {@code Mahdi} again.
-         * These methods in blow, check the password strength and username validity.
-         * Before any changing, {@code PLEASE} keep me on trace.
-         * Love you!
-         *
-         *
-         * @param username
-         * @throws Exception
-         */
 
         public void checkUsername(String username) throws Exception {
             if (data.findByUsername(username) != null)

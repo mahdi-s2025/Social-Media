@@ -1,64 +1,92 @@
 package org.example.socialmedia.Views;
 
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.example.socialmedia.Controller.AccountController;
 import org.example.socialmedia.HelloApplication;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Stack;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 
-public class loginPageController {
+public class loginPageController implements Initializable {
+
+    @FXML
+    private Label error_lbl;
+
+    @FXML
+    private AnchorPane root;
+
+
+    @FXML
+    private Button googleLogin_btn1;
 
     @FXML
     private Button login_btn;
 
     @FXML
-    private Label password_lbl;
-
-    @FXML
     private PasswordField password_txt;
 
     @FXML
-    private Button signup_btn;
-
-    @FXML
-    private Label username_lbl;
+    private Label signup_btn;
 
     @FXML
     private TextField username_txt;
 
     @FXML
-    void loginClick(ActionEvent event) throws Exception {
+    void googleLoginClicked(ActionEvent event) {
+
+    }
+
+    @FXML
+    void lbl_signup_mouseEntered(MouseEvent event) {
+
+    }
+
+    @FXML
+    void lbl_signup_mouseExited(MouseEvent event) {
+
+    }
+
+    @FXML
+    void loginClick(ActionEvent event) {
 
         String username = username_txt.getText();
         String password = password_txt.getText();
 
-        AccountController ac = AccountController.getAccountController();
+        try {
 
-        boolean login = ac.login(username , password);
+            username_txt.clear();
+            password_txt.clear();
+            error_lbl.setText(null);
+            AccountController ac = AccountController.getAccountController();
+            ac.login(username, password);
 
-        if (login) {
             Stage stage = HelloApplication.getStage();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homePage.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("Home");
             stage.setScene(scene);
             stage.show();
+        } catch (Exception e) {
+            error_lbl.setText(e.getMessage());
+
         }
+
 
     }
 
     @FXML
-    void signupClick(ActionEvent event) throws IOException {
+    void signupClick(MouseEvent event) throws IOException {
         Stage stage = HelloApplication.getStage();
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signupPage.fxml"));
@@ -67,4 +95,34 @@ public class loginPageController {
         stage.setScene(scene);
         stage.show();
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        username_txt.setFocusTraversable(false);
+        password_txt.setFocusTraversable(false);
+
+
+        root.setOnMouseClicked(event -> {
+            if (username_txt.isFocused() || password_txt.isFocused()) {
+                root.requestFocus();
+            }
+        });
+
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String text = change.getControlNewText();
+            if (text.matches("^[a-zA-Z0-9_]+") || text.isEmpty()) {
+                return change;
+            }
+            return null;
+        };
+
+        BooleanBinding fieldsEmpty = username_txt.textProperty().isEmpty()
+                .or(password_txt.lengthProperty().lessThan(8));
+        login_btn.disableProperty().bind(fieldsEmpty);
+
+        TextFormatter<String> formatter = new TextFormatter<>(filter);
+        username_txt.setTextFormatter(formatter);
+
+    }
+
 }
