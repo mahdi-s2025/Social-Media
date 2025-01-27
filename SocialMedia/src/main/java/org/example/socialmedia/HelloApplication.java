@@ -29,13 +29,14 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-
+        String path1 = Paths.get("src/main/resources/org/example/pictures/mohammad.jpg").toAbsolutePath().toString();
         String path2 = Paths.get("src/main/resources/org/example/pictures/me.jpg").toAbsolutePath().toString();
+        String path3 = Paths.get("src/main/resources/org/example/pictures/mehdii.jpg").toAbsolutePath().toString();
 
 
-        Account account1 = new Account("mohammad" , "mohammad" , "mh","m","src/main/resources/org/example/pictures/mohammad.jpg");
+        Account account1 = new Account("mohammad" , "mohammad" , "mh","m","file:"+path1);
         Account account2 = new Account("poone" , "poone" , "pm","p","file:"+path2);
-        Account account3 = new Account("Mehdi" , "mehdi" , "ms","mh","src/main/resources/org/example/pictures/mehdii.jpg");
+        Account account3 = new Account("Mehdi" , "mehdi" , "ms","mh","file:"+path3);
 
         DataCenterController dataCenterController = DataCenterController.getDataCenterController();
 
