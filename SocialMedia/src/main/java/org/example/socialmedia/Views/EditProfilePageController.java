@@ -54,9 +54,8 @@ public class EditProfilePageController implements Initializable {
         userNameTF.setText(AccountController.getAccountController().getCurrentAccount().getUsername());
         emailTF.setText(AccountController.getAccountController().getCurrentAccount().getEmail());
         passwordTF.setText(AccountController.getAccountController().getCurrentAccount().getPassword());
-        String path = Paths.get(AccountController.getAccountController().getCurrentAccount().getProfilePicture()).toAbsolutePath().toString();
-        System.out.println(path);
-        prof.setImage(new Image("file:" + path));
+        Image profile=new Image(AccountController.getAccountController().getCurrentAccount().getProfilePicture());
+        prof.setImage(profile);
 
     }
 
@@ -72,7 +71,6 @@ public class EditProfilePageController implements Initializable {
         AccountController.getAccountController().getCurrentAccount().setEmail(emailTF.getText());
         AccountController.getAccountController().getCurrentAccount().setPassword(passwordTF.getText());
         AccountController.getAccountController().getCurrentAccount().setProfilePicture(file);
-        System.out.println(file);
         AccountController.showAlert("Successful!", Alert.AlertType.CONFIRMATION, "Your informations updated successfully!");
     }
 

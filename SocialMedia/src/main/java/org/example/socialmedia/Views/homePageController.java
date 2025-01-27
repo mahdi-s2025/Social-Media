@@ -90,8 +90,10 @@ public class homePageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nameLB.setText(AccountController.getAccountController().getCurrentAccount().getName());
-        String path = Paths.get(AccountController.getAccountController().getCurrentAccount().getProfilePicture()).toAbsolutePath().toString();
-        prof.setImage(new Image("file:" + path));
+//        String path = Paths.get(AccountController.getAccountController().getCurrentAccount().getProfilePicture()).toAbsolutePath().toString();
+//        prof.setImage(new Image("file:" + path));
+        Image profile=new Image(AccountController.getAccountController().getCurrentAccount().getProfilePicture());
+        prof.setImage(profile);
         name_lbl.setText(AccountController.getAccountController().getCurrentAccount().getName());
         for (Account account:DataCenterController.getDataCenterController().getUsers().values()){
             if(account.getPosts().isEmpty()){

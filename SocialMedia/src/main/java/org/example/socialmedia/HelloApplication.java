@@ -11,6 +11,7 @@ import org.example.socialmedia.Models.Account;
 import org.example.socialmedia.Models.Graph;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class HelloApplication extends Application {
 
@@ -29,8 +30,11 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
 
+        String path2 = Paths.get("src/main/resources/org/example/pictures/me.jpg").toAbsolutePath().toString();
+
+
         Account account1 = new Account("mohammad" , "mohammad" , "mh","m","src/main/resources/org/example/pictures/mohammad.jpg");
-        Account account2 = new Account("poone" , "poone" , "pm","p","src/main/resources/org/example/pictures/me.jpg");
+        Account account2 = new Account("poone" , "poone" , "pm","p","file:"+path2);
         Account account3 = new Account("Mehdi" , "mehdi" , "ms","mh","src/main/resources/org/example/pictures/mehdii.jpg");
 
         DataCenterController dataCenterController = DataCenterController.getDataCenterController();

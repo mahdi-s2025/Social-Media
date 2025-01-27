@@ -52,9 +52,9 @@ public class profilePageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nameLB.setText(AccountController.getAccountController().getCurrentAccount().getName());
-        String path = Paths.get(AccountController.getAccountController().getCurrentAccount().getProfilePicture()).toAbsolutePath().toString();
-        prof.setImage(new Image("file:" + path));
-        emailLB.setText(AccountController.getAccountController().getCurrentAccount().getBio());
+        Image profile=new Image(AccountController.getAccountController().getCurrentAccount().getProfilePicture());
+        prof.setImage(profile);
+        emailLB.setText(AccountController.getAccountController().getCurrentAccount().getEmail());
         name_lbl.setText(AccountController.getAccountController().getCurrentAccount().getName());
         for (Post post:AccountController.getAccountController().getCurrentAccount().getPosts()){
             Label description = new Label(post.getDescription());
@@ -75,6 +75,14 @@ public class profilePageController implements Initializable {
             editPostBT.setLayoutY(80);
             infoPane.getChildren().addAll( postCover,description,editPostBT);
             postsVbox.getChildren().add(infoPane);
+            editPostBT.setOnAction(event -> {
+                EditPostPageController.event=event;
+                try {
+                    AccountController.setStage("EditPostPage.fxml");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
         }
     }

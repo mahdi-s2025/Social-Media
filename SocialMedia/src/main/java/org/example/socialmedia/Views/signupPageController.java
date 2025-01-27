@@ -60,12 +60,7 @@ public class signupPageController {
         boolean signup = ac.signup(name , username , email , password , file);
 
         if (signup) {
-            Stage stage = HelloApplication.getStage();
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homePage.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Home");
-            stage.setScene(scene);
-            stage.show();
+            AccountController.setStage("homePage.fxml");
         }
     }
 
