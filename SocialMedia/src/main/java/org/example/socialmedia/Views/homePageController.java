@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -26,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.ResourceBundle;
 
@@ -108,6 +106,7 @@ public class homePageController implements Initializable {
     @FXML
     private GridPane suggestionGrid;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nameLB.setText(AccountController.getAccountController().getCurrentAccount().getName());
@@ -115,25 +114,73 @@ public class homePageController implements Initializable {
 //        prof.setImage(new Image("file:" + path));
         Image profile=new Image(AccountController.getAccountController().getCurrentAccount().getProfilePicture());
         prof.setImage(profile);
+        int pstIndex=0;
         name_lbl.setText(AccountController.getAccountController().getCurrentAccount().getName());
-        for (Account account:DataCenterController.getDataCenterController().getUsers().values()){
+        List<Account> connections= Graph.getGraph().findUserConnections(AccountController.getAccountController().getCurrentAccount().getUsername());
+        for (Account account:connections){
             if(account.getPosts().isEmpty()){
+                pstIndex++;
                 continue;
             }
             Post post=account.getPosts().getLast();
             Label description = new Label(post.getDescription());
+            Label likes=new Label(String.valueOf(post.getLikeCounts()));
+            Label dateAndTime=new Label();
+            Label subject=new Label();
+            ImageView likeImage=new ImageView();
+            String path = Paths.get("src/main/resources/org/example/pictures/like.jpg").toAbsolutePath().toString();
+            likeImage.setImage(new Image("file:" + path));
+            likeImage.setPreserveRatio(true);
+            likeImage.setFitWidth(25);
+            likes.setText(String.valueOf(post.getLikeCounts()));
+            dateAndTime.setText(post.getDateAndTime());
+            subject.setText(post.getSubject());
+            Button comments=new Button("Comments");
+            comments.setId(String.valueOf(pstIndex));
             Image image = new Image(post.getFile());
             ImageView postCover = new ImageView(image);
-            postCover.setFitWidth(200);
+            postCover.setFitWidth(170);
             postCover.setPreserveRatio(true);
             AnchorPane infoPane = new AnchorPane();
-            postCover.setLayoutX(0);
-            postCover.setLayoutY(0);
-            description.setLayoutX(250);
-            description.setLayoutY(20);
-            infoPane.getChildren().addAll( postCover,description);
-            postsVbox.getChildren().add(infoPane);
+            ImageView posterPhoto=new ImageView(new Image(post.getPoster().getProfilePicture()));
+            posterPhoto.setLayoutX(0);
+            posterPhoto.setLayoutY(0);
+            posterPhoto.setFitWidth(40);
+            posterPhoto.setPreserveRatio(true);
+            Label posterName=new Label(post.getPoster().getUsername());
+            posterName.setLayoutX(45);
+            posterName.setLayoutY(5);
 
+            postCover.setLayoutX(50);
+            postCover.setLayoutY(40);
+            description.setLayoutX(240);
+            description.setLayoutY(60);
+            subject.setLayoutX(290);
+            subject.setLayoutY(50);
+            dateAndTime.setLayoutX(240);
+            dateAndTime.setLayoutY(200);
+            comments.setLayoutX(510);
+            comments.setLayoutY(200);
+            likeImage.setLayoutX(435);
+            likeImage.setLayoutY(200);
+            likes.setLayoutX(450);
+            likes.setLayoutY(200);
+
+            infoPane.getChildren().addAll( postCover,description,posterName,posterPhoto,likes,subject,dateAndTime,comments,likeImage);
+            postsVbox.getChildren().add(infoPane);
+            likeImage.setOnMouseClicked(event -> {
+                post.setLikeCounts(post.getLikeCounts()+1);
+                likes.setText(String.valueOf(post.getLikeCounts()));
+            });
+            comments.setOnAction(event2 -> {
+                try {
+                    commentsPageController.event2=event2;
+                    AccountController.setStage("commentsPage.fxml");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            pstIndex++;
         }
 
         ArrayList<Account> suggestions = Graph.getGraph().getSuggestions();
@@ -180,6 +227,7 @@ public class homePageController implements Initializable {
     void connect(ActionEvent event) {
         String username = ((Control) event.getSource()).getId();
         Graph.getGraph().addEdge(AccountController.getAccountController().getCurrentAccount().getUsername(),username);
+        AccountController.showAlert("", Alert.AlertType.CONFIRMATION,"Connected to "+AccountController.getAccountController().getCurrentAccount().getUsername()+" Successfully!");
     }
     @FXML
     void addNewPost() throws IOException {

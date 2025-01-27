@@ -115,7 +115,6 @@ public class profilePageController implements Initializable {
             ImageView profileImage = new ImageView(image);
             profileImage.setFitWidth(100);
             profileImage.setFitHeight(100);
-
             hBox.getChildren().add(profileImage);
             hBox.getChildren().add(username_lbl);
 

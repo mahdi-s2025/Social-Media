@@ -38,43 +38,43 @@
          <children>
             <Pane layoutX="266.0" layoutY="10.0" prefHeight="115.0" prefWidth="99.0">
                <children>
-                  <ImageView fx:id="prof1" fitHeight="113.0" fitWidth="101.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="name1" layoutX="11.0" layoutY="121.0" prefHeight="25.0" prefWidth="108.0" />
+                  <ImageView fx:id="prof1" fitHeight="103.0" fitWidth="86.0" layoutX="29.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="name1" layoutX="27.0" layoutY="121.0" prefHeight="25.0" prefWidth="92.0" />
                   <Button fx:id="btn1" layoutX="28.0" layoutY="157.0" mnemonicParsing="false" onAction="#connect" prefHeight="25.0" prefWidth="70.0" text="connect" />
                </children>
             </Pane>
             <Pane layoutX="91.0" layoutY="10.0" prefHeight="115.0" prefWidth="99.0" GridPane.columnIndex="2">
                <children>
-                  <ImageView fx:id="prof3" fitHeight="113.0" fitWidth="101.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="name3" layoutX="11.0" layoutY="121.0" prefHeight="25.0" prefWidth="108.0" />
+                  <ImageView fx:id="prof3" fitHeight="113.0" fitWidth="92.0" layoutX="23.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="name3" layoutX="27.0" layoutY="121.0" prefHeight="25.0" prefWidth="92.0" />
                   <Button fx:id="btn3" layoutX="28.0" layoutY="157.0" mnemonicParsing="false" onAction="#connect" prefHeight="25.0" prefWidth="70.0" text="connect" />
                </children>
             </Pane>
             <Pane layoutX="266.0" layoutY="10.0" prefHeight="115.0" prefWidth="99.0" GridPane.columnIndex="5">
                <children>
                   <ImageView fx:id="prof6" fitHeight="113.0" fitWidth="101.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="name6" layoutX="11.0" layoutY="121.0" prefHeight="25.0" prefWidth="108.0" />
+                  <Label fx:id="name6" layoutX="21.0" layoutY="121.0" prefHeight="25.0" prefWidth="98.0" />
                   <Button fx:id="btn6" layoutX="28.0" layoutY="157.0" mnemonicParsing="false" onAction="#connect" prefHeight="25.0" prefWidth="70.0" text="connect" />
                </children>
             </Pane>
             <Pane layoutX="266.0" layoutY="10.0" prefHeight="115.0" prefWidth="99.0" GridPane.columnIndex="4">
                <children>
-                  <ImageView fx:id="prof5" fitHeight="113.0" fitWidth="101.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="name5" layoutX="11.0" layoutY="121.0" prefHeight="25.0" prefWidth="108.0" />
+                  <ImageView fx:id="prof5" fitHeight="113.0" fitWidth="98.0" layoutX="17.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="name5" layoutX="27.0" layoutY="121.0" prefHeight="25.0" prefWidth="92.0" />
                   <Button fx:id="btn5" layoutX="28.0" layoutY="157.0" mnemonicParsing="false" onAction="#connect" prefHeight="25.0" prefWidth="70.0" text="connect" />
                </children>
             </Pane>
             <Pane layoutX="266.0" layoutY="10.0" prefHeight="160.0" prefWidth="128.0" GridPane.columnIndex="3">
                <children>
-                  <ImageView fx:id="prof4" fitHeight="113.0" fitWidth="101.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="name4" layoutX="11.0" layoutY="121.0" prefHeight="25.0" prefWidth="108.0" />
+                  <ImageView fx:id="prof4" fitHeight="113.0" fitWidth="92.0" layoutX="23.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="name4" layoutX="27.0" layoutY="121.0" prefHeight="25.0" prefWidth="92.0" />
                   <Button fx:id="btn4" layoutX="28.0" layoutY="157.0" mnemonicParsing="false" onAction="#connect" prefHeight="25.0" prefWidth="70.0" text="connect" />
                </children>
             </Pane>
             <Pane layoutX="266.0" layoutY="10.0" prefHeight="115.0" prefWidth="99.0" GridPane.columnIndex="1">
                <children>
-                  <ImageView fx:id="prof2" fitHeight="113.0" fitWidth="101.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="name2" layoutX="11.0" layoutY="121.0" prefHeight="25.0" prefWidth="108.0" />
+                  <ImageView fx:id="prof2" fitHeight="113.0" fitWidth="92.0" layoutX="23.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="name2" layoutX="27.0" layoutY="121.0" prefHeight="25.0" prefWidth="92.0" />
                   <Button fx:id="btn2" layoutX="28.0" layoutY="157.0" mnemonicParsing="false" onAction="#connect" prefHeight="25.0" prefWidth="70.0" text="connect" />
                </children>
             </Pane>
