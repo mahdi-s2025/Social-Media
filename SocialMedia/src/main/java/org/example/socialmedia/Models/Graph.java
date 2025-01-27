@@ -1,6 +1,7 @@
 package org.example.socialmedia.Models;
 
 import org.example.socialmedia.Controller.AccountController;
+import org.example.socialmedia.Controller.DataCenterController;
 
 import java.util.*;
 
@@ -63,9 +64,9 @@ public class Graph {
     }
 
 
-    private List<String> findConnection(String usename){
+    private List<String> findConnection(String username){
         for (List<String> connections : currentUsers){
-            if (connections.get(0).equals(usename)){
+            if (connections.get(0).equals(username)){
                 return connections;
             }
         }
@@ -102,5 +103,32 @@ public class Graph {
             Pair pair = new Pair(currentUsers.get(index).get(0) , pb);
             pbTable.add(pair);
         }
+    }
+
+    public ArrayList<Account> getSuggestions(){
+        setProbability();
+        ArrayList<Account> suggestions = new ArrayList<>();
+
+        while (!pbTable.isEmpty() && suggestions.size() <= 6){
+            Account user = DataCenterController.getDataCenterController().findByUsername(pbTable.poll().username);
+            suggestions.add(user);
+        }
+
+        return suggestions;
+    }
+
+
+    public ArrayList<Account> findUserConnections(String username){
+        ArrayList<Account> userConnections = new ArrayList<>();
+
+        for (List<String> connections : currentUsers){
+
+            if (connections.get(0).equals(username)){
+                for (String name : connections){
+                    userConnections.add(DataCenterController.getDataCenterController().findByUsername(name));
+                }
+            }
+        }
+        return userConnections;
     }
 }

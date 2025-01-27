@@ -37,11 +37,18 @@ public class HelloApplication extends Application {
         String path1 = Paths.get("src/main/resources/org/example/pictures/mohammad.jpg").toAbsolutePath().toString();
         String path2 = Paths.get("src/main/resources/org/example/pictures/me.jpg").toAbsolutePath().toString();
         String path3 = Paths.get("src/main/resources/org/example/pictures/mehdii.jpg").toAbsolutePath().toString();
+        String path4 = Paths.get("src/main/resources/org/example/pictures/diamond.png").toAbsolutePath().toString();
 
 
         Account account1 = new Account("mohammad" , "mohammad" , "mh","mohammadjamshidi","file:"+path1);
         Account account2 = new Account("poone" , "poone" , "pm","poonehmirfatah","file:"+path2);
         Account account3 = new Account("Mehdi" , "mehdi" , "ms","mehdisemsarzade","file:"+path3);
+
+        Account account4 = new Account("test" , "test1" , "test" , "t" , "file:" + path4);
+        Account account5 = new Account("test" , "test2" , "test" , "t" , "file:" + path4);
+        Account account6 = new Account("test" , "test3" , "test" , "t" , "file:" + path4);
+        Account account7 = new Account("test" , "test4" , "test" , "t" , "file:" + path4);
+        Account account8 = new Account("test" , "test5" , "test" , "t" , "file:" + path4);
 
         DataCenterController dataCenterController = DataCenterController.getDataCenterController();
 
@@ -51,9 +58,21 @@ public class HelloApplication extends Application {
         graph.addVertex(account2.getUsername());
         graph.addVertex(account3.getUsername());
 
+        graph.addVertex(account4.getUsername());
+        graph.addVertex(account5.getUsername());
+        graph.addVertex(account6.getUsername());
+        graph.addVertex(account7.getUsername());
+        graph.addVertex(account8.getUsername());
+
         dataCenterController.addUser(account1);
         dataCenterController.addUser(account2);
         dataCenterController.addUser(account3);
+
+        dataCenterController.addUser(account4);
+        dataCenterController.addUser(account5);
+        dataCenterController.addUser(account6);
+        dataCenterController.addUser(account7);
+        dataCenterController.addUser(account8);
 
 
         launch();
