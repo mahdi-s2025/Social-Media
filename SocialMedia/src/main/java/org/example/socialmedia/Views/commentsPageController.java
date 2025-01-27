@@ -11,6 +11,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import org.example.socialmedia.Controller.AccountController;
 import org.example.socialmedia.Models.Account;
 import org.example.socialmedia.Models.Comment;
@@ -34,14 +36,18 @@ public class commentsPageController implements Initializable {
     Post currentPost;
     static Event event2;
     int postIndex;
+    @FXML
+    VBox commentsVbox;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Button data = (Button) event2.getSource();
         postIndex=Integer.parseInt(data.getId());
+        //System.out.println(postIndex);
         List<Account> connections= Graph.getGraph().findUserConnections(AccountController.getAccountController().getCurrentAccount().getUsername());
         Account poster=connections.get(postIndex);
          currentPost=poster.getPosts().getLast();
         for(Comment comment:currentPost.getComments()){
+            AnchorPane pane=new AnchorPane();
             ImageView prof=new ImageView();
             Image profile=new Image(comment.getWriter().getProfilePicture());
             prof.setImage(profile);
@@ -52,13 +58,15 @@ public class commentsPageController implements Initializable {
 
             Label userName=new Label();
             userName.setText(comment.getWriter().getUsername());
-            userName.setLayoutX(40);
-            userName.setLayoutY(0);
+            userName.setLayoutX(5);
+            userName.setLayoutY(35);
 
             Label contentLB=new Label();
             contentLB.setText(comment.getContent());
-            contentLB.setLayoutX(5);
-            contentLB.setLayoutY(35);
+            contentLB.setLayoutX(40);
+            contentLB.setLayoutY(5);
+            pane.getChildren().addAll(prof,userName,contentLB);
+            commentsVbox.getChildren().add(pane);
         }
     }
     @FXML

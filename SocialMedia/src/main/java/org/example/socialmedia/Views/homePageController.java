@@ -106,6 +106,7 @@ public class homePageController implements Initializable {
     @FXML
     private GridPane suggestionGrid;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nameLB.setText(AccountController.getAccountController().getCurrentAccount().getName());
@@ -113,15 +114,17 @@ public class homePageController implements Initializable {
 //        prof.setImage(new Image("file:" + path));
         Image profile=new Image(AccountController.getAccountController().getCurrentAccount().getProfilePicture());
         prof.setImage(profile);
+        int pstIndex=0;
         name_lbl.setText(AccountController.getAccountController().getCurrentAccount().getName());
         List<Account> connections= Graph.getGraph().findUserConnections(AccountController.getAccountController().getCurrentAccount().getUsername());
         for (Account account:connections){
             if(account.getPosts().isEmpty()){
+                pstIndex++;
                 continue;
             }
             Post post=account.getPosts().getLast();
             Label description = new Label(post.getDescription());
-            Label likes=new Label("likes: "+post.getLikeCounts());
+            Label likes=new Label(String.valueOf(post.getLikeCounts()));
             Label dateAndTime=new Label();
             Label subject=new Label();
             ImageView likeImage=new ImageView();
@@ -133,7 +136,7 @@ public class homePageController implements Initializable {
             dateAndTime.setText(post.getDateAndTime());
             subject.setText(post.getSubject());
             Button comments=new Button("Comments");
-            comments.setId(String.valueOf(connections.indexOf(post)));
+            comments.setId(String.valueOf(pstIndex));
             Image image = new Image(post.getFile());
             ImageView postCover = new ImageView(image);
             postCover.setFitWidth(170);
@@ -177,7 +180,7 @@ public class homePageController implements Initializable {
                     throw new RuntimeException(e);
                 }
             });
-
+            pstIndex++;
         }
 
         ArrayList<Account> suggestions = Graph.getGraph().getSuggestions();
