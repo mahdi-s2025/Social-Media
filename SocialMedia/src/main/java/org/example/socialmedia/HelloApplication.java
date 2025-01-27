@@ -29,9 +29,9 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
 
-        Account account1 = new Account("mohammad" , "mohammad" , "mh",":)","src/main/resources/org/example/pictures/mohammad.jpg");
+        Account account1 = new Account("mohammad" , "mohammad" , "mh","m","src/main/resources/org/example/pictures/mohammad.jpg");
         Account account2 = new Account("poone" , "poone" , "pm","p","src/main/resources/org/example/pictures/me.jpg");
-        Account account3 = new Account("Mehdi" , "mehdi" , "ms",":)","src/main/resources/org/example/pictures/mehdii.jpg");
+        Account account3 = new Account("Mehdi" , "mehdi" , "ms","mh","src/main/resources/org/example/pictures/mehdii.jpg");
 
         DataCenterController dataCenterController = DataCenterController.getDataCenterController();
 
