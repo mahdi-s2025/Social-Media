@@ -50,10 +50,14 @@ public class NewPostPageController {
     }
     @FXML
     void addPost(ActionEvent event) throws IOException {
-        Post post=new Post(file,descriptionTF.getText());
+        Post post=new Post(AccountController.getAccountController().getCurrentAccount(), file,descriptionTF.getText());
         AccountController.getAccountController().getCurrentAccount().getPosts().add(post);
         AccountController.showAlert("Post Added!", Alert.AlertType.INFORMATION,"Done!");
         AccountController.setStage("HomePage.fxml");
+    }
+    @FXML
+    void backToHome(ActionEvent event) throws IOException {
+        AccountController.setStage("homePage.fxml");
     }
 }
 

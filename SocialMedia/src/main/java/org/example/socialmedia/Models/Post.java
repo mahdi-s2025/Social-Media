@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Setter
 @Getter
 public class Post {
-
+    private Account poster;
     private static int idNumber = 1;
     private int ID;
     private int likeCounts;
@@ -21,8 +21,9 @@ public class Post {
     private String dateAndTime;
     private ArrayList<Comment> comments;
 
-    public Post(String file , String description){
+    public Post(Account poster,String file , String description){
         this.file = file;
+        this.poster=poster;
         this.description = description;
         comments=new ArrayList<>();
         LocalDateTime now = LocalDateTime.now();

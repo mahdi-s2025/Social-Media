@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.ResourceBundle;
 
@@ -113,7 +114,8 @@ public class homePageController implements Initializable {
         Image profile=new Image(AccountController.getAccountController().getCurrentAccount().getProfilePicture());
         prof.setImage(profile);
         name_lbl.setText(AccountController.getAccountController().getCurrentAccount().getName());
-        for (Account account:DataCenterController.getDataCenterController().getUsers().values()){
+        List<Account> connections= Graph.getGraph().findUserConnections(AccountController.getAccountController().getCurrentAccount().getUsername());
+        for (Account account:connections){
             if(account.getPosts().isEmpty()){
                 continue;
             }
@@ -121,14 +123,22 @@ public class homePageController implements Initializable {
             Label description = new Label(post.getDescription());
             Image image = new Image(post.getFile());
             ImageView postCover = new ImageView(image);
-            postCover.setFitWidth(200);
+            postCover.setFitWidth(170);
             postCover.setPreserveRatio(true);
             AnchorPane infoPane = new AnchorPane();
-            postCover.setLayoutX(0);
-            postCover.setLayoutY(0);
-            description.setLayoutX(250);
-            description.setLayoutY(20);
-            infoPane.getChildren().addAll( postCover,description);
+            ImageView posterPhoto=new ImageView(new Image(post.getPoster().getProfilePicture()));
+            posterPhoto.setLayoutX(0);
+            posterPhoto.setLayoutY(0);
+            posterPhoto.setFitWidth(40);
+            posterPhoto.setPreserveRatio(true);
+            Label posterName=new Label(post.getPoster().getUsername());
+            posterName.setLayoutX(45);
+            posterName.setLayoutY(5);
+            postCover.setLayoutX(50);
+            postCover.setLayoutY(40);
+            description.setLayoutX(290);
+            description.setLayoutY(50);
+            infoPane.getChildren().addAll( postCover,description,posterName,posterPhoto);
             postsVbox.getChildren().add(infoPane);
 
         }
