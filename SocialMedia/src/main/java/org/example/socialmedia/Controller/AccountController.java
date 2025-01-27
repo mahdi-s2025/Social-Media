@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.example.socialmedia.Exceptions.*;
 import org.example.socialmedia.HelloApplication;
 import org.example.socialmedia.Models.Account;
+import org.example.socialmedia.Models.Graph;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -55,6 +56,7 @@ public class AccountController {
 
                 currentAccount = new Account(name, username, email , password , profilePhoto);
                 data.addUser(currentAccount);
+                Graph.getGraph().addVertex(username);
                 System.out.println("Signup :)");
                 return true;
             }

@@ -138,74 +138,37 @@ public class homePageController implements Initializable {
 
         ArrayList<Account> suggestions = Graph.getGraph().getSuggestions();
 
-//        suggestionGrid.getChildren().clear();
-//
-//        for (int i = 0 ; i < suggestions.size() ; i++){
-//
-//            VBox vBox = new VBox();
-//
-//            Image image = new Image(suggestions.get(i).getProfilePicture());
-//            ImageView imageView = new ImageView(image);
-//            imageView.setFitWidth(100);
-//            imageView.setFitHeight(100);
-//
-//            Label username = new Label(suggestions.get(i).getUsername());
-//
-//            Button connect = new Button("Connect");
-//
-//            connect.setOnAction(event -> {
-//                String username_lbl = ((Control) event.getSource()).getId();
-//                Graph.getGraph().addEdge(AccountController.getAccountController().getCurrentAccount().getUsername(),username_lbl);
-//            });
-//
-//            vBox.getChildren().add(imageView);
-//            vBox.getChildren().add(username);
-//            vBox.getChildren().add(connect);
-//
-//            suggestionGrid.add(vBox , i , 0);
-//        }
+        suggestionGrid.getChildren().clear();
 
+        for (int i = 0 ; i < suggestions.size() ; i++){
+            String username_lbl = suggestions.get(i).getUsername();
 
-        prof1.setImage(new Image(suggestions.get(0).getProfilePicture()));
-        prof1.setFitHeight(50);
-        prof1.setFitWidth(50);
+            VBox vBox = new VBox();
 
-        prof2.setImage(new Image(suggestions.get(1).getProfilePicture()));
-        prof2.setFitHeight(50);
-        prof2.setFitWidth(50);
+            Image image = new Image(suggestions.get(i).getProfilePicture());
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(100);
+            imageView.setFitHeight(100);
 
-        prof3.setImage(new Image(suggestions.get(2).getProfilePicture()));
-        prof3.setFitHeight(50);
-        prof3.setFitWidth(50);
+            Label username = new Label(suggestions.get(i).getUsername());
 
-        prof4.setImage(new Image(suggestions.get(3).getProfilePicture()));
-        prof4.setFitHeight(50);
-        prof4.setFitWidth(50);
+            Button connect = new Button("Connect");
 
-        prof5.setImage(new Image(suggestions.get(4).getProfilePicture()));
-        prof5.setFitHeight(50);
-        prof5.setFitWidth(50);
+            connect.setOnAction(event -> {
+                Graph.getGraph().addEdge(AccountController.getAccountController().getCurrentAccount().getUsername(),username_lbl);
+                try {
+                    AccountController.setStage("homePage.fxml");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-        prof6.setImage(new Image(suggestions.get(5).getProfilePicture()));
-        prof6.setFitHeight(50);
-        prof6.setFitWidth(50);
+            vBox.getChildren().add(imageView);
+            vBox.getChildren().add(username);
+            vBox.getChildren().add(connect);
 
-        name1.setText(suggestions.get(0).getUsername());
-        name2.setText(suggestions.get(1).getUsername());
-        name3.setText(suggestions.get(2).getUsername());
-        name4.setText(suggestions.get(3).getUsername());
-        name5.setText(suggestions.get(4).getUsername());
-        name6.setText(suggestions.get(5).getUsername());
-
-
-        btn1.setId(suggestions.get(0).getUsername());
-        btn2.setId(suggestions.get(1).getUsername());
-        btn3.setId(suggestions.get(2).getUsername());
-        btn4.setId(suggestions.get(3).getUsername());
-        btn5.setId(suggestions.get(4).getUsername());
-        btn6.setId(suggestions.get(5).getUsername());
-//
-
+            suggestionGrid.add(vBox , i , 0);
+        }
     }
 
 
