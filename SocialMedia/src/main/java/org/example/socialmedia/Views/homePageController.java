@@ -133,7 +133,7 @@ public class homePageController implements Initializable {
             dateAndTime.setText(post.getDateAndTime());
             subject.setText(post.getSubject());
             Button comments=new Button("Comments");
-
+            comments.setId(String.valueOf(connections.indexOf(post)));
             Image image = new Image(post.getFile());
             ImageView postCover = new ImageView(image);
             postCover.setFitWidth(170);
@@ -165,6 +165,18 @@ public class homePageController implements Initializable {
 
             infoPane.getChildren().addAll( postCover,description,posterName,posterPhoto,likes,subject,dateAndTime,comments,likeImage);
             postsVbox.getChildren().add(infoPane);
+            likeImage.setOnMouseClicked(event -> {
+                post.setLikeCounts(post.getLikeCounts()+1);
+                likes.setText(String.valueOf(post.getLikeCounts()));
+            });
+            comments.setOnAction(event2 -> {
+                try {
+                    commentsPageController.event2=event2;
+                    AccountController.setStage("commentsPage.fxml");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
         }
 

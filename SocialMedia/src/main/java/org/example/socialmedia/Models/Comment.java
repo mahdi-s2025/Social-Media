@@ -10,10 +10,10 @@ import java.time.format.DateTimeFormatter;
 @Getter
 
 public class Comment {
-    private String writer;
+    private Account writer;
     private String content;
     private String dateAndTime;
-    public Comment(String writer,String content){
+    public Comment(Account writer,String content){
         this.writer=writer;
         this.content=content;
         LocalDateTime now = LocalDateTime.now();
