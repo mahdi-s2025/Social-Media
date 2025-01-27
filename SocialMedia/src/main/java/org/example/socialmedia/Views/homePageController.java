@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -167,8 +164,8 @@ public class homePageController implements Initializable {
 
 
         prof1.setImage(new Image(suggestions.get(0).getProfilePicture()));
-        prof1.setFitHeight(50);
-        prof1.setFitWidth(50);
+        prof1.setFitHeight(80);
+        prof1.setFitWidth(75);
 
         prof2.setImage(new Image(suggestions.get(1).getProfilePicture()));
         prof2.setFitHeight(50);
@@ -217,6 +214,7 @@ public class homePageController implements Initializable {
     void connect(ActionEvent event) {
         String username = ((Control) event.getSource()).getId();
         Graph.getGraph().addEdge(AccountController.getAccountController().getCurrentAccount().getUsername(),username);
+        AccountController.showAlert("", Alert.AlertType.CONFIRMATION,"Connected to "+AccountController.getAccountController().getCurrentAccount().getUsername()+" Successfully!");
     }
     @FXML
     void addNewPost() throws IOException {
