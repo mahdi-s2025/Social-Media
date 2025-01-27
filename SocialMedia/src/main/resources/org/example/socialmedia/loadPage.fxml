@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="310.0" prefWidth="515.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.loadPageController">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="182.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/Icon.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="207.0" layoutY="222.0" text="Yougeram" textAlignment="CENTER">
+         <font>
+            <Font name="MRT_Adell" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" prefHeight="46.0" prefWidth="151.0" text="MPM corporation" textAlignment="JUSTIFY" textFill="#000000b1">
+         <font>
+            <Font name="Georgia" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="log_lbl" layoutX="7.0" layoutY="276.0" prefHeight="40.0" prefWidth="270.0" />
+   </children>
+</AnchorPane>
