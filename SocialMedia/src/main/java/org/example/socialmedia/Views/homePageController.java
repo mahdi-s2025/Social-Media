@@ -121,6 +121,19 @@ public class homePageController implements Initializable {
             }
             Post post=account.getPosts().getLast();
             Label description = new Label(post.getDescription());
+            Label likes=new Label("likes: "+post.getLikeCounts());
+            Label dateAndTime=new Label();
+            Label subject=new Label();
+            ImageView likeImage=new ImageView();
+            String path = Paths.get("src/main/resources/org/example/pictures/like.jpg").toAbsolutePath().toString();
+            likeImage.setImage(new Image("file:" + path));
+            likeImage.setPreserveRatio(true);
+            likeImage.setFitWidth(25);
+            likes.setText(String.valueOf(post.getLikeCounts()));
+            dateAndTime.setText(post.getDateAndTime());
+            subject.setText(post.getSubject());
+            Button comments=new Button("Comments");
+
             Image image = new Image(post.getFile());
             ImageView postCover = new ImageView(image);
             postCover.setFitWidth(170);
@@ -134,11 +147,23 @@ public class homePageController implements Initializable {
             Label posterName=new Label(post.getPoster().getUsername());
             posterName.setLayoutX(45);
             posterName.setLayoutY(5);
+
             postCover.setLayoutX(50);
             postCover.setLayoutY(40);
-            description.setLayoutX(290);
-            description.setLayoutY(50);
-            infoPane.getChildren().addAll( postCover,description,posterName,posterPhoto);
+            description.setLayoutX(240);
+            description.setLayoutY(60);
+            subject.setLayoutX(290);
+            subject.setLayoutY(50);
+            dateAndTime.setLayoutX(240);
+            dateAndTime.setLayoutY(200);
+            comments.setLayoutX(510);
+            comments.setLayoutY(200);
+            likeImage.setLayoutX(435);
+            likeImage.setLayoutY(200);
+            likes.setLayoutX(450);
+            likes.setLayoutY(200);
+
+            infoPane.getChildren().addAll( postCover,description,posterName,posterPhoto,likes,subject,dateAndTime,comments,likeImage);
             postsVbox.getChildren().add(infoPane);
 
         }

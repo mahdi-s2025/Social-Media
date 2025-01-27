@@ -21,11 +21,12 @@ public class Post {
     private String dateAndTime;
     private ArrayList<Comment> comments;
 
-    public Post(Account poster,String file , String description){
+    public Post(Account poster,String file ,String subject, String description){
         this.file = file;
         this.poster=poster;
         this.description = description;
         comments=new ArrayList<>();
+        likeCounts=0;
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         dateAndTime= now.format(formatter);
