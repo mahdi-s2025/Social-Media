@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.example.socialmedia.Controller.AccountController;
@@ -26,18 +27,25 @@ import java.util.ResourceBundle;
 
 public class commentsPageController implements Initializable {
     @FXML
-    private Button addCommentBT;
+    private ImageView addCommentBT;
 
     @FXML
     private ScrollPane commentsSP;
 
     @FXML
+    private VBox commentsVbox;
+
+    @FXML
     private TextArea contentTF;
+
+    @FXML
+    private AnchorPane root;
+
+
     Post currentPost;
     static Event event2;
     int postIndex;
-    @FXML
-    VBox commentsVbox;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Button data = (Button) event2.getSource();
@@ -71,13 +79,14 @@ public class commentsPageController implements Initializable {
             commentsVbox.getChildren().add(pane);
         }
     }
+
+
     @FXML
-    void addComment(ActionEvent event) throws IOException {
+    void addComment(MouseEvent event) throws IOException {
         Comment comment=new Comment(AccountController.getAccountController().getCurrentAccount(),contentTF.getText());
         currentPost.getComments().add(comment);
         AccountController.setStage("commentsPage.fxml");
     }
-
     @FXML
     void backToHome(ActionEvent event) throws IOException {
         AccountController.setStage("homePage.fxml");

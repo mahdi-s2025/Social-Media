@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="650.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.commentsPageController">
+<AnchorPane fx:id="root" prefHeight="650.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.commentsPageController">
    <children>
       <ImageView fitHeight="650.0" fitWidth="500.0" nodeOrientation="INHERIT" opacity="0.25" pickOnBounds="true">
          <image>
@@ -41,7 +41,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <ImageView fx:id="addCommentBT" accessibleRole="BUTTON" disable="true" fitHeight="40.0" fitWidth="40.0" layoutX="406.0" layoutY="545.0" onMouseClicked="#addComment" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="addCommentBT" accessibleRole="BUTTON" fitHeight="40.0" fitWidth="40.0" layoutX="406.0" layoutY="545.0" onMouseClicked="#addComment" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pictures/send.png" />
          </image>
