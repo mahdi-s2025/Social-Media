@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.socialmedia.Controller.AccountController;
 import org.example.socialmedia.HelloApplication;
@@ -88,12 +89,18 @@ public class loginPageController implements Initializable {
     @FXML
     void signupClick(MouseEvent event) throws IOException {
         Stage stage = HelloApplication.getStage();
+        Stage signupStage = new Stage();
+        signupStage.setTitle("Signup");
+        signupStage.setResizable(false);
+        signupStage.initOwner(stage);
+        signupStage.initModality(Modality.WINDOW_MODAL);
+
+
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signupPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Signup");
-        stage.setScene(scene);
-        stage.show();
+        signupStage.setScene(scene);
+        signupStage.show();
     }
 
     @Override
@@ -108,7 +115,7 @@ public class loginPageController implements Initializable {
             }
         });
 
-        UnaryOperator<TextFormatter.Change> filter = change -> {
+        UnaryOperator<TextFormatter.Change> usernameFilter = change -> {
             String text = change.getControlNewText();
             if (text.matches("^[a-zA-Z0-9_]+") || text.isEmpty()) {
                 return change;
@@ -116,12 +123,26 @@ public class loginPageController implements Initializable {
             return null;
         };
 
+        TextFormatter<String> formatter = new TextFormatter<>(usernameFilter);
+        username_txt.setTextFormatter(formatter);
+
+        UnaryOperator<TextFormatter.Change> passwordFilter = change -> {
+            String text = change.getControlNewText();
+            if (text.matches("^[a-zA-Z0-9_!@#$%^&*()]+") || text.isEmpty()) {
+                return change;
+            }
+            return null;
+        };
+
+        TextFormatter<String> formatter2 = new TextFormatter<>(passwordFilter);
+        password_txt.setTextFormatter(formatter2);
+
+
         BooleanBinding fieldsEmpty = username_txt.textProperty().isEmpty()
                 .or(password_txt.lengthProperty().lessThan(8));
         login_btn.disableProperty().bind(fieldsEmpty);
 
-        TextFormatter<String> formatter = new TextFormatter<>(filter);
-        username_txt.setTextFormatter(formatter);
+
 
     }
 

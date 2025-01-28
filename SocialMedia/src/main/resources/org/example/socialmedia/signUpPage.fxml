@@ -1,66 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="765.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.signupPageController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.signupPageController">
    <children>
-      <ImageView fitHeight="559.0" fitWidth="778.0" layoutX="-5.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+      <TextField fx:id="name_txt" focusTraversable="false" layoutX="130.0" layoutY="180.0" prefHeight="35.0" prefWidth="240.0" promptText="Name" style="-fx-background-radius: 10;" />
+      <TextField fx:id="username_txt" focusTraversable="false" layoutX="130.0" layoutY="260.0" prefHeight="35.0" prefWidth="240.0" promptText="Username" style="-fx-background-radius: 10;" />
+      <PasswordField fx:id="password_txt" focusTraversable="false" layoutX="130.0" layoutY="340.0" prefHeight="35.0" prefWidth="240.0" promptText="Password" style="-fx-background-radius: 10;" />
+      <Label fx:id="name_lbl" layoutX="130.0" layoutY="150.0" prefHeight="30.0" prefWidth="70.0" text="Name">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="username_lbl" layoutX="130.0" layoutY="230.0" prefHeight="30.0" prefWidth="70.0" text="Username">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="password_lbl" focusTraversable="false" layoutX="130.0" layoutY="310.0" prefHeight="30.0" prefWidth="70.0" text="Password">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="225.0" layoutY="10.0" prefHeight="62.0" prefWidth="162.0" text="Choose a Profile Photo">
+         <font>
+            <Font name="Calibri" size="16.0" />
+         </font>
+      </Label>
+      <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="225.0" layoutY="65.0" mnemonicParsing="false" onAction="#onChooseImage" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="SELECT" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fitHeight="265.0" fitWidth="500.0" layoutY="535.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../pictures/loginPage.jpg" />
+            <Image url="@../pictures/communication.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="name_txt" layoutX="523.0" layoutY="63.0" />
-      <TextField fx:id="username_txt" layoutX="523.0" layoutY="139.0" />
-      <PasswordField fx:id="password_txt" layoutX="523.0" layoutY="215.0" />
-      <Label fx:id="username_lbl" layoutX="523.0" layoutY="11.0" prefHeight="42.0" prefWidth="127.0" text="Name">
+      <Label fx:id="error_lbl" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="100.0" layoutY="449.0" prefHeight="70.0" prefWidth="300.0" textAlignment="CENTER" textFill="RED">
          <font>
-            <Font name="Franklin Gothic Demi Cond" size="23.0" />
+            <Font size="13.0" />
          </font>
       </Label>
-      <Label fx:id="username_lbl1" layoutX="523.0" layoutY="100.0" prefHeight="42.0" prefWidth="127.0" text="UserName">
+      <Button fx:id="next_btn" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" disable="true" layoutX="130.0" layoutY="400.0" mnemonicParsing="false" onAction="#nextClick" prefHeight="40.0" prefWidth="240.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="NEXT" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="Franklin Gothic Demi Cond" size="23.0" />
+            <Font name="Times New Roman Bold" size="13.0" />
          </font>
-      </Label>
-      <Label fx:id="password_lbl" layoutX="523.0" layoutY="180.0" prefHeight="35.0" prefWidth="90.0" text="Password">
-         <font>
-            <Font name="Franklin Gothic Demi Cond" size="23.0" />
-         </font>
-      </Label>
-      <Label layoutX="523.0" layoutY="250.0" prefHeight="35.0" prefWidth="90.0" text="Bio">
-         <font>
-            <Font name="Franklin Gothic Demi Cond" size="23.0" />
-         </font>
-      </Label>
-      <Label layoutX="478.0" layoutY="336.0" prefHeight="35.0" prefWidth="127.0" text="Profile photo">
-         <font>
-            <Font name="Franklin Gothic Demi Cond" size="23.0" />
-         </font>
-      </Label>
-      <TextArea fx:id="bioText" layoutX="525.0" layoutY="285.0" prefHeight="25.0" prefWidth="162.0" />
-      <ImageView fx:id="profPhoto" fitHeight="138.0" fitWidth="127.0" layoutX="471.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="605.0" layoutY="346.0" mnemonicParsing="false" onAction="#onChooseImage" prefHeight="35.0" prefWidth="127.0" text="Upload from PC">
-         <font>
-            <Font name="Franklin Gothic Demi Cond" size="17.0" />
-         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button fx:id="signup_btn" layoutX="624.0" layoutY="409.0" mnemonicParsing="false" onAction="#signupClick" prefHeight="42.0" prefWidth="96.0" style="-fx-background-color: #1b2465;" text="Signup" textFill="WHITE">
-         <font>
-            <Font name="Franklin Gothic Demi Cond" size="23.0" />
-         </font>
-      </Button>
-      <Button fx:id="login_btn" layoutX="627.0" layoutY="463.0" mnemonicParsing="false" onAction="#loginClick" prefHeight="42.0" prefWidth="90.0" style="-fx-background-color: #6e1313;" text="Login" textFill="WHITE">
-         <font>
-            <Font name="Franklin Gothic Demi Cond" size="23.0" />
-         </font>
-      </Button>
+      <Circle fx:id="profPhoto" fill="DODGERBLUE" layoutX="160.0" layoutY="70.0" radius="48.0" stroke="#1f96ff" strokeType="INSIDE" />
+      <ImageView fx:id="check1" fitHeight="25.0" fitWidth="25.0" layoutX="375.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="check2" fitHeight="25.0" fitWidth="25.0" layoutX="375.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="check3" fitHeight="25.0" fitWidth="25.0" layoutX="375.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
