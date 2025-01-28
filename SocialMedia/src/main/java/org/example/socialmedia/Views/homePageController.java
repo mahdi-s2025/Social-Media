@@ -110,8 +110,6 @@ public class homePageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nameLB.setText(AccountController.getAccountController().getCurrentAccount().getName());
-//        String path = Paths.get(AccountController.getAccountController().getCurrentAccount().getProfilePicture()).toAbsolutePath().toString();
-//        prof.setImage(new Image("file:" + path));
         Image profile=new Image(AccountController.getAccountController().getCurrentAccount().getProfilePicture());
         prof.setImage(profile);
         int pstIndex=0;
@@ -124,37 +122,37 @@ public class homePageController implements Initializable {
             }
             Post post=account.getPosts().getLast();
             Label description = new Label(post.getDescription());
-            Label likes=new Label(String.valueOf(post.getLikeCounts()));
-            Label dateAndTime=new Label();
-            Label subject=new Label();
-            ImageView likeImage=new ImageView();
+            Label likes = new Label(String.valueOf(post.getLikes().size()));
+            Label dateAndTime = new Label();
+            Label subject = new Label();
+            ImageView likeImage = new ImageView();
             String path = Paths.get("src/main/resources/org/example/pictures/like.jpg").toAbsolutePath().toString();
             likeImage.setImage(new Image("file:" + path));
             likeImage.setPreserveRatio(true);
             likeImage.setFitWidth(25);
-            likes.setText(String.valueOf(post.getLikeCounts()));
+            likes.setText(String.valueOf(post.getLikes().size()));
             dateAndTime.setText(post.getDateAndTime());
             subject.setText(post.getSubject());
-            Button comments=new Button("Comments");
+            Button comments = new Button("Comments");
             comments.setId(String.valueOf(pstIndex));
             Image image = new Image(post.getFile());
             ImageView postCover = new ImageView(image);
             postCover.setFitWidth(170);
             postCover.setPreserveRatio(true);
             AnchorPane infoPane = new AnchorPane();
-            ImageView posterPhoto=new ImageView(new Image(post.getPoster().getProfilePicture()));
+            ImageView posterPhoto = new ImageView(new Image(post.getPoster().getProfilePicture()));
             posterPhoto.setLayoutX(0);
             posterPhoto.setLayoutY(0);
             posterPhoto.setFitWidth(40);
             posterPhoto.setPreserveRatio(true);
-            Label posterName=new Label(post.getPoster().getUsername());
+            Label posterName = new Label(post.getPoster().getUsername());
             posterName.setLayoutX(45);
             posterName.setLayoutY(5);
 
             postCover.setLayoutX(50);
             postCover.setLayoutY(40);
-            description.setLayoutX(240);
-            description.setLayoutY(60);
+            description.setLayoutX(290);
+            description.setLayoutY(100);
             subject.setLayoutX(290);
             subject.setLayoutY(50);
             dateAndTime.setLayoutX(240);
@@ -163,14 +161,20 @@ public class homePageController implements Initializable {
             comments.setLayoutY(200);
             likeImage.setLayoutX(435);
             likeImage.setLayoutY(200);
-            likes.setLayoutX(450);
+            likes.setLayoutX(480);
             likes.setLayoutY(200);
 
             infoPane.getChildren().addAll( postCover,description,posterName,posterPhoto,likes,subject,dateAndTime,comments,likeImage);
             postsVbox.getChildren().add(infoPane);
             likeImage.setOnMouseClicked(event -> {
-                post.setLikeCounts(post.getLikeCounts()+1);
-                likes.setText(String.valueOf(post.getLikeCounts()));
+                String username = connections.get(0).getUsername();
+                if (post.getLikes().contains(username)){
+                    post.getLikes().remove(username);
+                }
+                else {
+                    post.getLikes().add(connections.get(0).getUsername());
+                }
+                likes.setText(String.valueOf(post.getLikes().size()));
             });
             comments.setOnAction(event2 -> {
                 try {
@@ -185,74 +189,37 @@ public class homePageController implements Initializable {
 
         ArrayList<Account> suggestions = Graph.getGraph().getSuggestions();
 
-//        suggestionGrid.getChildren().clear();
-//
-//        for (int i = 0 ; i < suggestions.size() ; i++){
-//
-//            VBox vBox = new VBox();
-//
-//            Image image = new Image(suggestions.get(i).getProfilePicture());
-//            ImageView imageView = new ImageView(image);
-//            imageView.setFitWidth(100);
-//            imageView.setFitHeight(100);
-//
-//            Label username = new Label(suggestions.get(i).getUsername());
-//
-//            Button connect = new Button("Connect");
-//
-//            connect.setOnAction(event -> {
-//                String username_lbl = ((Control) event.getSource()).getId();
-//                Graph.getGraph().addEdge(AccountController.getAccountController().getCurrentAccount().getUsername(),username_lbl);
-//            });
-//
-//            vBox.getChildren().add(imageView);
-//            vBox.getChildren().add(username);
-//            vBox.getChildren().add(connect);
-//
-//            suggestionGrid.add(vBox , i , 0);
-//        }
+        suggestionGrid.getChildren().clear();
 
+        for (int i = 0 ; i < suggestions.size() ; i++){
+            String username_lbl = suggestions.get(i).getUsername();
 
-        prof1.setImage(new Image(suggestions.get(0).getProfilePicture()));
-        prof1.setFitHeight(80);
-        prof1.setFitWidth(75);
+            VBox vBox = new VBox();
 
-        prof2.setImage(new Image(suggestions.get(1).getProfilePicture()));
-        prof2.setFitHeight(50);
-        prof2.setFitWidth(50);
+            Image image = new Image(suggestions.get(i).getProfilePicture());
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(100);
+            imageView.setFitHeight(100);
 
-        prof3.setImage(new Image(suggestions.get(2).getProfilePicture()));
-        prof3.setFitHeight(50);
-        prof3.setFitWidth(50);
+            Label username = new Label(suggestions.get(i).getUsername());
 
-        prof4.setImage(new Image(suggestions.get(3).getProfilePicture()));
-        prof4.setFitHeight(50);
-        prof4.setFitWidth(50);
+            Button connect = new Button("Connect");
 
-        prof5.setImage(new Image(suggestions.get(4).getProfilePicture()));
-        prof5.setFitHeight(50);
-        prof5.setFitWidth(50);
+            connect.setOnAction(event -> {
+                Graph.getGraph().addEdge(AccountController.getAccountController().getCurrentAccount().getUsername(),username_lbl);
+                try {
+                    AccountController.setStage("homePage.fxml");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-        prof6.setImage(new Image(suggestions.get(5).getProfilePicture()));
-        prof6.setFitHeight(50);
-        prof6.setFitWidth(50);
+            vBox.getChildren().add(imageView);
+            vBox.getChildren().add(username);
+            vBox.getChildren().add(connect);
 
-        name1.setText(suggestions.get(0).getUsername());
-        name2.setText(suggestions.get(1).getUsername());
-        name3.setText(suggestions.get(2).getUsername());
-        name4.setText(suggestions.get(3).getUsername());
-        name5.setText(suggestions.get(4).getUsername());
-        name6.setText(suggestions.get(5).getUsername());
-
-
-        btn1.setId(suggestions.get(0).getUsername());
-        btn2.setId(suggestions.get(1).getUsername());
-        btn3.setId(suggestions.get(2).getUsername());
-        btn4.setId(suggestions.get(3).getUsername());
-        btn5.setId(suggestions.get(4).getUsername());
-        btn6.setId(suggestions.get(5).getUsername());
-//
-
+            suggestionGrid.add(vBox , i , 0);
+        }
     }
 
 
