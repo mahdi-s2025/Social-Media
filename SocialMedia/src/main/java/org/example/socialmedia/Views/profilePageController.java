@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -35,19 +36,16 @@ public class profilePageController implements Initializable {
     private Button deleteAccount;
 
     @FXML
-    private Button editPost;
+    private Button editProfile;
 
     @FXML
-    private Label emailLB;
+    private Label email_lbl;
 
     @FXML
-    private Button logout_btn;
+    private ImageView logout_btn;
 
     @FXML
-    private Label nameLB;
-
-    @FXML
-    private Label name_lbl;
+    private Label name_lbl1;
 
     @FXML
     private ScrollPane postsSP;
@@ -58,14 +56,26 @@ public class profilePageController implements Initializable {
     @FXML
     private ImageView prof;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        nameLB.setText(AccountController.getAccountController().getCurrentAccount().getName());
-        Image profile = new Image(AccountController.getAccountController().getCurrentAccount().getProfilePicture());
+    @FXML
+    private AnchorPane root;
+
+    @FXML
+    private Label username_lbl;
+
+
+    private void setInformation(Account user){
+
+        connectionVbox.getChildren().clear();
+        postsVbox.getChildren().clear();
+
+        name_lbl1.setText(user.getName());
+        Image profile = new Image(user.getProfilePicture());
         prof.setImage(profile);
-        emailLB.setText(AccountController.getAccountController().getCurrentAccount().getEmail());
-        name_lbl.setText(AccountController.getAccountController().getCurrentAccount().getName());
-        for (Post post : AccountController.getAccountController().getCurrentAccount().getPosts()) {
+        email_lbl.setText(user.getEmail());
+        username_lbl.setText(user.getUsername());
+
+
+        for (Post post : user.getPosts()) {
             Label subject = new Label(post.getSubject());
             Label description = new Label(post.getDescription());
             Label likes = new Label(String.valueOf(post.getLikes().size()));
@@ -80,7 +90,7 @@ public class profilePageController implements Initializable {
             Image image = new Image(post.getFile());
             ImageView postCover = new ImageView(image);
             Button editPostBT = new Button("Edit");
-            int postIndex = AccountController.getAccountController().getCurrentAccount().getPosts().indexOf(post);
+            int postIndex = user.getPosts().indexOf(post);
 
             editPostBT.setId(String.valueOf(postIndex));
             postCover.setFitWidth(200);
@@ -104,12 +114,12 @@ public class profilePageController implements Initializable {
             likes.setLayoutY(150);
 
             likeImage.setOnMouseClicked(event -> {
-                String username = AccountController.getAccountController().getCurrentAccount().getUsername();
+                String username = user.getUsername();
                 if (post.getLikes().contains(username)){
                     post.getLikes().remove(username);
                 }
                 else {
-                    post.getLikes().add(AccountController.getAccountController().getCurrentAccount().getUsername());
+                    post.getLikes().add(user.getUsername());
                 }
                 likes.setText(String.valueOf(post.getLikes().size()));
             });
@@ -125,8 +135,15 @@ public class profilePageController implements Initializable {
                     throw new RuntimeException(e);
                 }
             });
-
         }
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        setInformation(AccountController.getAccountController().getCurrentAccount());
+
 
         setConnectionList(AccountController.getAccountController().getCurrentAccount().getUsername());
 
@@ -154,94 +171,19 @@ public class profilePageController implements Initializable {
             connectionVbox.getChildren().add(hBox);
 
             username_lbl.setOnMouseClicked(event -> {
-                nameLB.setText(user.getName());
-                Image profilePic = new Image(user.getProfilePicture());
-                prof.setImage(profilePic);
-                emailLB.setText(user.getEmail());
-                name_lbl.setText(user.getName());
 
-                connectionVbox.getChildren().clear();
-                postsVbox.getChildren().clear();
+                setInformation(user);
 
-                for (Post post:user.getPosts()) {
-                    Label subject = new Label(post.getSubject());
-                    Label description = new Label(post.getDescription());
-                    Image postImage = new Image(post.getFile());
-                    ImageView postCover = new ImageView(postImage);
-                    postCover.setFitWidth(200);
-                    postCover.setPreserveRatio(true);
-                    Label likes = new Label(String.valueOf(post.getLikes().size()));
-                    Button editPostBT = new Button("Edit");
-                    int postIndex = AccountController.getAccountController().getCurrentAccount().getPosts().indexOf(post);
-                    editPostBT.setId(String.valueOf(postIndex));
-
-                    ImageView likeImage = new ImageView();
-                    String path = Paths.get("src/main/resources/org/example/pictures/like.jpg").toAbsolutePath().toString();
-                    likeImage.setImage(new Image("file:" + path));
-                    likeImage.setPreserveRatio(true);
-                    likeImage.setFitWidth(25);
-                    likes.setText(String.valueOf(post.getLikes().size()));
-
-
-                    AnchorPane infoPane = new AnchorPane();
-
-                    editPostBT.setVisible(false);
-                    editPostBT.setLayoutX(350);
-                    editPostBT.setLayoutY(80);
-
-                    postCover.setLayoutX(0);
-                    postCover.setLayoutY(0);
-
-                    subject.setLayoutX(250);
-                    subject.setLayoutY(20);
-
-                    description.setLayoutX(250);
-                    description.setLayoutY(50);
-
-
-                    likeImage.setLayoutX(250);
-                    likeImage.setLayoutY(150);
-                    likes.setLayoutX(300);
-                    likes.setLayoutY(150);
-
-                    likeImage.setOnMouseClicked(event2 -> {
-                        String name = AccountController.getAccountController().getCurrentAccount().getUsername();
-                        if (post.getLikes().contains(name)){
-                            post.getLikes().remove(name);
-                        }
-                        else {
-                            post.getLikes().add(AccountController.getAccountController().getCurrentAccount().getUsername());
-                        }
-                        likes.setText(String.valueOf(post.getLikes().size()));
-                    });
-
-                    editPostBT.setOnAction(event3 -> {
-                        EditPostPageController.event = event3;
-                        try {
-                            AccountController.setStage("EditPostPage.fxml");
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
-                    
-                    if (!user.equals(AccountController.getAccountController().getCurrentAccount())) {
-                        editPostBT.setVisible(false);
-                        deleteAccount.setVisible(false);
-                        logout_btn.setVisible(false);
-                        editPost.setVisible(false);
-                    }
-                    else {
-
-                        editPostBT.setVisible(true);
-                        editPost.setVisible(true);
-                        deleteAccount.setVisible(true);
-                        logout_btn.setVisible(true);
-                    }
-
-                    infoPane.getChildren().addAll(postCover, subject , description , editPostBT , likes , likeImage);
-                    postsVbox.getChildren().add(infoPane);
+                if (!user.equals(AccountController.getAccountController().getCurrentAccount())) {
+                    editProfile.setVisible(false);
+                    deleteAccount.setVisible(false);
+                    logout_btn.setVisible(false);
                 }
-
+                else {
+                    editProfile.setVisible(true);
+                    deleteAccount.setVisible(true);
+                    logout_btn.setVisible(true);
+                }
 
                 setConnectionList(username_lbl.getText());
             });
@@ -257,7 +199,7 @@ public class profilePageController implements Initializable {
     }
 
     @FXML
-    void logoutClick(ActionEvent event) throws IOException {
+    void logoutClick(MouseEvent event) throws IOException {
         AccountController.setStage("loginPage.fxml");
     }
 
