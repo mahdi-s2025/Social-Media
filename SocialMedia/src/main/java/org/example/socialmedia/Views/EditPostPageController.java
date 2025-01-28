@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -36,6 +37,9 @@ public class EditPostPageController implements Initializable {
 
     @FXML
     private Button uploadBT;
+
+    @FXML
+    private TextField subject_txt;
     static Event event;
 
     int postIndex;
@@ -43,9 +47,13 @@ public class EditPostPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Button data = (Button) event.getSource();
-        postIndex=Integer.parseInt(data.getId());
-        post=AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex);
+
+        postIndex = Integer.parseInt(data.getId());
+        post = AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex);
+        subject_txt.setText(post.getSubject());
         postCaption.setText(post.getDescription());
+
+        file = post.getFile();
         Image image = new Image(post.getFile());
         postImage.setImage(image);
     }
@@ -75,9 +83,11 @@ public class EditPostPageController implements Initializable {
     }
 
     @FXML
-    void confirmChanges(ActionEvent event) {
+    void confirmChanges(ActionEvent event) throws IOException {
+        AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex).setSubject(subject_txt.getText());
         AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex).setDescription(postCaption.getText());
         AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex).setFile(file);
+        AccountController.setStage("profilePage.fxml");
     }
 
 
