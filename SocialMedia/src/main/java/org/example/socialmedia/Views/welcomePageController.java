@@ -27,6 +27,8 @@ public class welcomePageController {
         stage.close();
         Thread.sleep(500);
         Stage stage = new Stage();
+        stage.setResizable(false);
+        stage.centerOnScreen();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("loginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Login");
