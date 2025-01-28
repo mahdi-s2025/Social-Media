@@ -83,7 +83,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="editProfile" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="670.0" layoutY="35.0" mnemonicParsing="false" onAction="#editProfile" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="EDITE" textFill="WHITE">
+      <Button fx:id="editProfile" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="670.0" layoutY="35.0" mnemonicParsing="false" onAction="#editProfile" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="EDIT" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="13.0" />
          </font>
@@ -91,17 +91,17 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-<<<<<<< HEAD
+<!--<<<<<<< HEAD-->
       <ImageView accessibleRole="BUTTON" fitHeight="55.0" fitWidth="45.0" layoutX="930.0" layoutY="13.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pictures/back.png" />
          </image>
-=======
-      <Button fx:id="editProfile" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="670.0" layoutY="15.0" mnemonicParsing="false" onAction="#editProfile" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="EDITE" textFill="WHITE">
-         <font>
-            <Font name="Times New Roman Bold" size="13.0" />
-         </font>
->>>>>>> 58c03c5a3d078daba9eec1b025932ed4413856cd
+<!--=======-->
+<!--      <Button fx:id="editProfile" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="670.0" layoutY="15.0" mnemonicParsing="false" onAction="#editProfile" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="EDITE" textFill="WHITE">-->
+<!--         <font>-->
+<!--            <Font name="Times New Roman Bold" size="13.0" />-->
+<!--         </font>-->
+<!--&gt;>>>>>> 58c03c5a3d078daba9eec1b025932ed4413856cd-->
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

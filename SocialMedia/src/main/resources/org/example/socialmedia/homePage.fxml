@@ -181,19 +181,15 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="addPostBT" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="60.0" layoutX="865.0" layoutY="15.0" onMouseClicked="#addNewPost" pickOnBounds="true" preserveRatio="true">
-<<<<<<< HEAD
-=======
-         <image>
-            <Image url="@../pictures/newPost.png" />
-         </image>
->>>>>>> 58c03c5a3d078daba9eec1b025932ed4413856cd
+      <ImageView fx:id="addPostBT" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="60.0" layoutX="865.0"
+                 layoutY="15.0" onMouseClicked="#addNewPost" pickOnBounds="true" preserveRatio="true">
          <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="HAND"/>
          </cursor>
          <image>
-            <Image url="@../pictures/newPost.png" />
+            <Image url="@../pictures/newPost.png"/>
          </image>
+         <Image url="@../pictures/newPost.png"/>
       </ImageView>
    </children>
 </AnchorPane>

@@ -37,16 +37,11 @@ public class AccountController {
 
     public boolean signup(String name , String username , String email , String password , String profilePhoto) throws Exception {
 
-
-         {
-            //checkPassword(password);
-
-            currentAccount = new Account(name, username, email , password , profilePhoto);
-            data.addUser(currentAccount);
-            Graph.getGraph().addVertex(username);
-            System.out.println("Signup :)");
-            return true;
-        }
+        currentAccount = new Account(name, username, email , password , profilePhoto);
+        data.addUser(currentAccount);
+        Graph.getGraph().addVertex(username);
+        System.out.println("Signup :)");
+        return true;
     }
 
 
