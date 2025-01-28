@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
@@ -15,7 +16,7 @@
 
 <AnchorPane fx:id="root" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.homePageController">
    <children>
-      <GridPane fx:id="suggestionGrid" gridLinesVisible="true" layoutX="35.0" layoutY="180.0" prefHeight="390.0" prefWidth="200.0" style="-fx-background-color: white;">
+      <GridPane fx:id="suggestionGrid" layoutX="25.0" layoutY="180.0" prefHeight="390.0" prefWidth="220.0" style="-fx-background-color: white;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -27,11 +28,121 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Circle fx:id="prof1" accessibleRole="BUTTON" fill="WHITE" onMouseClicked="#prof1Click" radius="30.0" stroke="BLACK" strokeType="INSIDE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Circle>
+            <Pane prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Circle fx:id="prof1" accessibleRole="BUTTON" fill="WHITE" layoutX="30.0" layoutY="39.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="user1" layoutX="65.0" layoutY="10.0" prefHeight="25.0" prefWidth="120.0" text="mahdi_s2024">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="name1" layoutX="65.0" layoutY="35.0" prefHeight="25.0" prefWidth="120.0" text="Mahdi">
+                     <font>
+                        <Font name="Times New Roman" size="15.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="btn1" accessibleRole="BUTTON" fitHeight="25.0" fitWidth="25.0" layoutX="175.0" layoutY="27.0" onMouseClicked="#connect" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../pictures/connection.jpg" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <children>
+                  <Circle fx:id="prof3" accessibleRole="BUTTON" fill="WHITE" layoutX="30.0" layoutY="39.0" radius="30.0" stroke="WHITE" strokeType="INSIDE" />
+                  <Label fx:id="user3" layoutX="65.0" layoutY="10.0" prefHeight="25.0" prefWidth="120.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="name21" layoutX="65.0" layoutY="35.0" prefHeight="25.0" prefWidth="120.0">
+                     <font>
+                        <Font name="Times New Roman" size="15.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="btn3" accessibleRole="BUTTON" fitHeight="25.0" fitWidth="25.0" layoutX="175.0" layoutY="27.0" onMouseClicked="#connect" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../pictures/connection.jpg" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="10.0" layoutY="167.0" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+               <children>
+                  <Circle fx:id="prof4" accessibleRole="BUTTON" fill="WHITE" layoutX="30.0" layoutY="39.0" radius="30.0" stroke="WHITE" strokeType="INSIDE" />
+                  <Label fx:id="user4" layoutX="65.0" layoutY="10.0" prefHeight="25.0" prefWidth="120.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="name4" layoutX="65.0" layoutY="35.0" prefHeight="25.0" prefWidth="120.0">
+                     <font>
+                        <Font name="Times New Roman" size="15.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="btn4" accessibleRole="BUTTON" fitHeight="25.0" fitWidth="25.0" layoutX="175.0" layoutY="27.0" onMouseClicked="#connect" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../pictures/connection.jpg" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="10.0" layoutY="245.0" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+               <children>
+                  <Circle fx:id="prof5" accessibleRole="BUTTON" fill="WHITE" layoutX="30.0" layoutY="39.0" radius="30.0" stroke="WHITE" strokeType="INSIDE" />
+                  <Label fx:id="user5" layoutX="65.0" layoutY="10.0" prefHeight="25.0" prefWidth="120.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="name5" layoutX="65.0" layoutY="35.0" prefHeight="25.0" prefWidth="120.0">
+                     <font>
+                        <Font name="Times New Roman" size="15.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="btn5" accessibleRole="BUTTON" fitHeight="25.0" fitWidth="25.0" layoutX="175.0" layoutY="27.0" onMouseDragged="#connect" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../pictures/connection.jpg" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <children>
+                  <Circle fx:id="prof2" accessibleRole="BUTTON" fill="WHITE" layoutX="30.0" layoutY="39.0" radius="30.0" stroke="WHITE" strokeType="INSIDE" />
+                  <Label fx:id="user2" layoutX="65.0" layoutY="10.0" prefHeight="25.0" prefWidth="120.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="name2" layoutX="65.0" layoutY="35.0" prefHeight="25.0" prefWidth="120.0">
+                     <font>
+                        <Font name="Times New Roman" size="15.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="btn2" accessibleRole="BUTTON" fitHeight="25.0" fitWidth="25.0" layoutX="175.0" layoutY="27.0" onMouseClicked="#connect" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../pictures/connection.jpg" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </GridPane>
       <ScrollPane fx:id="postsSP" layoutX="270.0" layoutY="100.0" prefHeight="480.0" prefWidth="710.0">
