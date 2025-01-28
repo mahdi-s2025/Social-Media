@@ -83,7 +83,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="670.0" layoutY="65.0" mnemonicParsing="false" onAction="#backToHome" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="BACK" textFill="WHITE">
+      <Button alignment="CENTER" cancelButton="true" contentDisplay="CENTER" focusTraversable="false" layoutX="670.0" layoutY="65.0" mnemonicParsing="false" onAction="#backToHome" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="BACK" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="13.0" />
          </font>
