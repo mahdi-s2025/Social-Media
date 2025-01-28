@@ -7,10 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
@@ -127,6 +129,8 @@ public class homePageController implements Initializable {
 
         Image profile = new Image(AccountController.getAccountController().getCurrentAccount().getProfilePicture());
         prof.setFill(new ImagePattern(profile));
+        prof.setStroke(Color.SEAGREEN);
+        prof.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
 
         int pstIndex=0;
         List<Account> connections = Graph.getGraph().findUserConnections(AccountController.getAccountController().getCurrentAccount().getUsername());
