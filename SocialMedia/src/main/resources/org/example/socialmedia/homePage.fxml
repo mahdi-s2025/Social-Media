@@ -183,7 +183,7 @@
       </ImageView>
       <ImageView fx:id="addPostBT" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="60.0" layoutX="865.0" layoutY="15.0" onMouseClicked="#addNewPost" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="file:/C:/Users/moham/Documents/java/DS/socialMedia/social-network-masters-of-alt-f4/SocialMedia/src/main/resources/org/example/pictures/newPost.png" />
+            <Image url="@../pictures/newPost.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
