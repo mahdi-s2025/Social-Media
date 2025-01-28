@@ -168,7 +168,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Circle>
-      <Label fx:id="username_lbl" focusTraversable="false" layoutX="140.0" layoutY="35.0" prefHeight="30.0" prefWidth="150.0" text="mahdi_20">
+      <Label fx:id="username_lbl" layoutX="140.0" layoutY="35.0" prefHeight="30.0" prefWidth="150.0" text="mahdi_20">
          <font>
             <Font name="Calibri Bold" size="21.0" />
          </font>
@@ -182,12 +182,6 @@
          </cursor>
       </ImageView>
       <ImageView fx:id="addPostBT" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="60.0" layoutX="865.0" layoutY="15.0" onMouseClicked="#addNewPost" pickOnBounds="true" preserveRatio="true">
-<<<<<<< HEAD
-=======
-         <image>
-            <Image url="@../pictures/newPost.png" />
-         </image>
->>>>>>> 667701c81fe91dc057f134a490f03f8c5ea8f882
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
