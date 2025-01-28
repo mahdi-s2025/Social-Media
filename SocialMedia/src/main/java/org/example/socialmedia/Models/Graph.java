@@ -109,7 +109,7 @@ public class Graph {
         setProbability();
         ArrayList<Account> suggestions = new ArrayList<>();
 
-        while (!pbTable.isEmpty() && suggestions.size() < 6){
+        while (!pbTable.isEmpty() && suggestions.size() < 5){
             Account user = DataCenterController.getDataCenterController().findByUsername(pbTable.poll().username);
             suggestions.add(user);
         }
