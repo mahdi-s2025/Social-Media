@@ -105,7 +105,6 @@ public class signupPageController implements Initializable {
         if (selectedFile != null) {
             String file = selectedFile.toURI().toString();
             Image image = new Image(file);
-            ImagePattern imagePattern = new ImagePattern(image);
             profPhoto.setFill(new ImagePattern(image));
 //            profPhoto.setImage(image);
 //            profPhoto.setFitWidth(400);
