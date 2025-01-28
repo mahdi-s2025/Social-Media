@@ -42,7 +42,6 @@ public class commentsPageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Button data = (Button) event2.getSource();
         postIndex=Integer.parseInt(data.getId());
-        //System.out.println(postIndex);
         List<Account> connections= Graph.getGraph().findUserConnections(AccountController.getAccountController().getCurrentAccount().getUsername());
         Account poster=connections.get(postIndex);
          currentPost=poster.getPosts().getLast();
@@ -51,21 +50,24 @@ public class commentsPageController implements Initializable {
             ImageView prof=new ImageView();
             Image profile=new Image(comment.getWriter().getProfilePicture());
             prof.setImage(profile);
-            prof.setFitWidth(30);
+            prof.setFitWidth(50);
             prof.setPreserveRatio(true);
             prof.setLayoutX(5);
             prof.setLayoutY(5);
-
+            Label dateAndTime=new Label();
+            dateAndTime.setText(comment.getDateAndTime());
+            dateAndTime.setLayoutX(250);
+            dateAndTime.setLayoutY(60);
             Label userName=new Label();
             userName.setText(comment.getWriter().getUsername());
             userName.setLayoutX(5);
-            userName.setLayoutY(35);
+            userName.setLayoutY(58);
 
             Label contentLB=new Label();
             contentLB.setText(comment.getContent());
-            contentLB.setLayoutX(40);
-            contentLB.setLayoutY(5);
-            pane.getChildren().addAll(prof,userName,contentLB);
+            contentLB.setLayoutX(60);
+            contentLB.setLayoutY(25);
+            pane.getChildren().addAll(prof,userName,contentLB,dateAndTime);
             commentsVbox.getChildren().add(pane);
         }
     }

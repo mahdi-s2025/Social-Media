@@ -9,7 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 import org.example.socialmedia.Controller.AccountController;
@@ -30,27 +33,25 @@ import java.util.ResourceBundle;
 public class homePageController implements Initializable {
 
     @FXML
-    private Button addPostBT;
-    @FXML
-    private Button logout_btn;
+    private ImageView addPostBT;
 
     @FXML
-    private Button btn1;
+    private ImageView btn1;
 
     @FXML
-    private Button btn2;
+    private ImageView btn2;
 
     @FXML
-    private Button btn3;
+    private ImageView btn3;
 
     @FXML
-    private Button btn4;
+    private ImageView btn4;
 
     @FXML
-    private Button btn5;
+    private ImageView btn5;
 
     @FXML
-    private Button btn6;
+    private ImageView logout_btn;
 
     @FXML
     private Label name1;
@@ -68,12 +69,6 @@ public class homePageController implements Initializable {
     private Label name5;
 
     @FXML
-    private Label name6;
-
-    @FXML
-    private Label nameLB;
-
-    @FXML
     private Label name_lbl;
 
     @FXML
@@ -83,98 +78,136 @@ public class homePageController implements Initializable {
     private VBox postsVbox;
 
     @FXML
-    private ImageView prof;
+    private Circle prof;
 
     @FXML
-    private ImageView prof1;
+    private Circle prof1;
 
     @FXML
-    private ImageView prof2;
+    private Circle prof2;
 
     @FXML
-    private ImageView prof3;
+    private Circle prof3;
 
     @FXML
-    private ImageView prof4;
+    private Circle prof4;
 
     @FXML
-    private ImageView prof5;
+    private Circle prof5;
 
     @FXML
-    private ImageView prof6;
+    private AnchorPane root;
 
     @FXML
     private GridPane suggestionGrid;
 
+    @FXML
+    private Label user1;
+
+    @FXML
+    private Label user2;
+
+    @FXML
+    private Label user3;
+
+    @FXML
+    private Label user4;
+
+    @FXML
+    private Label user5;
+
+    @FXML
+    private Label username_lbl;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        nameLB.setText(AccountController.getAccountController().getCurrentAccount().getName());
-//        String path = Paths.get(AccountController.getAccountController().getCurrentAccount().getProfilePicture()).toAbsolutePath().toString();
-//        prof.setImage(new Image("file:" + path));
-        Image profile=new Image(AccountController.getAccountController().getCurrentAccount().getProfilePicture());
-        prof.setImage(profile);
-        int pstIndex=0;
         name_lbl.setText(AccountController.getAccountController().getCurrentAccount().getName());
-        List<Account> connections= Graph.getGraph().findUserConnections(AccountController.getAccountController().getCurrentAccount().getUsername());
-        for (Account account:connections){
+        username_lbl.setText(AccountController.getAccountController().getCurrentAccount().getName());
+
+        Image profile = new Image(AccountController.getAccountController().getCurrentAccount().getProfilePicture());
+        prof.setFill(new ImagePattern(profile));
+
+        int pstIndex=0;
+        List<Account> connections = Graph.getGraph().findUserConnections(AccountController.getAccountController().getCurrentAccount().getUsername());
+        for (Account account : connections){
+
             if(account.getPosts().isEmpty()){
                 pstIndex++;
                 continue;
             }
-            Post post=account.getPosts().getLast();
+
+            Post post = account.getPosts().getLast();
+            Label subject = new Label(post.getSubject());
             Label description = new Label(post.getDescription());
-            Label likes=new Label(String.valueOf(post.getLikeCounts()));
-            Label dateAndTime=new Label();
-            Label subject=new Label();
-            ImageView likeImage=new ImageView();
+            Label likes = new Label(String.valueOf(post.getLikes().size()));
+            Label dateAndTime = new Label();
+
+            ImageView likeImage = new ImageView();
             String path = Paths.get("src/main/resources/org/example/pictures/like.jpg").toAbsolutePath().toString();
             likeImage.setImage(new Image("file:" + path));
             likeImage.setPreserveRatio(true);
             likeImage.setFitWidth(25);
-            likes.setText(String.valueOf(post.getLikeCounts()));
+            likes.setText(String.valueOf(post.getLikes().size()));
+
             dateAndTime.setText(post.getDateAndTime());
-            subject.setText(post.getSubject());
-            Button comments=new Button("Comments");
+
+            Button comments = new Button("Comments");
             comments.setId(String.valueOf(pstIndex));
+
             Image image = new Image(post.getFile());
             ImageView postCover = new ImageView(image);
             postCover.setFitWidth(170);
             postCover.setPreserveRatio(true);
+
             AnchorPane infoPane = new AnchorPane();
-            ImageView posterPhoto=new ImageView(new Image(post.getPoster().getProfilePicture()));
+
+            ImageView posterPhoto = new ImageView(new Image(post.getPoster().getProfilePicture()));
             posterPhoto.setLayoutX(0);
             posterPhoto.setLayoutY(0);
             posterPhoto.setFitWidth(40);
             posterPhoto.setPreserveRatio(true);
-            Label posterName=new Label(post.getPoster().getUsername());
+
+            Label posterName = new Label(post.getPoster().getUsername());
             posterName.setLayoutX(45);
             posterName.setLayoutY(5);
 
             postCover.setLayoutX(50);
             postCover.setLayoutY(40);
-            description.setLayoutX(240);
-            description.setLayoutY(60);
+
+            description.setLayoutX(290);
+            description.setLayoutY(100);
+
             subject.setLayoutX(290);
             subject.setLayoutY(50);
+
             dateAndTime.setLayoutX(240);
             dateAndTime.setLayoutY(200);
+
             comments.setLayoutX(510);
             comments.setLayoutY(200);
+
             likeImage.setLayoutX(435);
             likeImage.setLayoutY(200);
-            likes.setLayoutX(450);
+
+            likes.setLayoutX(480);
             likes.setLayoutY(200);
 
             infoPane.getChildren().addAll( postCover,description,posterName,posterPhoto,likes,subject,dateAndTime,comments,likeImage);
             postsVbox.getChildren().add(infoPane);
             likeImage.setOnMouseClicked(event -> {
-                post.setLikeCounts(post.getLikeCounts()+1);
-                likes.setText(String.valueOf(post.getLikeCounts()));
+                String username = connections.get(0).getUsername();
+                if (post.getLikes().contains(username)){
+                    post.getLikes().remove(username);
+                }
+                else {
+                    post.getLikes().add(connections.get(0).getUsername());
+                }
+                likes.setText(String.valueOf(post.getLikes().size()));
             });
             comments.setOnAction(event2 -> {
                 try {
-                    commentsPageController.event2=event2;
+                    commentsPageController.event2 = event2;
                     AccountController.setStage("commentsPage.fxml");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -185,94 +218,78 @@ public class homePageController implements Initializable {
 
         ArrayList<Account> suggestions = Graph.getGraph().getSuggestions();
 
-//        suggestionGrid.getChildren().clear();
-//
-//        for (int i = 0 ; i < suggestions.size() ; i++){
-//
-//            VBox vBox = new VBox();
-//
-//            Image image = new Image(suggestions.get(i).getProfilePicture());
-//            ImageView imageView = new ImageView(image);
-//            imageView.setFitWidth(100);
-//            imageView.setFitHeight(100);
-//
-//            Label username = new Label(suggestions.get(i).getUsername());
-//
-//            Button connect = new Button("Connect");
-//
-//            connect.setOnAction(event -> {
-//                String username_lbl = ((Control) event.getSource()).getId();
-//                Graph.getGraph().addEdge(AccountController.getAccountController().getCurrentAccount().getUsername(),username_lbl);
-//            });
-//
-//            vBox.getChildren().add(imageView);
-//            vBox.getChildren().add(username);
-//            vBox.getChildren().add(connect);
-//
-//            suggestionGrid.add(vBox , i , 0);
-//        }
+        ArrayList<Circle> profiles = new ArrayList<>();
+        profiles.add(prof1);
+        profiles.add(prof2);
+        profiles.add(prof3);
+        profiles.add(prof4);
+        profiles.add(prof5);
+
+        ArrayList<Label> usernames = new ArrayList<>();
+        usernames.add(user1);
+        usernames.add(user2);
+        usernames.add(user3);
+        usernames.add(user4);
+        usernames.add(user5);
+
+        ArrayList<Label> names = new ArrayList<>();
+        names.add(name1);
+        names.add(name2);
+        names.add(name3);
+        names.add(name4);
+        names.add(name5);
+
+        ArrayList<ImageView> connectButtons = new ArrayList<>();
+        connectButtons.add(btn1);
+        connectButtons.add(btn2);
+        connectButtons.add(btn3);
+        connectButtons.add(btn4);
+        connectButtons.add(btn5);
 
 
-        prof1.setImage(new Image(suggestions.get(0).getProfilePicture()));
-        prof1.setFitHeight(80);
-        prof1.setFitWidth(75);
+        for (int i = 0 ; i < suggestions.size() ; i++){
+            String username_lbl = suggestions.get(i).getUsername();
 
-        prof2.setImage(new Image(suggestions.get(1).getProfilePicture()));
-        prof2.setFitHeight(50);
-        prof2.setFitWidth(50);
+            Image image = new Image(suggestions.get(i).getProfilePicture());
+            profiles.get(i).setFill(new ImagePattern(image));
 
-        prof3.setImage(new Image(suggestions.get(2).getProfilePicture()));
-        prof3.setFitHeight(50);
-        prof3.setFitWidth(50);
+            usernames.get(i).setText(suggestions.get(i).getUsername());
 
-        prof4.setImage(new Image(suggestions.get(3).getProfilePicture()));
-        prof4.setFitHeight(50);
-        prof4.setFitWidth(50);
+            names.get(i).setText(suggestions.get(i).getName());
 
-        prof5.setImage(new Image(suggestions.get(4).getProfilePicture()));
-        prof5.setFitHeight(50);
-        prof5.setFitWidth(50);
+            connectButtons.get(i).setVisible(true);
+            connectButtons.get(i).setOnMouseClicked(event -> {
+                Graph.getGraph().addEdge(AccountController.getAccountController().getCurrentAccount().getUsername(),username_lbl);
+                try {
+                    AccountController.setStage("homePage.fxml");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-        prof6.setImage(new Image(suggestions.get(5).getProfilePicture()));
-        prof6.setFitHeight(50);
-        prof6.setFitWidth(50);
-
-        name1.setText(suggestions.get(0).getUsername());
-        name2.setText(suggestions.get(1).getUsername());
-        name3.setText(suggestions.get(2).getUsername());
-        name4.setText(suggestions.get(3).getUsername());
-        name5.setText(suggestions.get(4).getUsername());
-        name6.setText(suggestions.get(5).getUsername());
-
-
-        btn1.setId(suggestions.get(0).getUsername());
-        btn2.setId(suggestions.get(1).getUsername());
-        btn3.setId(suggestions.get(2).getUsername());
-        btn4.setId(suggestions.get(3).getUsername());
-        btn5.setId(suggestions.get(4).getUsername());
-        btn6.setId(suggestions.get(5).getUsername());
-//
-
+        }
     }
 
 
+
     @FXML
-    void logoutClick(ActionEvent event) throws IOException {
+    void logoutClick(MouseEvent event) throws IOException {
         AccountController.setStage("loginPage.fxml");
     }
+
     @FXML
-    void connect(ActionEvent event) {
+    void connect(MouseEvent event) {
         String username = ((Control) event.getSource()).getId();
         Graph.getGraph().addEdge(AccountController.getAccountController().getCurrentAccount().getUsername(),username);
         AccountController.showAlert("", Alert.AlertType.CONFIRMATION,"Connected to "+AccountController.getAccountController().getCurrentAccount().getUsername()+" Successfully!");
     }
-    @FXML
-    void addNewPost() throws IOException {
-        AccountController.setStage("newPostPage.fxml");
-    }
 
     @FXML
-    void goToProfile() throws IOException {
+    void addNewPost(MouseEvent event) throws IOException {
+        AccountController.setStage("newPostPage.fxml");
+    }
+    @FXML
+    void profClick(MouseEvent event) throws IOException {
         AccountController.setStage("ProfilePage.fxml");
     }
 }

@@ -4,9 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -25,8 +23,15 @@ public class NewPostPageController {
 
     @FXML
     private TextArea descriptionTF;
+
     @FXML
     private ImageView imageView;
+
+    @FXML
+    private Label subject_lbl;
+
+    @FXML
+    private TextField subject_txt;
     String file;
 
     @FXML
@@ -50,10 +55,12 @@ public class NewPostPageController {
     }
     @FXML
     void addPost(ActionEvent event) throws IOException {
-        Post post=new Post(AccountController.getAccountController().getCurrentAccount(), file,"subject",descriptionTF.getText());
-        AccountController.getAccountController().getCurrentAccount().getPosts().add(post);
-        AccountController.showAlert("Post Added!", Alert.AlertType.INFORMATION,"Done!");
-        AccountController.setStage("HomePage.fxml");
+        if (file != null && !subject_txt.getText().isEmpty()) {
+            Post post = new Post(AccountController.getAccountController().getCurrentAccount(), file, subject_txt.getText(), descriptionTF.getText());
+            AccountController.getAccountController().getCurrentAccount().getPosts().add(post);
+            AccountController.showAlert("Post Added!", Alert.AlertType.INFORMATION, "Done!");
+            AccountController.setStage("HomePage.fxml");
+        }
     }
     @FXML
     void backToHome(ActionEvent event) throws IOException {

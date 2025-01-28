@@ -19,7 +19,6 @@ class Pair {
 public class Graph {
 
     private static Graph graph;
-    String username;
     List<List<String>> currentUsers;
     PriorityQueue<Pair> pbTable;
     private Graph(){
@@ -77,7 +76,7 @@ public class Graph {
         for(List<String> connections : currentUsers){
             int isPair=0;
 
-            if(connections.get(0).equals(username)){
+            if(connections.get(0).equals(currentUserConnections.get(0))){
                 continue;
             }
 
@@ -106,10 +105,11 @@ public class Graph {
     }
 
     public ArrayList<Account> getSuggestions(){
+        pbTable.clear();
         setProbability();
         ArrayList<Account> suggestions = new ArrayList<>();
 
-        while (!pbTable.isEmpty() && suggestions.size() <= 6){
+        while (!pbTable.isEmpty() && suggestions.size() < 5){
             Account user = DataCenterController.getDataCenterController().findByUsername(pbTable.poll().username);
             suggestions.add(user);
         }
