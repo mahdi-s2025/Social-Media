@@ -11,6 +11,7 @@ import org.example.socialmedia.Models.Account;
 import org.example.socialmedia.Models.Graph;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -95,6 +96,21 @@ public class AccountController {
         DataCenterController.getDataCenterController().deleteUser(currentAccount);
     }
 
+
+    private String generateVerificationCode(){
+        StringBuilder sb = new StringBuilder();
+
+        Random random = new Random();
+
+        for (int i = 0; i < 5; i++) {
+            sb.append(random.nextInt(9));
+        }
+
+
+        return sb.toString();
+    }
+
+
     public static void showAlert(String msg,Alert.AlertType alertType,String header){
         Alert alert = new Alert(alertType);
         alert.setHeaderText(header);
@@ -110,6 +126,5 @@ public class AccountController {
         currentStage.setScene(scene);
         //currentStage.show();
     }
-
 }
 
