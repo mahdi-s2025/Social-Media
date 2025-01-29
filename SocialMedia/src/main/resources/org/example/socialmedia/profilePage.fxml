@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="root" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.profilePageController">
     <children>
-        <ImageView fx:id="prof" fitHeight="130.0" fitWidth="130.0" layoutX="30.0" layoutY="20.0" pickOnBounds="true">
+        <ImageView fx:id="prof" fitHeight="130.0" fitWidth="130.0" layoutX="30.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pictures/mehdii.jpg" />
          </image></ImageView>
@@ -75,7 +75,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Button fx:id="deleteAccount" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="670.0" layoutY="100.0" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="DELETE ACCOUNT" textFill="WHITE">
+      <Button fx:id="deleteAccount" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="670.0" layoutY="100.0" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #a00000; -fx-background-radius: 10;" text="DELETE ACCOUNT" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="13.0" />
          </font>

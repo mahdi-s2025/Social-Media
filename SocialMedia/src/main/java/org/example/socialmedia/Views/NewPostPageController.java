@@ -67,8 +67,8 @@ public class NewPostPageController implements Initializable {
             file=selectedFile.toURI().toString();
             Image image = new Image(selectedFile.toURI().toString());
             imageView.setImage(image);
-            imageView.setFitWidth(400);
-            imageView.setPreserveRatio(true);
+//            imageView.setFitWidth(400);
+//            imageView.setPreserveRatio(true);
             select_btn.setOpacity(0.5);
         }
     }

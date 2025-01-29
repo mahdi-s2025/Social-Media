@@ -2,7 +2,9 @@ package org.example.socialmedia.Views;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,8 +15,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import lombok.Getter;
 import org.example.socialmedia.Controller.AccountController;
 import org.example.socialmedia.Controller.DataCenterController;
+import org.example.socialmedia.HelloApplication;
 import org.example.socialmedia.Models.Account;
 import org.example.socialmedia.Models.Graph;
 import org.example.socialmedia.Models.Post;
@@ -26,6 +33,19 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class profilePageController implements Initializable {
+
+    private static final Stage currentStage = HelloApplication.getStage();
+
+    @Getter
+    private static final Stage editPostStage = new Stage();
+
+    static {
+        editPostStage.setResizable(false);
+        editPostStage.initModality(Modality.WINDOW_MODAL);
+        editPostStage.initOwner(currentStage);
+        editPostStage.initStyle(StageStyle.TRANSPARENT);
+    }
+
     @FXML
     private VBox connectionVbox;
 
@@ -63,7 +83,8 @@ public class profilePageController implements Initializable {
     private Label username_lbl;
 
 
-    private void setInformation(Account user){
+    private void setInformation(Account user) {
+
 
         connectionVbox.getChildren().clear();
         postsVbox.getChildren().clear();
@@ -127,10 +148,14 @@ public class profilePageController implements Initializable {
             infoPane.getChildren().addAll(postCover, subject , description, editPostBT , likes , likeImage);
 
             postsVbox.getChildren().add(infoPane);
+
             editPostBT.setOnAction(event -> {
                 EditPostPageController.event = event;
                 try {
-                    AccountController.setScene("EditPostPage.fxml", "Edit Post");
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EditPostPage.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load());
+                    editPostStage.setScene(scene);
+                    editPostStage.show();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -144,7 +169,6 @@ public class profilePageController implements Initializable {
 
         setInformation(AccountController.getAccountController().getCurrentAccount());
 
-
         setConnectionList(AccountController.getAccountController().getCurrentAccount().getUsername());
 
     }
@@ -156,7 +180,7 @@ public class profilePageController implements Initializable {
 
 
         for (Account user : connections){
-            if (user == connections.get(0)){
+            if (user == connections.getFirst()){
                 continue;
             }
             HBox hBox = new HBox();
