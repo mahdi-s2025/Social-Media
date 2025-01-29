@@ -52,9 +52,12 @@ import org.example.socialmedia.Controller.AccountController;
 import org.example.socialmedia.Controller.DataCenterController;
 import org.example.socialmedia.HelloApplication;
 import org.example.socialmedia.Models.Account;
+import org.example.socialmedia.Models.SendMail;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.security.GeneralSecurityException;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
@@ -354,6 +357,7 @@ public class signupPageController implements Initializable {
     }
 
     private UnaryOperator<TextFormatter.Change> getCodeFilter() {
+        DataCenterController ds = DataCenterController.getDataCenterController();
         return change -> {
 
             String text = change.getControlNewText();
@@ -371,15 +375,16 @@ public class signupPageController implements Initializable {
                 }
 
 
-                // search the code if it is not valid, Important.
-
-
 
                 else if (text.length() < 5) {
                     error_lbl.setText("");
                     check5.setImage(red);
                 }
 
+                else if (!ds.getEmailValidCode().get(email_txt.getText()).equals(text)){
+                    error_lbl.setText("");
+                    check5.setImage(red);
+                }
                 else {
                     error_lbl.setText("");
                     check5.setImage(green);
@@ -418,8 +423,18 @@ public class signupPageController implements Initializable {
     }
 
     @FXML
-    void sendClick(ActionEvent event) {
-        // send a code
+    void sendClick(ActionEvent event) throws Exception {
+
+        DataCenterController ds = DataCenterController.getDataCenterController();
+
+        String code = AccountController.getAccountController().generateVerificationCode();
+
+
+        ds.getEmailValidCode().put(email_txt.getText() , code);
+
+        SendMail sendMail = new SendMail();
+
+        sendMail.send("subject" , "verification code : " + code , email_txt.getText());
 
         email_txt.setEditable(false);
         send_btn.disableProperty().unbind();
@@ -427,6 +442,7 @@ public class signupPageController implements Initializable {
         new Thread(() -> {
             try {
                 disable();
+                ds.getEmailValidCode().remove(email_txt.getText());
             } catch (Exception e) {
                 e.printStackTrace(System.err);
             }
