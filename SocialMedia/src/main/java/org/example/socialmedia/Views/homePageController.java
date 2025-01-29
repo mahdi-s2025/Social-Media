@@ -39,11 +39,19 @@ public class homePageController implements Initializable {
     @Getter
     private static final Stage commentStage = new Stage();
 
+    @Getter
+    private static final Stage postStage = new Stage();
+
     static {
         commentStage.setResizable(false);
         commentStage.initOwner(currentStage);
         commentStage.initModality(Modality.WINDOW_MODAL);
         commentStage.initStyle(StageStyle.TRANSPARENT);
+
+        postStage.setResizable(false);
+        postStage.initModality(Modality.WINDOW_MODAL);
+        postStage.initOwner(currentStage);
+        postStage.initStyle(StageStyle.TRANSPARENT);
     }
 
     @FXML
@@ -312,7 +320,10 @@ public class homePageController implements Initializable {
 
     @FXML
     void addNewPost(MouseEvent event) throws IOException {
-        AccountController.setScene("newPostPage.fxml", "New Post");
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("newPostPage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        postStage.setScene(scene);
+        postStage.show();
     }
     @FXML
     void profClick(MouseEvent event) throws IOException {

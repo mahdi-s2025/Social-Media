@@ -32,7 +32,7 @@
             <Font name="Cambria" size="28.0" />
          </font>
       </Label>
-      <ImageView fx:id="addCommentBT" accessibleRole="BUTTON" fitHeight="40.0" fitWidth="45.0" layoutX="420.0" layoutY="545.0" onMouseClicked="#addComment" pickOnBounds="true">
+      <ImageView fx:id="addCommentBT" accessibleRole="BUTTON" disable="true" fitHeight="40.0" fitWidth="45.0" layoutX="420.0" layoutY="545.0" onMouseClicked="#addComment" pickOnBounds="true">
          <image>
             <Image url="@../pictures/send.png" />
          </image>
