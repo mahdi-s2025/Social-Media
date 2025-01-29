@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 
@@ -45,7 +46,7 @@ public class SendMail {
     }
 
     private Credential getCredentials(NetHttpTransport httpTransport, GsonFactory jsonFactory) throws IOException {
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(HelloApplication.class.getResourceAsStream("/org.example/mail/client_secret_719128078865-7ujiru4tao0re2842ek928a0u5cd72pg.apps.googleusercontent.com.json")));
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(Objects.requireNonNull(HelloApplication.class.getResourceAsStream("/org.example/mail/client_secret_719128078865-7ujiru4tao0re2842ek928a0u5cd72pg.apps.googleusercontent.com.json"))));
 
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 httpTransport, jsonFactory, clientSecrets, Set.of(GMAIL_SEND))
