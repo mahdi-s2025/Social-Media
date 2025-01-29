@@ -1,5 +1,6 @@
 package org.example.socialmedia.Views;
 
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,6 +54,11 @@ public class commentsPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        BooleanBinding emptyComment = contentTF.textProperty().isEmpty();
+        addCommentBT.disableProperty().bind(emptyComment);
+
+
+
         Button data = (Button) event2.getSource();
         postIndex=Integer.parseInt(data.getId());
         List<Account> connections= Graph.getGraph().findUserConnections(AccountController.getAccountController().getCurrentAccount().getUsername());
