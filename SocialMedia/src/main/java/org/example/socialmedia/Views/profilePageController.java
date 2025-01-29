@@ -62,6 +62,11 @@ public class profilePageController implements Initializable {
     @FXML
     private Label username_lbl;
 
+    @FXML
+    private Label logout_lbl;
+
+    public static Account userProfile = AccountController.getAccountController().getCurrentAccount();
+
 
     private void setInformation(Account user){
 
@@ -142,10 +147,10 @@ public class profilePageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        setInformation(AccountController.getAccountController().getCurrentAccount());
+        setInformation(userProfile);
 
 
-        setConnectionList(AccountController.getAccountController().getCurrentAccount().getUsername());
+        setConnectionList(userProfile.getUsername());
 
     }
 
@@ -175,11 +180,13 @@ public class profilePageController implements Initializable {
                 setInformation(user);
 
                 if (!user.equals(AccountController.getAccountController().getCurrentAccount())) {
+                    logout_lbl.setVisible(false);
                     editProfile.setVisible(false);
                     deleteAccount.setVisible(false);
                     logout_btn.setVisible(false);
                 }
                 else {
+                    logout_lbl.setVisible(true);
                     editProfile.setVisible(true);
                     deleteAccount.setVisible(true);
                     logout_btn.setVisible(true);

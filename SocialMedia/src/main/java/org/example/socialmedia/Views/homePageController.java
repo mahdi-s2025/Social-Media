@@ -15,6 +15,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -162,91 +163,105 @@ public class homePageController implements Initializable {
             }
 
             Post post = account.getPosts().getLast();
-            Label subject = new Label(post.getSubject());
-            Label description = new Label(post.getDescription());
-            Label likes = new Label(String.valueOf(post.getLikes().size()));
-            Label dateAndTime = new Label();
 
-            ImageView likeImage = new ImageView();
-            String path = Paths.get("src/main/resources/org/example/pictures/like.jpg").toAbsolutePath().toString();
-            likeImage.setImage(new Image("file:" + path));
-            likeImage.setPreserveRatio(true);
-            likeImage.setFitWidth(25);
-            likes.setText(String.valueOf(post.getLikes().size()));
+            FXMLLoader fxml = new FXMLLoader(HelloApplication.class.getResource("post.fxml"));
 
-            dateAndTime.setText(post.getDateAndTime());
+            HBox mainHbox;
 
-            Button comments = new Button("Comments");
-            comments.setFocusTraversable(false);
-            comments.setTextFill(Color.WHITE);
-            comments.setAlignment(Pos.CENTER);
-            comments.setCursor(Cursor.HAND);
-            comments.setPrefSize(150, 30);
-            comments.setStyle("-fx-background-radius: 10; -fx-background-color: black;");
-            comments.setId(String.valueOf(pstIndex));
+            try {
 
-            Image image = new Image(post.getFile());
-            ImageView postCover = new ImageView(image);
-            postCover.setFitWidth(170);
-            postCover.setPreserveRatio(true);
+                mainHbox = fxml.load();
 
-            AnchorPane infoPane = new AnchorPane();
+                VBox firstSection = (VBox) mainHbox.getChildren().get(0);
 
-            ImageView posterPhoto = new ImageView(new Image(post.getPoster().getProfilePicture()));
-            posterPhoto.setLayoutX(0);
-            posterPhoto.setLayoutY(0);
-            posterPhoto.setFitWidth(40);
-            posterPhoto.setPreserveRatio(true);
+                HBox user = (HBox) firstSection.getChildren().get(0);
 
-            Label posterName = new Label(post.getPoster().getUsername());
-            posterName.setLayoutX(45);
-            posterName.setLayoutY(5);
+                Circle profilePhoto = (Circle) user.getChildren().get(0);
+                Image image = new Image(account.getProfilePicture());
+                profilePhoto.setFill(new ImagePattern(image));
 
-            postCover.setLayoutX(50);
-            postCover.setLayoutY(40);
+                profilePhoto.setCursor(Cursor.HAND);
 
-            description.setLayoutX(290);
-            description.setLayoutY(100);
+                profilePhoto.setOnMouseClicked(event -> {
+                    try {
+                        profilePageController.userProfile = account;
+                        AccountController.setScene("ProfilePage.fxml", "Profile");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
 
-            subject.setLayoutX(290);
-            subject.setLayoutY(50);
-
-            dateAndTime.setLayoutX(240);
-            dateAndTime.setLayoutY(200);
-
-            comments.setLayoutX(510);
-            comments.setLayoutY(200);
-
-            likeImage.setLayoutX(435);
-            likeImage.setLayoutY(200);
+                VBox userInfo = (VBox) user.getChildren().get(1);
+                Label username = (Label) userInfo.getChildren().get(0);
+                Label name = (Label) userInfo.getChildren().get(1);
+                username.setText(account.getUsername());
+                name.setText(account.getName());
 
 
-            likes.setLayoutX(480);
-            likes.setLayoutY(200);
+                VBox postInfo = (VBox) firstSection.getChildren().get(1);
 
-            infoPane.getChildren().addAll( postCover,description,posterName,posterPhoto,likes,subject,dateAndTime,comments,likeImage);
-            postsVbox.getChildren().add(infoPane);
-            likeImage.setOnMouseClicked(event -> {
-                String username = connections.getFirst().getUsername();
-                if (post.getLikes().contains(username)){
-                    post.getLikes().remove(username);
+                Label subject = (Label) postInfo.getChildren().get(0);
+                Label description = (Label) postInfo.getChildren().get(1);
+
+                subject.setText(post.getSubject());
+                description.setText(post.getDescription());
+
+                VBox secondSection = (VBox) mainHbox.getChildren().get(1);
+
+
+                Rectangle postPhoto = (Rectangle) secondSection.getChildren().get(0);
+                Image image2 = new Image(post.getFile());
+                postPhoto.setFill(new ImagePattern(image2));
+
+
+                HBox action = (HBox) secondSection.getChildren().get(1);
+
+                ImageView like = (ImageView) action.getChildren().get(0);
+
+                String likePath = Paths.get("src/main/resources/org/example/pictures/red heart.png").toAbsolutePath().toString();
+                String notLikePath = Paths.get("src/main/resources/org/example/pictures/heart.png").toAbsolutePath().toString();
+                Image likeImage = new Image("file:" + likePath);
+                Image notLikeImage = new Image("file:" + notLikePath);
+
+                if ((post.getLikes().contains(connections.get(0).getUsername()))) {
+                    like.setImage(likeImage);
+                } else {
+                    like.setImage(notLikeImage);
                 }
-                else {
-                    post.getLikes().add(connections.getFirst().getUsername());
-                }
-                likes.setText(String.valueOf(post.getLikes().size()));
-            });
-            comments.setOnAction(event2 -> {
-                try {
-                    commentsPageController.event2 = event2;
-                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("commentsPage.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load());
-                    commentStage.setScene(scene);
-                    commentStage.show();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+
+                Label likeCount = (Label) action.getChildren().get(1);
+                likeCount.setText(String.valueOf(post.getLikes().size()));
+
+                like.setCursor(Cursor.HAND);
+
+                like.setOnMouseClicked(event -> {
+                    String username1 = connections.getFirst().getUsername();
+
+                    if (post.getLikes().contains(username1)){
+                        like.setImage(notLikeImage);
+
+                        post.getLikes().remove(username1);
+                    }
+                    else {
+
+                        like.setImage(likeImage);
+
+                        post.getLikes().add(connections.getFirst().getUsername());
+                    }
+                    likeCount.setText(String.valueOf(post.getLikes().size()));
+                });
+
+                ImageView comment = (ImageView) action.getChildren().get(2);
+                comment.setId(String.valueOf(pstIndex));
+
+                Label date = (Label) action.getChildren().get(3);
+                date.setText(post.getDateAndTime());
+
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            postsVbox.getChildren().add(mainHbox);
             pstIndex++;
         }
 

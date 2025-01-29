@@ -59,7 +59,7 @@ public class commentsPageController implements Initializable {
 
 
 
-        Button data = (Button) event2.getSource();
+        ImageView data = (ImageView) event2.getSource();
         postIndex=Integer.parseInt(data.getId());
         List<Account> connections= Graph.getGraph().findUserConnections(AccountController.getAccountController().getCurrentAccount().getUsername());
         Account poster=connections.get(postIndex);
