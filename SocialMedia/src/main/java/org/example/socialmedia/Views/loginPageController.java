@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lombok.Getter;
 import org.example.socialmedia.Controller.AccountController;
 import org.example.socialmedia.HelloApplication;
 
@@ -20,6 +21,9 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 public class loginPageController implements Initializable {
+
+    @Getter
+    private static final Stage signupStage = new Stage();
 
     @FXML
     private Label error_lbl;
@@ -89,7 +93,6 @@ public class loginPageController implements Initializable {
     @FXML
     void signupClick(MouseEvent event) throws IOException {
         Stage stage = HelloApplication.getStage();
-        Stage signupStage = new Stage();
         signupStage.setTitle("Signup");
         signupStage.setResizable(false);
         signupStage.initOwner(stage);

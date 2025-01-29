@@ -1,28 +1,10 @@
 //    @FXML
 //    void signupClick(ActionEvent event) throws Exception {
 //
-//        String name = name_txt.getText();
-//        String username = username_txt.getText();
-//        String email = "";
-//        String password = password_txt.getText();
 //
-//        AccountController ac = AccountController.getAccountController();
-//        boolean signup = ac.signup(name , username , email , password , file);
-//
-//        if (signup) {
-//            AccountController.setScene("homePage.fxml");
-//        }
 //    }
 //
 //    @FXML
-//    void loginClick(ActionEvent event) throws IOException {
-//        Stage stage = HelloApplication.getStage();
-//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("loginPage.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load());
-//        stage.setTitle("Login");
-//        stage.setScene(scene);
-//        stage.show();
-//    }
 
 package org.example.socialmedia.Views;
 
@@ -127,6 +109,7 @@ public class signupPageController implements Initializable {
 
     private BooleanBinding fieldsEmpty2;
 
+    private String file = "file:src/main/resources/org/example/pictures/account.png";
 
     @FXML
     void onChooseImage(ActionEvent event) {
@@ -140,7 +123,7 @@ public class signupPageController implements Initializable {
 
         File selectedFile = fileChooser.showOpenDialog(new Stage());
         if (selectedFile != null) {
-            String file = selectedFile.toURI().toString();
+            file = selectedFile.toURI().toString();
             Image image = new Image(file);
             profPhoto.setFill(new ImagePattern(image));
 //            profPhoto.setImage(image);
@@ -434,7 +417,8 @@ public class signupPageController implements Initializable {
 
         SendMail sendMail = new SendMail();
 
-        sendMail.send("subject" , "verification code : " + code , email_txt.getText());
+        sendMail.send("verify" , "Welcome to Yougram\n" +
+                "Your verification code : " + code , email_txt.getText());
 
         email_txt.setEditable(false);
         send_btn.disableProperty().unbind();
@@ -443,6 +427,7 @@ public class signupPageController implements Initializable {
             try {
                 disable();
                 ds.getEmailValidCode().remove(email_txt.getText());
+                check5.setImage(red);
             } catch (Exception e) {
                 e.printStackTrace(System.err);
             }
@@ -470,8 +455,17 @@ public class signupPageController implements Initializable {
     }
 
     @FXML
-    void signupClick(ActionEvent event) {
+    void signupClick(ActionEvent event) throws Exception {
+        String name = name_txt.getText();
+        String username = username_txt.getText();
+        String email = email_txt.getText();
+        String password = password_txt.getText();
 
+        AccountController ac = AccountController.getAccountController();
+        ac.signup(name , username , email , password , file);
+
+        loginPageController.getSignupStage().close();
+        AccountController.setScene("homePage.fxml", "Home");
     }
 
     @FXML

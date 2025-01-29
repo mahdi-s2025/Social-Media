@@ -36,13 +36,12 @@ public class AccountController {
 
 
 
-    public boolean signup(String name , String username , String email , String password , String profilePhoto) throws Exception {
+    public void signup(String name , String username , String email , String password , String profilePhoto) throws Exception {
 
         currentAccount = new Account(name, username, email , password , profilePhoto);
         data.addUser(currentAccount);
         Graph.getGraph().addVertex(username);
         System.out.println("Signup :)");
-        return true;
     }
 
 
