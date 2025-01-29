@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="650.0" prefWidth="500.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.commentsPageController">
+<AnchorPane fx:id="root" prefHeight="650.0" prefWidth="500.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.commentsPageController">
    <children>
       <ImageView fitHeight="650.0" fitWidth="500.0" nodeOrientation="INHERIT" opacity="0.25" pickOnBounds="true">
          <image>
@@ -19,7 +20,10 @@
       </ImageView>
       <ScrollPane fx:id="commentsSP" layoutX="32.0" layoutY="85.0" prefHeight="400.0" prefWidth="435.0">
          <content>
-            <VBox fx:id="commentsVbox" prefHeight="600.0" prefWidth="415.0" style="-fx-background-color: white;" />
+            <VBox fx:id="commentsVbox" prefHeight="600.0" prefWidth="415.0" style="-fx-background-color: white;">
+               <padding>
+                  <Insets left="10.0" top="10.0" />
+               </padding></VBox>
          </content>
       </ScrollPane>
       <TextArea fx:id="contentTF" focusTraversable="false" layoutX="32.0" layoutY="520.0" prefHeight="90.0" prefWidth="370.0" promptText="Write Your Comment here!" style="-fx-border-color: black; -fx-border-radius: 20; -fx-background-color: white; -fx-background-radius: 20; -fx-border-width: 2;">

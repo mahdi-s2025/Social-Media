@@ -14,7 +14,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import org.example.socialmedia.Controller.AccountController;
 import org.example.socialmedia.HelloApplication;
@@ -67,29 +70,34 @@ public class commentsPageController implements Initializable {
         Account poster=connections.get(0);
          currentPost=poster.getPosts().get(postIndex);
         for(Comment comment:currentPost.getComments()){
-            AnchorPane pane=new AnchorPane();
-            ImageView prof=new ImageView();
-            Image profile=new Image(comment.getWriter().getProfilePicture());
-            prof.setImage(profile);
-            prof.setFitWidth(50);
-            prof.setPreserveRatio(true);
-            prof.setLayoutX(5);
-            prof.setLayoutY(5);
-            Label dateAndTime=new Label();
-            dateAndTime.setText(comment.getDateAndTime());
-            dateAndTime.setLayoutX(250);
-            dateAndTime.setLayoutY(60);
-            Label userName=new Label();
-            userName.setText(comment.getWriter().getUsername());
-            userName.setLayoutX(5);
-            userName.setLayoutY(58);
 
-            Label contentLB=new Label();
-            contentLB.setText(comment.getContent());
-            contentLB.setLayoutX(60);
-            contentLB.setLayoutY(25);
-            pane.getChildren().addAll(prof,userName,contentLB,dateAndTime);
-            commentsVbox.getChildren().add(pane);
+            FXMLLoader fxml = new FXMLLoader(HelloApplication.class.getResource("comment.fxml"));
+
+            HBox mainHbox;
+
+            try {
+                mainHbox = fxml.load();
+
+                Circle profile = (Circle) mainHbox.getChildren().get(0);
+                Image image = new Image(comment.getWriter().getProfilePicture());
+                profile.setFill(new ImagePattern(image));
+
+                VBox infoVbox = (VBox) mainHbox.getChildren().get(1);
+
+                Label username = (Label) infoVbox.getChildren().get(0);
+                Label commentTxt = (Label) infoVbox.getChildren().get(1);
+
+                username.setText(comment.getWriter().getUsername());
+                commentTxt.setText(comment.getContent());
+
+                Label date = (Label) mainHbox.getChildren().get(2);
+
+                date.setText(comment.getDateAndTime());
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            commentsVbox.getChildren().add(mainHbox);
         }
     }
 
