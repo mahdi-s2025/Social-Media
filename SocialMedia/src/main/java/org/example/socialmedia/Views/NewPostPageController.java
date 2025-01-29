@@ -2,15 +2,12 @@ package org.example.socialmedia.Views;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.socialmedia.Controller.AccountController;
-import org.example.socialmedia.HelloApplication;
 import org.example.socialmedia.Models.Post;
 
 import java.io.File;
@@ -59,12 +56,12 @@ public class NewPostPageController {
             Post post = new Post(AccountController.getAccountController().getCurrentAccount(), file, subject_txt.getText(), descriptionTF.getText());
             AccountController.getAccountController().getCurrentAccount().getPosts().add(post);
             AccountController.showAlert("Post Added!", Alert.AlertType.INFORMATION, "Done!");
-            AccountController.setStage("HomePage.fxml");
+            AccountController.setScene("homePage.fxml", "Home");
         }
     }
     @FXML
     void backToHome(ActionEvent event) throws IOException {
-        AccountController.setStage("homePage.fxml");
+        AccountController.setScene("homePage.fxml", "Home");
     }
 }
 

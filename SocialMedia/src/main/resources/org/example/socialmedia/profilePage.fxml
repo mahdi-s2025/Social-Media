@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.profilePageController">
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.profilePageController">
     <children>
         <ImageView fx:id="prof" fitHeight="130.0" fitWidth="130.0" layoutX="30.0" layoutY="20.0" pickOnBounds="true">
          <image>
@@ -67,7 +67,7 @@
             <Font name="Fantezy" size="20.0" />
          </font>
       </Label>
-      <ImageView fx:id="logout_btn" accessibleRole="BUTTON" fitHeight="55.0" fitWidth="55.0" layoutX="925.0" layoutY="58.0" onMouseClicked="#logoutClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="logout_btn" accessibleRole="BUTTON" fitHeight="52.0" fitWidth="45.0" layoutX="930.0" layoutY="78.0" onMouseClicked="#logoutClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pictures/logout.jpg" />
          </image>
@@ -75,7 +75,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Button fx:id="deleteAccount" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="670.0" layoutY="115.0" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="DELETE ACCOUNT" textFill="WHITE">
+      <Button fx:id="deleteAccount" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="670.0" layoutY="100.0" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="DELETE ACCOUNT" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="13.0" />
          </font>
@@ -83,7 +83,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button alignment="CENTER" cancelButton="true" contentDisplay="CENTER" focusTraversable="false" layoutX="670.0" layoutY="65.0" mnemonicParsing="false" onAction="#backToHome" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="BACK" textFill="WHITE">
+      <Button fx:id="editProfile" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="670.0" layoutY="35.0" mnemonicParsing="false" onAction="#editProfile" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="EDIT" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="13.0" />
          </font>
@@ -91,13 +91,25 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="editProfile" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="670.0" layoutY="15.0" mnemonicParsing="false" onAction="#editProfile" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="EDITE" textFill="WHITE">
-         <font>
-            <Font name="Times New Roman Bold" size="13.0" />
-         </font>
+<!--<<<<<<< HEAD-->
+      <ImageView accessibleRole="BUTTON" fitHeight="55.0" fitWidth="45.0" layoutX="930.0" layoutY="13.0" onMouseClicked="#backToHome" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/back.png" />
+         </image>
+<!--=======-->
+<!--      <Button fx:id="editProfile" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="670.0" layoutY="15.0" mnemonicParsing="false" onAction="#editProfile" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="EDITE" textFill="WHITE">-->
+<!--         <font>-->
+<!--            <Font name="Times New Roman Bold" size="13.0" />-->
+<!--         </font>-->
+<!--&gt;>>>>>> 58c03c5a3d078daba9eec1b025932ed4413856cd-->
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-      </Button>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="917.0" layoutY="120.0" prefHeight="30.0" prefWidth="70.0" text="Logout" textAlignment="CENTER">
+         <font>
+            <Font name="Segoe Print Bold" size="15.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

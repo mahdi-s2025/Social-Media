@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 @Getter
 @Setter
 public class AccountController {
-    DataCenterController data = DataCenterController.getDataCenterController();
+    private final DataCenterController data = DataCenterController.getDataCenterController();
 
 
     private Account currentAccount;
@@ -37,16 +37,11 @@ public class AccountController {
 
     public boolean signup(String name , String username , String email , String password , String profilePhoto) throws Exception {
 
-
-         {
-            //checkPassword(password);
-
-            currentAccount = new Account(name, username, email , password , profilePhoto);
-            data.addUser(currentAccount);
-            Graph.getGraph().addVertex(username);
-            System.out.println("Signup :)");
-            return true;
-        }
+        currentAccount = new Account(name, username, email , password , profilePhoto);
+        data.addUser(currentAccount);
+        Graph.getGraph().addVertex(username);
+        System.out.println("Signup :)");
+        return true;
     }
 
 
@@ -88,32 +83,33 @@ public class AccountController {
     }
 
 
-        public void editAccount(String name , String email , String password , String bio , String profilePicture){
-            currentAccount.setName(name);
-            currentAccount.setEmail(email);
-            currentAccount.setPassword(password);
-            currentAccount.setBio(bio);
-            currentAccount.setProfilePicture(profilePicture);
-        }
-
-        public void deleteAccount(){
-            DataCenterController.getDataCenterController().deleteUser(currentAccount);
-        }
-
-        public static void showAlert(String msg,Alert.AlertType alertType,String header){
-            Alert alert = new Alert(alertType);
-            alert.setHeaderText(header);
-
-            alert.setContentText(msg);
-            alert.showAndWait();
-        }
-        public static void setStage(String page ) throws IOException {
-            Stage stage = HelloApplication.getStage();
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("newPost");
-            stage.setScene(scene);
-            stage.show();
-        }
+    public void editAccount(String name , String email , String password , String bio , String profilePicture){
+        currentAccount.setName(name);
+        currentAccount.setEmail(email);
+        currentAccount.setPassword(password);
+        currentAccount.setBio(bio);
+        currentAccount.setProfilePicture(profilePicture);
     }
+
+    public void deleteAccount(){
+        DataCenterController.getDataCenterController().deleteUser(currentAccount);
+    }
+
+    public static void showAlert(String msg,Alert.AlertType alertType,String header){
+        Alert alert = new Alert(alertType);
+        alert.setHeaderText(header);
+
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
+    public static void setScene(String page, String title) throws IOException {
+        Stage currentStage = HelloApplication.getStage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+        Scene scene = new Scene(fxmlLoader.load());
+        currentStage.setTitle(title);
+        currentStage.setScene(scene);
+        //currentStage.show();
+    }
+
+}
 

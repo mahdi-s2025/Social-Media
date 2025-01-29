@@ -130,7 +130,7 @@ public class profilePageController implements Initializable {
             editPostBT.setOnAction(event -> {
                 EditPostPageController.event = event;
                 try {
-                    AccountController.setStage("EditPostPage.fxml");
+                    AccountController.setScene("EditPostPage.fxml", "Edit Post");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -195,21 +195,21 @@ public class profilePageController implements Initializable {
     void deleteAccount(ActionEvent event) throws IOException {
         DataCenterController.getDataCenterController().deleteUser(AccountController.getAccountController().getCurrentAccount());
         AccountController.showAlert("Successful", Alert.AlertType.INFORMATION, "Your Account deleted Successfully!");
-        AccountController.setStage("loginPage.fxml");
+        AccountController.setScene("loginPage.fxml", "Login");
     }
 
     @FXML
     void logoutClick(MouseEvent event) throws IOException {
-        AccountController.setStage("loginPage.fxml");
+        AccountController.setScene("loginPage.fxml", "Login");
     }
 
     @FXML
     void editProfile() throws IOException {
-        AccountController.setStage("EditProfilePage.fxml");
+        AccountController.setScene("EditProfilePage.fxml", "Edit Profile");
     }
 
     @FXML
     void backToHome() throws IOException {
-        AccountController.setStage("homePage.fxml");
+        AccountController.setScene("homePage.fxml", "Home");
     }
 }
