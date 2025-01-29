@@ -8,29 +8,13 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.signupPageController">
    <children>
-      <TextField fx:id="name_txt" focusTraversable="false" layoutX="130.0" layoutY="180.0" prefHeight="35.0" prefWidth="240.0" promptText="Name" style="-fx-background-radius: 10;" />
-      <TextField fx:id="username_txt" focusTraversable="false" layoutX="130.0" layoutY="260.0" prefHeight="35.0" prefWidth="240.0" promptText="Username" style="-fx-background-radius: 10;" />
-      <PasswordField fx:id="password_txt" focusTraversable="false" layoutX="130.0" layoutY="340.0" prefHeight="35.0" prefWidth="240.0" promptText="Password" style="-fx-background-radius: 10;" />
-      <Label fx:id="name_lbl" layoutX="130.0" layoutY="150.0" prefHeight="30.0" prefWidth="70.0" text="Name">
-         <font>
-            <Font name="Times New Roman" size="16.0" />
-         </font>
-      </Label>
-      <Label fx:id="username_lbl" layoutX="130.0" layoutY="230.0" prefHeight="30.0" prefWidth="70.0" text="Username">
-         <font>
-            <Font name="Times New Roman" size="16.0" />
-         </font>
-      </Label>
-      <Label fx:id="password_lbl" focusTraversable="false" layoutX="130.0" layoutY="310.0" prefHeight="30.0" prefWidth="70.0" text="Password">
-         <font>
-            <Font name="Times New Roman" size="16.0" />
-         </font>
-      </Label>
       <Label layoutX="225.0" layoutY="10.0" prefHeight="62.0" prefWidth="162.0" text="Choose a Profile Photo">
          <font>
             <Font name="Calibri" size="16.0" />
@@ -49,22 +33,148 @@
             <Image url="@../pictures/communication.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="error_lbl" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="100.0" layoutY="449.0" prefHeight="70.0" prefWidth="300.0" textAlignment="CENTER" textFill="RED">
+      <Label fx:id="error_lbl" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="100.0" layoutY="470.0" prefHeight="70.0" prefWidth="300.0" textAlignment="CENTER" textFill="RED">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      <Button fx:id="next_btn" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" disable="true" layoutX="130.0" layoutY="400.0" mnemonicParsing="false" onAction="#nextClick" prefHeight="40.0" prefWidth="240.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="NEXT" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Times New Roman Bold" size="13.0" />
-         </font>
+      <Circle fx:id="profPhoto" fill="DODGERBLUE" layoutX="160.0" layoutY="70.0" radius="48.0" stroke="#1f96ff" strokeType="INSIDE" />
+      <VBox fx:id="form1" layoutX="130.0" layoutY="150.0" prefHeight="350.0" prefWidth="300.0">
+         <children>
+            <Pane prefHeight="90.0" prefWidth="300.0">
+               <children>
+                  <Label fx:id="name_lbl" prefHeight="30.0" prefWidth="70.0" text="Name">
+                     <font>
+                        <Font name="Times New Roman" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="name_txt" focusTraversable="false" layoutY="35.0" prefHeight="35.0" prefWidth="240.0" promptText="Name" style="-fx-background-radius: 10;" />
+                  <ImageView fx:id="check1" fitHeight="25.0" fitWidth="25.0" layoutX="250.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../pictures/redError.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane prefHeight="90.0" prefWidth="300.0">
+               <children>
+                  <Label fx:id="username_lbl" prefHeight="30.0" prefWidth="70.0" text="Username">
+                     <font>
+                        <Font name="Times New Roman" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="username_txt" focusTraversable="false" layoutY="35.0" prefHeight="35.0" prefWidth="240.0" promptText="Username" style="-fx-background-radius: 10;" />
+                  <ImageView fx:id="check2" fitHeight="25.0" fitWidth="25.0" layoutX="250.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../pictures/redError.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane prefHeight="90.0" prefWidth="300.0">
+               <children>
+                  <Label fx:id="password_lbl" focusTraversable="false" prefHeight="30.0" prefWidth="70.0" text="Password">
+                     <font>
+                        <Font name="Times New Roman" size="16.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="password_txt" focusTraversable="false" layoutY="35.0" prefHeight="35.0" prefWidth="240.0" promptText="Password" style="-fx-background-radius: 10;" />
+                  <ImageView fx:id="check3" fitHeight="25.0" fitWidth="25.0" layoutX="250.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../pictures/redError.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane prefHeight="90.0" prefWidth="300.0">
+               <children>
+                  <Button fx:id="next_btn" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" disable="true" layoutY="15.0" mnemonicParsing="false" onAction="#nextClick" prefHeight="40.0" prefWidth="240.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="NEXT" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman Bold" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+      <VBox fx:id="form2" layoutX="560.0" layoutY="150.0" prefHeight="350.0" prefWidth="300.0">
+         <children>
+            <Pane prefHeight="100.0" prefWidth="300.0">
+               <children>
+                  <TextField fx:id="name_txt1" focusTraversable="false" layoutY="35.0" prefHeight="35.0" prefWidth="240.0" promptText="Name" style="-fx-background-radius: 10;" />
+                  <ImageView fx:id="check4" fitHeight="25.0" fitWidth="25.0" layoutX="250.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../pictures/redError.jpg" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="email_txt" focusTraversable="false" layoutY="35.0" prefHeight="35.0" prefWidth="240.0" promptText="E-mail" style="-fx-background-radius: 10;" />
+                  <Label focusTraversable="false" prefHeight="30.0" prefWidth="70.0" text="E-mail">
+                     <font>
+                        <Font name="Times New Roman" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane prefHeight="70.0" prefWidth="300.0">
+               <children>
+                  <Label prefHeight="35.0" prefWidth="250.0" text="We will send a verification code">
+                     <font>
+                        <Font name="Segoe Print Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutY="25.0" prefHeight="35.0" prefWidth="300.0" text="to your e-mail. Please enter the code.">
+                     <font>
+                        <Font name="Segoe Print Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane prefHeight="75.0" prefWidth="300.0">
+               <children>
+                  <ImageView fx:id="check5" fitHeight="25.0" fitWidth="25.0" layoutX="230.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../pictures/redError.jpg" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="code_txt" alignment="CENTER" focusTraversable="false" layoutX="135.0" layoutY="5.0" prefHeight="35.0" prefWidth="90.0" promptText="Code" style="-fx-background-radius: 10;">
+                     <font>
+                        <Font name="Century" size="15.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="send_btn" alignment="CENTER" contentDisplay="CENTER" disable="true" focusTraversable="false" layoutX="15.0" layoutY="5.0" mnemonicParsing="false" onAction="#sendClick" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="SEND" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman Bold" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane prefHeight="90.0" prefWidth="300.0">
+               <children>
+                  <Button fx:id="signup_btn" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" disable="true" layoutY="15.0" mnemonicParsing="false" onAction="#signupClick" prefHeight="40.0" prefWidth="240.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="DONE" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman Bold" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+      <ImageView fx:id="back_btn" accessibleRole="BUTTON" fitHeight="40.0" fitWidth="38.0" layoutX="8.0" layoutY="5.0" onMouseClicked="#backClick" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../pictures/back.png" />
+         </image>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-      </Button>
-      <Circle fx:id="profPhoto" fill="DODGERBLUE" layoutX="160.0" layoutY="70.0" radius="48.0" stroke="#1f96ff" strokeType="INSIDE" />
-      <ImageView fx:id="check1" fitHeight="25.0" fitWidth="25.0" layoutX="375.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="check2" fitHeight="25.0" fitWidth="25.0" layoutX="375.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="check3" fitHeight="25.0" fitWidth="25.0" layoutX="375.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true" />
+      </ImageView>
    </children>
 </AnchorPane>
