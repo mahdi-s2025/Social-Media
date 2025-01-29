@@ -17,7 +17,6 @@ import org.example.socialmedia.Models.Post;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 public class EditPostPageController implements Initializable {
@@ -59,7 +58,7 @@ public class EditPostPageController implements Initializable {
     }
     @FXML
     void backToProfile(ActionEvent event) throws IOException {
-        AccountController.setStage("profilePage.fxml");
+        AccountController.setScene("profilePage.fxml", "Profile");
     }
 
     @FXML
@@ -87,7 +86,7 @@ public class EditPostPageController implements Initializable {
         AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex).setSubject(subject_txt.getText());
         AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex).setDescription(postCaption.getText());
         AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex).setFile(file);
-        AccountController.setStage("profilePage.fxml");
+        AccountController.setScene("profilePage.fxml", "Profile");
     }
 
 

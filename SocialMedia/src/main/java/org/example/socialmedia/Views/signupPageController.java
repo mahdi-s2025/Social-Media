@@ -10,7 +10,7 @@
 //        boolean signup = ac.signup(name , username , email , password , file);
 //
 //        if (signup) {
-//            AccountController.setStage("homePage.fxml");
+//            AccountController.setScene("homePage.fxml");
 //        }
 //    }
 //

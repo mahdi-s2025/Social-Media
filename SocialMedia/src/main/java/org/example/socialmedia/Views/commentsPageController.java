@@ -1,10 +1,10 @@
 package org.example.socialmedia.Views;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -14,7 +14,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.example.socialmedia.Controller.AccountController;
+import org.example.socialmedia.HelloApplication;
 import org.example.socialmedia.Models.Account;
 import org.example.socialmedia.Models.Comment;
 import org.example.socialmedia.Models.Graph;
@@ -26,6 +28,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class commentsPageController implements Initializable {
+
+    private static final Stage commentStage = homePageController.getCommentStage();
+
     @FXML
     private ImageView addCommentBT;
 
@@ -85,10 +90,14 @@ public class commentsPageController implements Initializable {
     void addComment(MouseEvent event) throws IOException {
         Comment comment=new Comment(AccountController.getAccountController().getCurrentAccount(),contentTF.getText());
         currentPost.getComments().add(comment);
-        AccountController.setStage("commentsPage.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("commentsPage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        commentStage.setScene(scene);
+        //AccountController.setScene("commentsPage.fxml", "Comments");
     }
     @FXML
-    void backToHome(ActionEvent event) throws IOException {
-        AccountController.setStage("homePage.fxml");
+    void backToHome(MouseEvent event) throws IOException {
+        commentStage.hide();
+        //AccountController.setScene("homePage.fxml", "Home");
     }
 }

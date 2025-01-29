@@ -1,10 +1,10 @@
 package org.example.socialmedia.Views;
 
-import javafx.beans.binding.BooleanBinding;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
@@ -15,10 +15,11 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Path;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import lombok.Getter;
 import org.example.socialmedia.Controller.AccountController;
-import org.example.socialmedia.Controller.DataCenterController;
 import org.example.socialmedia.HelloApplication;
 import org.example.socialmedia.Models.Account;
 import org.example.socialmedia.Models.Graph;
@@ -29,10 +30,21 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.ResourceBundle;
 
 public class homePageController implements Initializable {
+
+    private static final Stage currentStage = HelloApplication.getStage();
+
+    @Getter
+    private static final Stage commentStage = new Stage();
+
+    static {
+        commentStage.setResizable(false);
+        commentStage.initOwner(currentStage);
+        commentStage.initModality(Modality.WINDOW_MODAL);
+        commentStage.initStyle(StageStyle.TRANSPARENT);
+    }
 
     @FXML
     private ImageView addPostBT;
@@ -157,6 +169,12 @@ public class homePageController implements Initializable {
             dateAndTime.setText(post.getDateAndTime());
 
             Button comments = new Button("Comments");
+            comments.setFocusTraversable(false);
+            comments.setTextFill(Color.WHITE);
+            comments.setAlignment(Pos.CENTER);
+            comments.setCursor(Cursor.HAND);
+            comments.setPrefSize(150, 30);
+            comments.setStyle("-fx-background-radius: 10; -fx-background-color: black;");
             comments.setId(String.valueOf(pstIndex));
 
             Image image = new Image(post.getFile());
@@ -194,25 +212,29 @@ public class homePageController implements Initializable {
             likeImage.setLayoutX(435);
             likeImage.setLayoutY(200);
 
+
             likes.setLayoutX(480);
             likes.setLayoutY(200);
 
             infoPane.getChildren().addAll( postCover,description,posterName,posterPhoto,likes,subject,dateAndTime,comments,likeImage);
             postsVbox.getChildren().add(infoPane);
             likeImage.setOnMouseClicked(event -> {
-                String username = connections.get(0).getUsername();
+                String username = connections.getFirst().getUsername();
                 if (post.getLikes().contains(username)){
                     post.getLikes().remove(username);
                 }
                 else {
-                    post.getLikes().add(connections.get(0).getUsername());
+                    post.getLikes().add(connections.getFirst().getUsername());
                 }
                 likes.setText(String.valueOf(post.getLikes().size()));
             });
             comments.setOnAction(event2 -> {
                 try {
                     commentsPageController.event2 = event2;
-                    AccountController.setStage("commentsPage.fxml");
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("commentsPage.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load());
+                    commentStage.setScene(scene);
+                    commentStage.show();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -265,7 +287,7 @@ public class homePageController implements Initializable {
             connectButtons.get(i).setOnMouseClicked(event -> {
                 Graph.getGraph().addEdge(AccountController.getAccountController().getCurrentAccount().getUsername(),username_lbl);
                 try {
-                    AccountController.setStage("homePage.fxml");
+                    AccountController.setScene("homePage.fxml", "Home");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -278,7 +300,7 @@ public class homePageController implements Initializable {
 
     @FXML
     void logoutClick(MouseEvent event) throws IOException {
-        AccountController.setStage("loginPage.fxml");
+        AccountController.setScene("loginPage.fxml", "Login");
     }
 
     @FXML
@@ -290,10 +312,10 @@ public class homePageController implements Initializable {
 
     @FXML
     void addNewPost(MouseEvent event) throws IOException {
-        AccountController.setStage("newPostPage.fxml");
+        AccountController.setScene("newPostPage.fxml", "New Post");
     }
     @FXML
     void profClick(MouseEvent event) throws IOException {
-        AccountController.setStage("ProfilePage.fxml");
+        AccountController.setScene("ProfilePage.fxml", "Profile");
     }
 }

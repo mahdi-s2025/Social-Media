@@ -15,10 +15,6 @@ import org.example.socialmedia.Controller.AccountController;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 
 public class EditProfilePageController implements Initializable {
@@ -61,7 +57,7 @@ public class EditProfilePageController implements Initializable {
 
     @FXML
     void back(ActionEvent event) throws IOException {
-        AccountController.setStage("HomePage.fxml");
+        AccountController.setScene("HomePage.fxml", "Home");
     }
 
     @FXML
