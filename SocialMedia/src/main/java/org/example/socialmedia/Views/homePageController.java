@@ -153,16 +153,17 @@ public class homePageController implements Initializable {
         prof.setStroke(Color.SEAGREEN);
         prof.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
 
-        int pstIndex=0;
+        int pstIndex;
         List<Account> connections = Graph.getGraph().findUserConnections(AccountController.getAccountController().getCurrentAccount().getUsername());
         for (Account account : connections){
 
             if(account.getPosts().isEmpty()){
-                pstIndex++;
                 continue;
             }
 
             Post post = account.getPosts().getLast();
+
+            pstIndex = account.getPosts().indexOf(post);
 
             FXMLLoader fxml = new FXMLLoader(HelloApplication.class.getResource("post.fxml"));
 
@@ -252,7 +253,8 @@ public class homePageController implements Initializable {
                 });
 
                 ImageView comment = (ImageView) action.getChildren().get(2);
-                comment.setId(String.valueOf(pstIndex));
+                String id = pstIndex + "-" + account.getUsername();
+                comment.setId(id);
 
                 Label date = (Label) action.getChildren().get(3);
                 date.setText(post.getDateAndTime());
@@ -262,7 +264,6 @@ public class homePageController implements Initializable {
                 throw new RuntimeException(e);
             }
             postsVbox.getChildren().add(mainHbox);
-            pstIndex++;
         }
 
         ArrayList<Account> suggestions = Graph.getGraph().getSuggestions();

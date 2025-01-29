@@ -52,6 +52,7 @@ public class commentsPageController implements Initializable {
     static Event event2;
     int postIndex;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         BooleanBinding emptyComment = contentTF.textProperty().isEmpty();
@@ -60,10 +61,11 @@ public class commentsPageController implements Initializable {
 
 
         ImageView data = (ImageView) event2.getSource();
-        postIndex=Integer.parseInt(data.getId());
-        List<Account> connections= Graph.getGraph().findUserConnections(AccountController.getAccountController().getCurrentAccount().getUsername());
-        Account poster=connections.get(postIndex);
-         currentPost=poster.getPosts().getLast();
+        String[] id = data.getId().split("-");
+        postIndex=Integer.parseInt(id[0]);
+        List<Account> connections= Graph.getGraph().findUserConnections(id[1]);
+        Account poster=connections.get(0);
+         currentPost=poster.getPosts().get(postIndex);
         for(Comment comment:currentPost.getComments()){
             AnchorPane pane=new AnchorPane();
             ImageView prof=new ImageView();
