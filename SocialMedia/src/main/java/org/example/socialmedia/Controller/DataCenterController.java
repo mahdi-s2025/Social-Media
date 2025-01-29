@@ -22,11 +22,13 @@ public class DataCenterController {
     private static DataCenterController dataCenterController;
     private Map<String , Account> users;
     private Map<String , String> usersMail;
+    private Map<String , String> emailValidCode;
 
 
     private DataCenterController(){
         users = new HashMap<>();
         usersMail = new HashMap<>();
+        emailValidCode = new HashMap<>();
     }
 
     public static DataCenterController getDataCenterController() {

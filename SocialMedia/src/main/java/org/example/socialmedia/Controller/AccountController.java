@@ -97,14 +97,19 @@ public class AccountController {
     }
 
 
-    private String generateVerificationCode(){
+    public String generateVerificationCode(){
+        DataCenterController ds = DataCenterController.getDataCenterController();
         StringBuilder sb = new StringBuilder();
 
         Random random = new Random();
 
-        for (int i = 0; i < 5; i++) {
-            sb.append(random.nextInt(9));
+        do {
+            for (int i = 0; i < 5; i++) {
+                sb.append(random.nextInt(9));
+            }
         }
+        while (ds.getEmailValidCode().containsValue(sb.toString()));
+
 
 
         return sb.toString();
