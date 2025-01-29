@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+
+import javafx.scene.Scene;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,9 +18,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import lombok.Getter;
+
 import org.example.socialmedia.Controller.AccountController;
 import org.example.socialmedia.Controller.DataCenterController;
 import org.example.socialmedia.HelloApplication;
@@ -32,6 +42,19 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class profilePageController implements Initializable {
+
+    private static final Stage currentStage = HelloApplication.getStage();
+
+    @Getter
+    private static final Stage editPostStage = new Stage();
+
+    static {
+        editPostStage.setResizable(false);
+        editPostStage.initModality(Modality.WINDOW_MODAL);
+        editPostStage.initOwner(currentStage);
+        editPostStage.initStyle(StageStyle.TRANSPARENT);
+    }
+
     @FXML
     private VBox connectionVbox;
 
@@ -74,7 +97,8 @@ public class profilePageController implements Initializable {
     public static Account userProfile = AccountController.getAccountController().getCurrentAccount();
 
 
-    private void setInformation(Account user){
+    private void setInformation(Account user) {
+
 
         connectionVbox.getChildren().clear();
         postsVbox.getChildren().clear();
@@ -173,6 +197,7 @@ public class profilePageController implements Initializable {
                     like.setImage(likeImage);
                 } else {
                     like.setImage(notLikeImage);
+
                 }
 
                 Label likeCount = (Label) action.getChildren().get(1);
@@ -218,8 +243,8 @@ public class profilePageController implements Initializable {
 
         setInformation(userProfile);
 
-
         setConnectionList(userProfile.getUsername());
+
 
     }
 
@@ -230,7 +255,7 @@ public class profilePageController implements Initializable {
 
 
         for (Account user : connections){
-            if (user == connections.get(0)){
+            if (user == connections.getFirst()){
                 continue;
             }
             HBox hBox = new HBox();

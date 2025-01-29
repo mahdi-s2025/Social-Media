@@ -33,11 +33,11 @@
          <Font name="Fantezy" size="20.0" />
       </font>
    </Label>
-   <StackPane layoutX="25.0" layoutY="25.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: orange; -fx-padding: 5; -fx-background-radius: 10;">
+   <StackPane layoutX="25.0" layoutY="25.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: rgb(190,190,190); -fx-padding: 5; -fx-background-radius: 10;">
       <effect>
          <DropShadow />
       </effect>
-      <ImageView fx:id="imageView" fitHeight="290.0" fitWidth="390.0" pickOnBounds="true" />
+      <ImageView fx:id="imageView" fitHeight="290.0" fitWidth="390.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="select_btn" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#onChooseImage" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="SELECT" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="13.0" />

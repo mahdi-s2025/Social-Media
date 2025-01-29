@@ -20,7 +20,7 @@ public class loadPageController implements Initializable {
     @FXML
     private Label log_lbl;
 
-    public synchronized void load() {
+    private synchronized void load() {
         try {
             Platform.runLater(() -> log_lbl.setText("connect: https://yougeram.com/maps"));
             Thread.sleep(1000);

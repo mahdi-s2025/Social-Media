@@ -26,23 +26,31 @@
 
 package org.example.socialmedia.Views;
 
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.example.socialmedia.Controller.AccountController;
 import org.example.socialmedia.Controller.DataCenterController;
+import org.example.socialmedia.HelloApplication;
 import org.example.socialmedia.Models.Account;
 
 import java.io.File;
@@ -56,6 +64,10 @@ public class signupPageController implements Initializable {
     private final Image green = new Image("file:src/main/resources/org/example/pictures/greenCheck.png");
     private final Image red = new Image("file:src/main/resources/org/example/pictures/redError.jpg");
 
+
+    @FXML
+    private ImageView back_btn;
+
     @FXML
     private ImageView check1;
 
@@ -64,6 +76,30 @@ public class signupPageController implements Initializable {
 
     @FXML
     private ImageView check3;
+
+    @FXML
+    private VBox form1;
+
+    @FXML
+    private VBox form2;
+
+    @FXML
+    private Button send_btn;
+
+    @FXML
+    private Button signup_btn;
+
+    @FXML
+    private ImageView check4;
+
+    @FXML
+    private ImageView check5;
+
+    @FXML
+    private TextField code_txt;
+
+    @FXML
+    private TextField email_txt;
 
     @FXML
     private Label error_lbl;
@@ -86,10 +122,8 @@ public class signupPageController implements Initializable {
     @FXML
     private Circle profPhoto;
 
-    @FXML
-    void nextClick(ActionEvent event) {
+    private BooleanBinding fieldsEmpty2;
 
-    }
 
     @FXML
     void onChooseImage(ActionEvent event) {
@@ -123,7 +157,8 @@ public class signupPageController implements Initializable {
         profPhoto.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
 
         root.setOnMouseClicked(event -> {
-            if (username_txt.isFocused() || password_txt.isFocused() || name_txt.isFocused()) {
+            if (username_txt.isFocused() || password_txt.isFocused() || name_txt.isFocused()
+            || email_txt.isFocused() || code_txt.isFocused()) {
                 root.requestFocus();
             }
         });
@@ -141,12 +176,27 @@ public class signupPageController implements Initializable {
         TextFormatter<String> formatter3 = new TextFormatter<>(nameFilter);
         name_txt.setTextFormatter(formatter3);
 
+        UnaryOperator<TextFormatter.Change> emailFilter = getEmailFilter();
+        TextFormatter<String> formatter4 = new TextFormatter<>(emailFilter);
+        email_txt.setTextFormatter(formatter4);
+
+        UnaryOperator<TextFormatter.Change> codeFilter = getCodeFilter();
+        TextFormatter<String> formatter5 = new TextFormatter<>(codeFilter);
+        code_txt.setTextFormatter(formatter5);
+
 
 
         BooleanBinding fieldsEmpty = check1.imageProperty().isEqualTo(red)
                 .or(check2.imageProperty().isEqualTo(red).or(check3.imageProperty().isEqualTo(red)));
 
         next_btn.disableProperty().bind(fieldsEmpty);
+
+        fieldsEmpty2 = check4.imageProperty().isEqualTo(red);
+        send_btn.disableProperty().bind(fieldsEmpty2);
+
+        BooleanBinding fieldsEmpty3 = check4.imageProperty().isEqualTo(red).
+                or(check5.imageProperty().isEqualTo(red));
+        signup_btn.disableProperty().bind(fieldsEmpty3);
 
 
 
@@ -160,16 +210,11 @@ public class signupPageController implements Initializable {
 
             if (text.matches("^[a-zA-Z0-9_]+") || text.isEmpty()) {
 
-                Account tmp = data.findByUsername(text);
+
 
                 if (text.isEmpty()) {
                     error_lbl.setText("");
                     check2.setImage(red);
-                }
-
-                else if (tmp != null) {
-                    check2.setImage(red);
-                    error_lbl.setText("Username already exists!");
                 }
 
 
@@ -179,8 +224,16 @@ public class signupPageController implements Initializable {
                 }
 
                 else {
-                    check2.setImage(green);
-                    error_lbl.setText("");
+                    Account tmp = data.findByUsername(text);
+                    if (tmp != null) {
+                        check2.setImage(red);
+                        error_lbl.setText("Username already exists!");
+                    }
+                    else {
+                        check2.setImage(green);
+                        error_lbl.setText("");
+                    }
+
                 }
 
                 return change;
@@ -232,7 +285,6 @@ public class signupPageController implements Initializable {
         };
     }
 
-
     private UnaryOperator<TextFormatter.Change> getNameFilter() {
         return change -> {
 
@@ -262,6 +314,153 @@ public class signupPageController implements Initializable {
 
             return null;
         };
+    }
+
+    private UnaryOperator<TextFormatter.Change> getEmailFilter() {
+        return change -> {
+
+            String text = change.getControlNewText();
+
+            if (text.matches("^[a-zA-Z0-9.@_%+-]+$") || text.isEmpty()) {
+
+                if (text.isEmpty()) {
+                    error_lbl.setText("");
+                    check4.setImage(red);
+                }
+
+                else if (!text.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+                    error_lbl.setText("E-mail is invalid.");
+                    check4.setImage(red);
+                }
+
+                else {
+                    Account tmp = data.findByEmail(text);
+                    if (tmp != null) {
+                        check4.setImage(red);
+                        error_lbl.setText("User with this e-mail already exists!");
+                    }
+                    else {
+                        check4.setImage(green);
+                        error_lbl.setText("");
+                    }
+                }
+
+                return change;
+            }
+            error_lbl.setText("You cannot use invalid characters in e-mail.");
+
+            return null;
+        };
+    }
+
+    private UnaryOperator<TextFormatter.Change> getCodeFilter() {
+        return change -> {
+
+            String text = change.getControlNewText();
+
+            if (text.matches("^\\d{1,5}$") || text.isEmpty()) {
+
+                if(!send_btn.isDisable()) {
+                    error_lbl.setText("");
+                    check5.setImage(red);
+                }
+
+                else if (text.isEmpty()) {
+                    error_lbl.setText("");
+                    check5.setImage(red);
+                }
+
+
+                // search the code if it is not valid, Important.
+
+
+
+                else if (text.length() < 5) {
+                    error_lbl.setText("");
+                    check5.setImage(red);
+                }
+
+                else {
+                    error_lbl.setText("");
+                    check5.setImage(green);
+
+                }
+
+                return change;
+            }
+            return null;
+        };
+    }
+
+    private void switchForm(boolean forward) {
+        TranslateTransition firstAnim = new TranslateTransition(Duration.seconds(0.5), form1);
+        TranslateTransition secondAnim = new TranslateTransition(Duration.seconds(0.5), form2);
+
+        if (forward) {
+            firstAnim.setToX(-430);
+            secondAnim.setToX(-430);
+            //nextButton.setVisible(false);
+            back_btn.setVisible(true);
+        } else {
+            firstAnim.setToX(0);
+            secondAnim.setToX(0);
+            //nextButton.setVisible(true);
+            back_btn.setVisible(false);
+        }
+
+        firstAnim.play();
+        secondAnim.play();
+    }
+
+    @FXML
+    void backClick(MouseEvent event) {
+        switchForm(false);
+    }
+
+    @FXML
+    void sendClick(ActionEvent event) {
+        // send a code
+
+        email_txt.setEditable(false);
+        send_btn.disableProperty().unbind();
+        send_btn.setDisable(true);
+        new Thread(() -> {
+            try {
+                disable();
+            } catch (Exception e) {
+                e.printStackTrace(System.err);
+            }
+        }).start();
+    }
+
+    private synchronized void disable() {
+        try {
+            for (int i = 59; i >= 0; i--) {
+                int finalI = i;
+                Platform.runLater(() -> send_btn.setText(String.valueOf(finalI)));
+                Thread.sleep(1000);
+            }
+            Thread.sleep(2000);
+            Platform.runLater(() -> {
+                send_btn.setText("SEND");
+                send_btn.disableProperty().bind(fieldsEmpty2);
+                email_txt.setEditable(true);
+            });
+
+
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
+    }
+
+    @FXML
+    void signupClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void nextClick(ActionEvent event) {
+        switchForm(true);
     }
 }
 

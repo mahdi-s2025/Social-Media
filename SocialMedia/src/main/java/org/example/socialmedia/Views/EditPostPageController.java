@@ -1,17 +1,25 @@
 package org.example.socialmedia.Views;
 
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import lombok.Getter;
 import org.example.socialmedia.Controller.AccountController;
+import org.example.socialmedia.HelloApplication;
 import org.example.socialmedia.Models.Post;
 
 import java.io.File;
@@ -20,49 +28,61 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class EditPostPageController implements Initializable {
-    String file;
+    private final static Stage editPostStage = profilePageController.getEditPostStage();
+
+    private String file;
 
     @FXML
-    private Button backBT;
+    private Button done_btn;
 
     @FXML
-    private Button confirmBT;
+    private TextArea descriptionTF;
 
     @FXML
-    private TextArea postCaption;
+    private ImageView imageView;
 
     @FXML
-    private ImageView postImage;
+    private AnchorPane root;
 
     @FXML
-    private Button uploadBT;
+    private Button select_btn;
+
+    @FXML
+    private Label subject_lbl;
 
     @FXML
     private TextField subject_txt;
+
     static Event event;
 
     int postIndex;
     Post post;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        BooleanBinding emptyFields = subject_txt.textProperty().isEmpty().
+                or(imageView.imageProperty().isNull()).or(descriptionTF.textProperty().isEmpty());
+        done_btn.disableProperty().bind(emptyFields);
+
         Button data = (Button) event.getSource();
 
         postIndex = Integer.parseInt(data.getId());
         post = AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex);
         subject_txt.setText(post.getSubject());
-        postCaption.setText(post.getDescription());
+        descriptionTF.setText(post.getDescription());
 
         file = post.getFile();
         Image image = new Image(post.getFile());
-        postImage.setImage(image);
+        imageView.setImage(image);
     }
     @FXML
-    void backToProfile(ActionEvent event) throws IOException {
-        AccountController.setScene("profilePage.fxml", "Profile");
+    void backToProfile(MouseEvent event) throws IOException {
+        editPostStage.hide();
+        //AccountController.setScene("profilePage.fxml", "Profile");
     }
 
     @FXML
-    void chooseImage(ActionEvent event) {
+    void onChooseImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select an Image");
 
@@ -75,17 +95,18 @@ public class EditPostPageController implements Initializable {
         if (selectedFile != null) {
             file=selectedFile.toURI().toString();
             Image image = new Image(file);
-            postImage.setImage(image);
-            postImage.setFitWidth(400);
-            postImage.setPreserveRatio(true);
+            imageView.setImage(image);
+//            postImage.setFitWidth(400);
+//            imageView.setPreserveRatio(true);
         }
     }
 
     @FXML
-    void confirmChanges(ActionEvent event) throws IOException {
+    void addPost(ActionEvent event) throws IOException {
         AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex).setSubject(subject_txt.getText());
-        AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex).setDescription(postCaption.getText());
+        AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex).setDescription(descriptionTF.getText());
         AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex).setFile(file);
+        editPostStage.hide();
         AccountController.setScene("profilePage.fxml", "Profile");
     }
 
