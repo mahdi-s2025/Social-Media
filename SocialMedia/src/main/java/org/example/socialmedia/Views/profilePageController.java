@@ -289,17 +289,23 @@ public class profilePageController implements Initializable {
 
             connectionVbox.getChildren().add(mainHbox);
 
-            username_lb.setOnMouseClicked(event -> {
+            ArrayList<Account> userConnections = Graph.getGraph().findUserConnections(user.getUsername());
 
-                setInformation(user);
+            if (userConnections.contains(AccountController.getAccountController().getCurrentAccount())){
+                username_lb.setCursor(Cursor.HAND);
+                username_lb.setOnMouseClicked(event -> {
 
 
-                try {
-                    setConnectionList(username_lbl.getText());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+                        setInformation(user);
+
+
+                        try {
+                            setConnectionList(username_lbl.getText());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                });
+            }
         }
 
     }
