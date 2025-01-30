@@ -77,13 +77,13 @@ public class NewPostPageController implements Initializable {
         if (file != null && !subject_txt.getText().isEmpty()) {
             Post post = new Post(AccountController.getAccountController().getCurrentAccount(), file, subject_txt.getText(), descriptionTF.getText());
             AccountController.getAccountController().getCurrentAccount().getPosts().add(post);
-            postStage.hide();
+            postStage.close();
             AccountController.setScene("homePage.fxml", "Home");
         }
     }
     @FXML
     void backToHome(MouseEvent event) throws IOException {
-        postStage.hide();
+        postStage.close();
         //AccountController.setScene("homePage.fxml", "Home");
     }
 }

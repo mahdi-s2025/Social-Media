@@ -47,16 +47,15 @@ public class AccountController {
 
 
     public void login(String username , String password) throws Exception {
-
-
         Account tmp = data.findByUsername(username);
         if (tmp == null || !tmp.getPassword().equals(password)) {
-            //showAlert("Username or password is invalid!", Alert.AlertType.WARNING, "Error");
             throw new Exception("Username or password is invalid!");
         }
-
         currentAccount = tmp;
-        System.out.println("Login :)");
+    }
+
+    public void login(String email) {
+        currentAccount = data.findByEmail(email);
     }
     
 
@@ -83,11 +82,10 @@ public class AccountController {
     }
 
 
-    public void editAccount(String name , String email , String password , String bio , String profilePicture){
+    public void editAccount(String name , String email , String password , String profilePicture){
         currentAccount.setName(name);
         currentAccount.setEmail(email);
         currentAccount.setPassword(password);
-        currentAccount.setBio(bio);
         currentAccount.setProfilePicture(profilePicture);
     }
 
@@ -122,6 +120,7 @@ public class AccountController {
         alert.setContentText(msg);
         alert.showAndWait();
     }
+
     public static void setScene(String page, String title) throws IOException {
         Stage currentStage = HelloApplication.getStage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));

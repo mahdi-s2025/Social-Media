@@ -8,13 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Hi there! This is {@code Mahdi} commenting.
- * This class stores all users and handles all operations on them.
- * This is {@code NOT} the best implementation, just for test.
- * Each method might implement in the better way.
- * Before any changing in this class, {@code PLEASE} keep me posted via Telegram.
- */
 
 @Setter
 @Getter

@@ -331,7 +331,7 @@ public class homePageController implements Initializable {
     void connect(MouseEvent event) {
         String username = ((Control) event.getSource()).getId();
         Graph.getGraph().addEdge(AccountController.getAccountController().getCurrentAccount().getUsername(),username);
-        AccountController.showAlert("", Alert.AlertType.CONFIRMATION,"Connected to "+AccountController.getAccountController().getCurrentAccount().getUsername()+" Successfully!");
+//        AccountController.showAlert("", Alert.AlertType.CONFIRMATION,"Connected to "+AccountController.getAccountController().getCurrentAccount().getUsername()+" Successfully!");
     }
 
     @FXML

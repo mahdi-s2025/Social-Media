@@ -1,16 +1,7 @@
-//    @FXML
-//    void signupClick(ActionEvent event) throws Exception {
-//
-//
-//    }
-//
-//    @FXML
-
 package org.example.socialmedia.Views;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,9 +28,7 @@ import org.example.socialmedia.Models.Account;
 import org.example.socialmedia.Models.SendMail;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.security.GeneralSecurityException;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
@@ -126,9 +115,6 @@ public class signupPageController implements Initializable {
             file = selectedFile.toURI().toString();
             Image image = new Image(file);
             profPhoto.setFill(new ImagePattern(image));
-//            profPhoto.setImage(image);
-//            profPhoto.setFitWidth(400);
-//            profPhoto.setPreserveRatio(true);
         }
     }
 
@@ -138,7 +124,7 @@ public class signupPageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         profPhoto.setStroke(Color.SEAGREEN);
-        Image image = new Image("file:src/main/resources/org/example/pictures/account.png");
+        Image image = new Image(file);
         profPhoto.setFill(new ImagePattern(image));
         profPhoto.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
 
@@ -340,7 +326,6 @@ public class signupPageController implements Initializable {
     }
 
     private UnaryOperator<TextFormatter.Change> getCodeFilter() {
-        DataCenterController ds = DataCenterController.getDataCenterController();
         return change -> {
 
             String text = change.getControlNewText();
@@ -358,13 +343,12 @@ public class signupPageController implements Initializable {
                 }
 
 
-
                 else if (text.length() < 5) {
                     error_lbl.setText("");
                     check5.setImage(red);
                 }
 
-                else if (!ds.getEmailValidCode().get(email_txt.getText()).equals(text)){
+                else if (data.getEmailValidCode().isEmpty() || !data.getEmailValidCode().get(email_txt.getText()).equals(text)){
                     error_lbl.setText("");
                     check5.setImage(red);
                 }
@@ -387,12 +371,10 @@ public class signupPageController implements Initializable {
         if (forward) {
             firstAnim.setToX(-430);
             secondAnim.setToX(-430);
-            //nextButton.setVisible(false);
             back_btn.setVisible(true);
         } else {
             firstAnim.setToX(0);
             secondAnim.setToX(0);
-            //nextButton.setVisible(true);
             back_btn.setVisible(false);
         }
 
@@ -407,27 +389,22 @@ public class signupPageController implements Initializable {
 
     @FXML
     void sendClick(ActionEvent event) throws Exception {
-
-        DataCenterController ds = DataCenterController.getDataCenterController();
-
         String code = AccountController.getAccountController().generateVerificationCode();
-
-
-        ds.getEmailValidCode().put(email_txt.getText() , code);
+        data.getEmailValidCode().put(email_txt.getText() , code);
 
         SendMail sendMail = new SendMail();
 
-        sendMail.send("verify" , "Welcome to Yougram\n" +
+        sendMail.send("verify" , "Welcome to Yougram\n\n" +
                 "Your verification code : " + code , email_txt.getText());
 
         email_txt.setEditable(false);
         send_btn.disableProperty().unbind();
         send_btn.setDisable(true);
+
         new Thread(() -> {
             try {
                 disable();
-                ds.getEmailValidCode().remove(email_txt.getText());
-                check5.setImage(red);
+                data.getEmailValidCode().remove(email_txt.getText());
             } catch (Exception e) {
                 e.printStackTrace(System.err);
             }
@@ -441,11 +418,12 @@ public class signupPageController implements Initializable {
                 Platform.runLater(() -> send_btn.setText(String.valueOf(finalI)));
                 Thread.sleep(1000);
             }
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             Platform.runLater(() -> {
                 send_btn.setText("SEND");
                 send_btn.disableProperty().bind(fieldsEmpty2);
                 email_txt.setEditable(true);
+                check5.setImage(red);
             });
 
 
@@ -466,6 +444,10 @@ public class signupPageController implements Initializable {
 
         loginPageController.getSignupStage().close();
         AccountController.setScene("homePage.fxml", "Home");
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signupPage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        loginPageController.getSignupStage().setScene(scene);
     }
 
     @FXML

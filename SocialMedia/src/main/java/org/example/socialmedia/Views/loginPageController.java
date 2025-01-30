@@ -24,6 +24,34 @@ public class loginPageController implements Initializable {
 
     @Getter
     private static final Stage signupStage = new Stage();
+    private static Stage primaryStage = HelloApplication.getStage();
+    @Getter
+    private static final Stage googleStage = new Stage();
+
+    static {
+        signupStage.setTitle("Signup");
+        signupStage.setResizable(false);
+        signupStage.initOwner(primaryStage);
+        signupStage.initModality(Modality.APPLICATION_MODAL);
+
+        googleStage.setTitle("Login");
+        googleStage.setResizable(false);
+        googleStage.initOwner(primaryStage);
+        googleStage.initModality(Modality.APPLICATION_MODAL);
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signupPage.fxml"));
+        FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("googlePage.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load());
+            signupStage.setScene(scene);
+
+            Scene scene1 = new Scene(fxmlLoader1.load());
+            googleStage.setScene(scene1);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
     @FXML
     private Label error_lbl;
@@ -41,26 +69,17 @@ public class loginPageController implements Initializable {
     @FXML
     private PasswordField password_txt;
 
-    @FXML
-    private Label signup_btn;
 
     @FXML
     private TextField username_txt;
 
     @FXML
     void googleLoginClicked(ActionEvent event) {
-
+        primaryStage = HelloApplication.getStage();
+        googleStage.show();
     }
 
-    @FXML
-    void lbl_signup_mouseEntered(MouseEvent event) {
 
-    }
-
-    @FXML
-    void lbl_signup_mouseExited(MouseEvent event) {
-
-    }
 
     @FXML
     void loginClick(ActionEvent event) {
@@ -72,37 +91,24 @@ public class loginPageController implements Initializable {
 
             username_txt.clear();
             password_txt.clear();
-            error_lbl.setText(null);
             AccountController ac = AccountController.getAccountController();
             ac.login(username, password);
 
-            Stage stage = HelloApplication.getStage();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homePage.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Home");
-            stage.setScene(scene);
-            stage.show();
+            primaryStage = HelloApplication.getStage();
+            primaryStage.setTitle("Home");
+            primaryStage.setScene(scene);
+
         } catch (Exception e) {
             error_lbl.setText(e.getMessage());
 
         }
-
-
     }
 
     @FXML
-    void signupClick(MouseEvent event) throws IOException {
-        Stage stage = HelloApplication.getStage();
-        signupStage.setTitle("Signup");
-        signupStage.setResizable(false);
-        signupStage.initOwner(stage);
-        signupStage.initModality(Modality.WINDOW_MODAL);
-
-
-
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signupPage.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        signupStage.setScene(scene);
+    void signupClick(MouseEvent event) {
+        primaryStage = HelloApplication.getStage();
         signupStage.show();
     }
 
@@ -144,8 +150,6 @@ public class loginPageController implements Initializable {
         BooleanBinding fieldsEmpty = username_txt.textProperty().isEmpty()
                 .or(password_txt.lengthProperty().lessThan(8));
         login_btn.disableProperty().bind(fieldsEmpty);
-
-
 
     }
 

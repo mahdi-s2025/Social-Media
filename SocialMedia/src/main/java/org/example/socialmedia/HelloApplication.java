@@ -11,9 +11,12 @@ import org.example.socialmedia.Controller.AccountController;
 import org.example.socialmedia.Controller.DataCenterController;
 import org.example.socialmedia.Models.Account;
 import org.example.socialmedia.Models.Graph;
+import org.example.socialmedia.Models.SendMail;
 
 import java.io.IOException;
+import java.nio.channels.Channel;
 import java.nio.file.Paths;
+import java.security.GeneralSecurityException;
 
 public class HelloApplication extends Application {
 
@@ -33,7 +36,7 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String path1 = Paths.get("src/main/resources/org/example/pictures/mohammad.jpg").toAbsolutePath().toString();
         String path2 = Paths.get("src/main/resources/org/example/pictures/me.jpg").toAbsolutePath().toString();
         String path3 = Paths.get("src/main/resources/org/example/pictures/mehdii.jpg").toAbsolutePath().toString();
@@ -42,7 +45,7 @@ public class HelloApplication extends Application {
 
         Account account1 = new Account("mohammad" , "mohammad" , "mh","mohammad","file:"+path1);
         Account account2 = new Account("poone" , "poone" , "pm","poone2025!","file:"+path2);
-        Account account3 = new Account("Mahdi" , "mahdi" , "mahdisemsar40@gmail.com","mahdi2020","file:"+path3);
+        Account account3 = new Account("Mahdi" , "mahdi" , "mahdisemsar404@gmail.com","mahdi2020","file:"+path3);
 
 
         Account account4 = new Account("test" , "test1" , "test" , "t" , "file:" + path4);
@@ -74,7 +77,6 @@ public class HelloApplication extends Application {
         dataCenterController.addUser(account6);
         dataCenterController.addUser(account7);
         dataCenterController.addUser(account8);
-
 
         launch();
     }
