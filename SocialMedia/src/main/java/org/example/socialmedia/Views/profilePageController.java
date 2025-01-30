@@ -94,11 +94,23 @@ public class profilePageController implements Initializable {
     @FXML
     private Label logout_lbl;
 
-    public static Account userProfile = AccountController.getAccountController().getCurrentAccount();
+    public static Account userProfile;
 
 
     private void setInformation(Account user) {
 
+        if (!user.equals(AccountController.getAccountController().getCurrentAccount())) {
+            logout_lbl.setVisible(false);
+            editProfile.setVisible(false);
+            deleteAccount.setVisible(false);
+            logout_btn.setVisible(false);
+        }
+        else {
+            logout_lbl.setVisible(true);
+            editProfile.setVisible(true);
+            deleteAccount.setVisible(true);
+            logout_btn.setVisible(true);
+        }
 
         connectionVbox.getChildren().clear();
         postsVbox.getChildren().clear();
@@ -243,12 +255,16 @@ public class profilePageController implements Initializable {
 
         setInformation(userProfile);
 
-        setConnectionList(userProfile.getUsername());
+        try {
+            setConnectionList(userProfile.getUsername());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
 
-    private void setConnectionList(String username){
+    private void setConnectionList(String username) throws IOException {
         ArrayList<Account> connections = Graph.getGraph().findUserConnections(username);
 
         connectionVbox.getChildren().clear();
@@ -258,35 +274,31 @@ public class profilePageController implements Initializable {
             if (user == connections.getFirst()){
                 continue;
             }
-            HBox hBox = new HBox();
-            Label username_lbl = new Label(user.getUsername());
+
+            FXMLLoader fxml = new FXMLLoader(HelloApplication.class.getResource("connection.fxml"));
+
+            HBox mainHbox = fxml.load();
+
+            Circle profile = (Circle) mainHbox.getChildren().get(0);
             Image image = new Image(user.getProfilePicture());
-            ImageView profileImage = new ImageView(image);
-            profileImage.setFitWidth(100);
-            profileImage.setFitHeight(100);
-            hBox.getChildren().add(profileImage);
-            hBox.getChildren().add(username_lbl);
+            profile.setFill(new ImagePattern(image));
 
-            connectionVbox.getChildren().add(hBox);
+            Label username_lb = (Label) mainHbox.getChildren().get(1);
+            username_lb.setText(user.getUsername());
 
-            username_lbl.setOnMouseClicked(event -> {
+
+            connectionVbox.getChildren().add(mainHbox);
+
+            username_lb.setOnMouseClicked(event -> {
 
                 setInformation(user);
 
-                if (!user.equals(AccountController.getAccountController().getCurrentAccount())) {
-                    logout_lbl.setVisible(false);
-                    editProfile.setVisible(false);
-                    deleteAccount.setVisible(false);
-                    logout_btn.setVisible(false);
-                }
-                else {
-                    logout_lbl.setVisible(true);
-                    editProfile.setVisible(true);
-                    deleteAccount.setVisible(true);
-                    logout_btn.setVisible(true);
-                }
 
-                setConnectionList(username_lbl.getText());
+                try {
+                    setConnectionList(username_lbl.getText());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             });
         }
 
@@ -294,9 +306,16 @@ public class profilePageController implements Initializable {
 
     @FXML
     void deleteAccount(ActionEvent event) throws IOException {
-        DataCenterController.getDataCenterController().deleteUser(AccountController.getAccountController().getCurrentAccount());
-        AccountController.showAlert("Successful", Alert.AlertType.INFORMATION, "Your Account deleted Successfully!");
-        AccountController.setScene("loginPage.fxml", "Login");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Delete Account");
+        alert.setContentText("Are you sure you want to delete your account");
+        alert.showAndWait();
+
+        if (alert.getResult().getText().equals("OK")){
+            DataCenterController.getDataCenterController().deleteUser(AccountController.getAccountController().getCurrentAccount());
+            AccountController.setScene("loginPage.fxml", "Login");
+        }
+
     }
 
     @FXML

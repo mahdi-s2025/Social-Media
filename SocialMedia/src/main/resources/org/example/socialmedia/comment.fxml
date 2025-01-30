@@ -8,20 +8,24 @@
 <?import javafx.scene.text.Font?>
 
 
-<HBox fx:id="mainHbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" spacing="10.0" style="-fx-background-color: #c2c2c2; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.CommentController">
+<HBox fx:id="mainHbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="410.0" spacing="10.0" style="-fx-background-color: #c2c2c2; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.CommentController">
    <children>
       <Circle fx:id="profile" fill="DODGERBLUE" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
-      <VBox fx:id="infoVbox" prefHeight="75.0" prefWidth="231.0">
+      <VBox fx:id="infoVbox" prefHeight="95.0" prefWidth="218.0">
          <children>
             <Label fx:id="username_lbl" prefHeight="27.0" prefWidth="244.0" text="Label">
                <font>
-                  <Font size="18.0" />
+                  <Font name="Calibri" size="15.0" />
                </font>
             </Label>
-            <Label fx:id="comment_lbl" alignment="TOP_LEFT" prefHeight="44.0" prefWidth="249.0" text="Label" wrapText="true" />
+            <Label fx:id="comment_lbl" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="231.0" text="label" wrapText="true" />
          </children>
       </VBox>
-      <Label fx:id="date_lbl" prefHeight="18.0" prefWidth="98.0" text="Label" />
+      <Label fx:id="date_lbl" prefHeight="18.0" prefWidth="98.0" text="Label">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
    </children>
    <padding>
       <Insets left="10.0" top="5.0" />

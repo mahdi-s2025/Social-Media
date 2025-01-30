@@ -27,7 +27,10 @@
             </content></ScrollPane>
         <ScrollPane fx:id="connectionsSP" layoutX="30.0" layoutY="210.0" prefHeight="380.0" prefWidth="210.0">
          <content>
-            <VBox fx:id="connectionVbox" prefHeight="600.0" prefWidth="190.0" style="-fx-background-color: white;" />
+            <VBox fx:id="connectionVbox" prefHeight="600.0" prefWidth="190.0" spacing="10.0" style="-fx-background-color: #c8cbcf;">
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding></VBox>
          </content>
       </ScrollPane>
         <Label layoutX="30.0" layoutY="179.0" opacity="0.55" prefHeight="30.0" prefWidth="120.0" text="Connections">

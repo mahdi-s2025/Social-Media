@@ -1,5 +1,6 @@
 package org.example.socialmedia.Views;
 
+import com.google.api.services.gmail.model.Profile;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -343,6 +344,7 @@ public class homePageController implements Initializable {
     }
     @FXML
     void profClick(MouseEvent event) throws IOException {
+        profilePageController.userProfile = AccountController.getAccountController().getCurrentAccount();
         AccountController.setScene("ProfilePage.fxml", "Profile");
     }
 }

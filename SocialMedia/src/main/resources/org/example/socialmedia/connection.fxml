@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+
+<HBox fx:id="mainHbox" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="180.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.ConnectionController">
+   <children>
+      <Circle fx:id="profile" fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="username_lbl" prefHeight="27.0" prefWidth="150.0" text="Label">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+   <padding>
+      <Insets left="10.0" />
+   </padding>
+</HBox>
