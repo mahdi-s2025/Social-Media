@@ -5,10 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -19,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.Getter;
 import org.example.socialmedia.Controller.AccountController;
+import org.example.socialmedia.Controller.DataCenterController;
 import org.example.socialmedia.HelloApplication;
 import org.example.socialmedia.Models.Post;
 
@@ -52,6 +50,9 @@ public class EditPostPageController implements Initializable {
 
     @FXML
     private TextField subject_txt;
+
+    @FXML
+    private Button delete_btn;
 
     static Event event;
 
@@ -108,6 +109,19 @@ public class EditPostPageController implements Initializable {
         AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex).setFile(file);
         editPostStage.hide();
         AccountController.setScene("profilePage.fxml", "Profile");
+    }
+
+    @FXML
+    void deletePost(ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Delete Post");
+        alert.setContentText("Are you sure you want to delete this Post");
+        alert.showAndWait();
+
+        if (alert.getResult().getText().equals("OK")){
+            AccountController.getAccountController().getCurrentAccount().getPosts().remove(postIndex);
+            AccountController.setScene("profilePage.fxml", "Profile");
+        }
     }
 
 

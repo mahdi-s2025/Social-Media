@@ -12,59 +12,50 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="700.0" prefWidth="450.0"
-            style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 2;"
-            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.socialmedia.Views.EditPostPageController">
-   <TextField fx:id="subject_txt" focusTraversable="false" layoutX="25.0" layoutY="390.0" prefHeight="40.0"
-              prefWidth="250.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: black;"/>
+<AnchorPane fx:id="root" prefHeight="700.0" prefWidth="450.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.EditPostPageController">
+   <TextField fx:id="subject_txt" focusTraversable="false" layoutX="25.0" layoutY="390.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: black;" />
    <Label layoutX="25.0" layoutY="455.0" opacity="0.6" prefHeight="30.0" prefWidth="100.0" text="Description">
       <font>
-         <Font name="Fantezy" size="20.0"/>
+         <Font name="Fantezy" size="20.0" />
       </font>
    </Label>
-   <TextArea fx:id="descriptionTF" focusTraversable="false" layoutX="25.0" layoutY="490.0" prefHeight="110.0"
-             prefWidth="390.0" style="-fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10;"/>
-   <Button fx:id="done_btn" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" disable="true"
-           focusTraversable="false" layoutX="350.0" layoutY="650.0" mnemonicParsing="false" onAction="#addPost"
-           prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: black; -fx-background-radius: 10;"
-           text="DONE" textAlignment="CENTER" textFill="WHITE">
+   <TextArea fx:id="descriptionTF" focusTraversable="false" layoutX="25.0" layoutY="490.0" prefHeight="110.0" prefWidth="390.0" style="-fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10;" />
+   <Button fx:id="done_btn" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" disable="true" focusTraversable="false" layoutX="350.0" layoutY="650.0" mnemonicParsing="false" onAction="#addPost" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="DONE" textAlignment="CENTER" textFill="WHITE">
       <font>
-         <Font name="Times New Roman Bold" size="13.0"/>
+         <Font name="Times New Roman Bold" size="13.0" />
       </font>
       <cursor>
-         <Cursor fx:constant="HAND"/>
+         <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Label fx:id="subject_lbl" layoutX="25.0" layoutY="355.0" opacity="0.6" prefHeight="30.0" prefWidth="80.0"
-          text="Subject">
+   <Label fx:id="subject_lbl" layoutX="25.0" layoutY="355.0" opacity="0.6" prefHeight="30.0" prefWidth="80.0" text="Subject">
       <font>
-         <Font name="Fantezy" size="20.0"/>
+         <Font name="Fantezy" size="20.0" />
       </font>
    </Label>
-   <StackPane layoutX="25.0" layoutY="25.0" prefHeight="300.0" prefWidth="400.0"
-              style="-fx-background-color: rgb(190,190,190); -fx-padding: 5; -fx-background-radius: 10;">
+   <StackPane layoutX="25.0" layoutY="25.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: rgb(190,190,190); -fx-padding: 5; -fx-background-radius: 10;">
       <effect>
-         <DropShadow/>
+         <DropShadow />
       </effect>
-      <ImageView fx:id="imageView" fitHeight="290.0" fitWidth="390.0" pickOnBounds="true" preserveRatio="true"/>
-      <Button fx:id="select_btn" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
-              focusTraversable="false" mnemonicParsing="false" onAction="#onChooseImage" opacity="0.6"
-              prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 10;"
-              text="SELECT" textFill="WHITE">
+      <ImageView fx:id="imageView" fitHeight="290.0" fitWidth="390.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="select_btn" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#onChooseImage" opacity="0.6" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="SELECT" textFill="WHITE">
          <font>
-            <Font name="Times New Roman Bold" size="13.0"/>
+            <Font name="Times New Roman Bold" size="13.0" />
          </font>
          <cursor>
-            <Cursor fx:constant="HAND"/>
+            <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
    </StackPane>
-   <ImageView accessibleRole="BUTTON" fitHeight="38.0" fitWidth="38.0" layoutX="295.0" layoutY="645.0"
-              onMouseClicked="#backToProfile" pickOnBounds="true" preserveRatio="true">
+   <ImageView accessibleRole="BUTTON" fitHeight="38.0" fitWidth="38.0" layoutX="295.0" layoutY="645.0" onMouseClicked="#backToProfile" pickOnBounds="true" preserveRatio="true">
       <cursor>
-         <Cursor fx:constant="HAND"/>
+         <Cursor fx:constant="HAND" />
       </cursor>
-      <Image url="@../pictures/back.png"/>
+      <Image url="@../pictures/back.png" />
    </ImageView>
+   <Button fx:id="delete_btn" layoutX="25.0" layoutY="649.0" mnemonicParsing="false" onAction="#deletePost" style="-fx-background-color: black; -fx-background-radius: 10; -fx-border-radius: 10;" text="Delete" textFill="WHITE">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
 </AnchorPane>

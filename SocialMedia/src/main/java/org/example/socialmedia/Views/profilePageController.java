@@ -291,7 +291,7 @@ public class profilePageController implements Initializable {
 
             ArrayList<Account> userConnections = Graph.getGraph().findUserConnections(user.getUsername());
 
-            if (userConnections.contains(AccountController.getAccountController().getCurrentAccount())){
+            if (userConnections.contains(AccountController.getAccountController().getCurrentAccount(  ))){
                 username_lb.setCursor(Cursor.HAND);
                 username_lb.setOnMouseClicked(event -> {
 
