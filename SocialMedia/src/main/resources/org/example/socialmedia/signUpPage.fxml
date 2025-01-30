@@ -104,7 +104,6 @@
          <children>
             <Pane prefHeight="100.0" prefWidth="300.0">
                <children>
-                  <TextField fx:id="name_txt1" focusTraversable="false" layoutY="35.0" prefHeight="35.0" prefWidth="240.0" promptText="Name" style="-fx-background-radius: 10;" />
                   <ImageView fx:id="check4" fitHeight="25.0" fitWidth="25.0" layoutX="250.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../pictures/redError.jpg" />

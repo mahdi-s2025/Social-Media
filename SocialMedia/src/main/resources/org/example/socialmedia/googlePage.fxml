@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="325.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.socialmedia.Views.GooglePageController">
+   <children>
+      <VBox layoutX="25.0" layoutY="35.0" prefHeight="320.0" prefWidth="300.0">
+         <children>
+            <Pane prefHeight="90.0" prefWidth="300.0">
+               <children>
+                  <ImageView fx:id="check1" fitHeight="25.0" fitWidth="25.0" layoutX="260.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../pictures/redError.jpg" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="email_txt" focusTraversable="false" layoutX="15.0" layoutY="40.0" prefHeight="35.0" prefWidth="240.0" promptText="E-mail" style="-fx-background-radius: 10;" />
+               </children>
+            </Pane>
+            <Pane prefHeight="70.0" prefWidth="300.0">
+               <children>
+                  <Label layoutX="18.0" prefHeight="35.0" prefWidth="250.0" text="We will send a verification code">
+                     <font>
+                        <Font name="Segoe Print Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="18.0" layoutY="25.0" prefHeight="35.0" prefWidth="300.0" text="to your e-mail. Please enter the code.">
+                     <font>
+                        <Font name="Segoe Print Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane prefHeight="75.0" prefWidth="300.0">
+               <children>
+                  <ImageView fx:id="check2" fitHeight="25.0" fitWidth="25.0" layoutX="235.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../pictures/redError.jpg" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="code_txt" alignment="CENTER" focusTraversable="false" layoutX="140.0" layoutY="5.0" prefHeight="35.0" prefWidth="90.0" promptText="Code" style="-fx-background-radius: 10;">
+                     <font>
+                        <Font name="Century" size="15.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="send_btn" alignment="CENTER" contentDisplay="CENTER" disable="true" focusTraversable="false" layoutX="20.0" layoutY="5.0" mnemonicParsing="false" onAction="#sendClick" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="SEND" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman Bold" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane prefHeight="70.0" prefWidth="300.0">
+               <children>
+                  <Button fx:id="login_btn" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" disable="true" layoutX="18.0" layoutY="15.0" mnemonicParsing="false" onAction="#loginClick" prefHeight="40.0" prefWidth="240.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="DONE" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman Bold" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+      <Label focusTraversable="false" layoutX="14.0" layoutY="14.0" opacity="0.6" prefHeight="30.0" prefWidth="210.0" text="Login with E-mail">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="error_lbl" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="37.0" layoutY="355.0" prefHeight="40.0" prefWidth="250.0" textAlignment="CENTER" textFill="RED">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
