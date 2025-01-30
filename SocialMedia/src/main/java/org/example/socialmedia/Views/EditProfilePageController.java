@@ -1,77 +1,108 @@
 package org.example.socialmedia.Views;
 
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.example.socialmedia.Controller.AccountController;
+import org.example.socialmedia.Controller.DataCenterController;
+import org.example.socialmedia.HelloApplication;
+import org.example.socialmedia.Models.Account;
+import org.example.socialmedia.Models.SendMail;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 
 public class EditProfilePageController implements Initializable {
-    String file = AccountController.getAccountController().getCurrentAccount().getProfilePicture();
+
+    private final Account currentAccount = AccountController.getAccountController().getCurrentAccount();
+    private final DataCenterController data = DataCenterController.getDataCenterController();
+    private final Image green = new Image("file:src/main/resources/org/example/pictures/greenCheck.png");
+    private final Image red = new Image("file:src/main/resources/org/example/pictures/redError.jpg");
+
 
     @FXML
-    private TextField NameTF;
+    private ImageView back_btn;
 
     @FXML
-    private Button backBT;
+    private ImageView check1;
 
     @FXML
-    private Button confirmBT;
+    private ImageView check2;
 
     @FXML
-    private TextField emailTF;
+    private ImageView check3;
 
     @FXML
-    private TextField passwordTF;
+    private VBox form1;
 
     @FXML
-    private ImageView prof;
+    private VBox form2;
 
     @FXML
-    private Button uploadProfBT;
+    private Button send_btn;
 
     @FXML
-    private TextField userNameTF;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        NameTF.setText(AccountController.getAccountController().getCurrentAccount().getName());
-        userNameTF.setText(AccountController.getAccountController().getCurrentAccount().getUsername());
-        emailTF.setText(AccountController.getAccountController().getCurrentAccount().getEmail());
-        passwordTF.setText(AccountController.getAccountController().getCurrentAccount().getPassword());
-        Image profile=new Image(AccountController.getAccountController().getCurrentAccount().getProfilePicture());
-        prof.setImage(profile);
-
-    }
+    private Button signup_btn;
 
     @FXML
-    void back(ActionEvent event) throws IOException {
-        AccountController.setScene("HomePage.fxml", "Home");
-    }
+    private ImageView check4;
 
     @FXML
-    void confirmEdits(ActionEvent event) {
-        AccountController.getAccountController().getCurrentAccount().setName(NameTF.getText());
-        AccountController.getAccountController().getCurrentAccount().setUsername(userNameTF.getText());
-        AccountController.getAccountController().getCurrentAccount().setEmail(emailTF.getText());
-        AccountController.getAccountController().getCurrentAccount().setPassword(passwordTF.getText());
-        AccountController.getAccountController().getCurrentAccount().setProfilePicture(file);
-        AccountController.showAlert("Successful!", Alert.AlertType.CONFIRMATION, "Your informations updated successfully!");
-    }
+    private ImageView check5;
 
     @FXML
-    void uploadPhoto(ActionEvent event) {
+    private TextField code_txt;
+
+    @FXML
+    private TextField email_txt;
+
+    @FXML
+    private Label error_lbl;
+
+    @FXML
+    private TextField name_txt;
+
+    @FXML
+    private Button next_btn;
+
+    @FXML
+    private PasswordField password_txt;
+
+    @FXML
+    private AnchorPane root;
+
+    @FXML
+    private TextField username_txt;
+
+    @FXML
+    private Circle profPhoto;
+
+    private BooleanBinding fieldsEmpty2;
+
+    private String file = currentAccount.getProfilePicture();
+
+    @FXML
+    void onChooseImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select an Image");
 
@@ -82,12 +113,356 @@ public class EditProfilePageController implements Initializable {
 
         File selectedFile = fileChooser.showOpenDialog(new Stage());
         if (selectedFile != null) {
-            file=selectedFile.toURI().toString();
+            file = selectedFile.toURI().toString();
             Image image = new Image(file);
-            prof.setImage(image);
-            prof.setFitWidth(400);
-            prof.setPreserveRatio(true);
+            profPhoto.setFill(new ImagePattern(image));
         }
     }
 
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        name_txt.setText(currentAccount.getName());
+        email_txt.setText(currentAccount.getEmail());
+        password_txt.setText(currentAccount.getPassword());
+        username_txt.setText(currentAccount.getUsername());
+
+
+        profPhoto.setStroke(Color.SEAGREEN);
+        Image image = new Image(file);
+        profPhoto.setFill(new ImagePattern(image));
+        profPhoto.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
+
+        root.setOnMouseClicked(event -> {
+            if (username_txt.isFocused() || password_txt.isFocused() || name_txt.isFocused()
+                    || email_txt.isFocused() || code_txt.isFocused()) {
+                root.requestFocus();
+            }
+        });
+
+
+        UnaryOperator<TextFormatter.Change> usernameFilter = getUsernameFilter();
+        TextFormatter<String> formatter = new TextFormatter<>(usernameFilter);
+        username_txt.setTextFormatter(formatter);
+
+        UnaryOperator<TextFormatter.Change> passwordFilter = getPasswordFilter();
+        TextFormatter<String> formatter2 = new TextFormatter<>(passwordFilter);
+        password_txt.setTextFormatter(formatter2);
+
+        UnaryOperator<TextFormatter.Change> nameFilter = getNameFilter();
+        TextFormatter<String> formatter3 = new TextFormatter<>(nameFilter);
+        name_txt.setTextFormatter(formatter3);
+
+        UnaryOperator<TextFormatter.Change> emailFilter = getEmailFilter();
+        TextFormatter<String> formatter4 = new TextFormatter<>(emailFilter);
+        email_txt.setTextFormatter(formatter4);
+
+        UnaryOperator<TextFormatter.Change> codeFilter = getCodeFilter();
+        TextFormatter<String> formatter5 = new TextFormatter<>(codeFilter);
+        code_txt.setTextFormatter(formatter5);
+
+
+
+        BooleanBinding fieldsEmpty = check1.imageProperty().isEqualTo(red)
+                .or(check2.imageProperty().isEqualTo(red).or(check3.imageProperty().isEqualTo(red)));
+
+        next_btn.disableProperty().bind(fieldsEmpty);
+
+        fieldsEmpty2 = check4.imageProperty().isEqualTo(red);
+        send_btn.disableProperty().bind(fieldsEmpty2);
+
+        BooleanBinding fieldsEmpty3 = check4.imageProperty().isEqualTo(red).
+                or(check5.imageProperty().isEqualTo(red));
+        signup_btn.disableProperty().bind(fieldsEmpty3);
+
+
+
+    }
+
+    private UnaryOperator<TextFormatter.Change> getUsernameFilter() {
+
+        return change -> {
+
+            String text = change.getControlNewText();
+
+            if (text.matches("^[a-zA-Z0-9_]+") || text.isEmpty()) {
+
+
+
+                if (text.isEmpty()) {
+                    error_lbl.setText("");
+                    check2.setImage(red);
+                }
+
+
+                else if (text.length() < 3) {
+                    error_lbl.setText("Username cannot be less than 3 characters.");
+                    check2.setImage(red);
+                }
+
+                else {
+                    Account tmp = data.findByUsername(text);
+                    if ((tmp != null) && !tmp.equals(currentAccount)) {
+                        check2.setImage(red);
+                        error_lbl.setText("Username already exists!");
+                    }
+                    else {
+                        check2.setImage(green);
+                        error_lbl.setText("");
+                    }
+
+                }
+
+                return change;
+            }
+            error_lbl.setText("You can use only a-z, A-Z,\n0-9 and '_' in username.");
+
+            return null;
+        };
+    }
+
+    private UnaryOperator<TextFormatter.Change> getPasswordFilter() {
+        return change -> {
+
+            String text = change.getControlNewText();
+
+            if (text.matches("^[a-zA-Z0-9_!@#$%^&*()]+") || text.isEmpty()) {
+
+
+                if (text.isEmpty()) {
+                    error_lbl.setText("");
+                    check3.setImage(red);
+                }
+
+                else if (text.length() < 8) {
+                    error_lbl.setText("Password cannot be less than 8 characters.");
+                    check3.setImage(red);
+                }
+
+                else if (AccountController.passwordStrength(text) < 4) {
+                    error_lbl.setText("The password is weak. Its strength is " + AccountController.passwordStrength(text)
+                            + " out of 4.\n You must use 0-9, a-z, A-Z, and at least\n" +
+                            "one special character: ! @ # % ^ & * ( )");
+
+                    check3.setImage(red);
+                }
+
+
+                else {
+                    check3.setImage(green);
+                    error_lbl.setText("");
+                }
+
+                return change;
+            }
+            error_lbl.setText("You can use only a-z, A-Z, 0-9 and\n" +
+                    "special character: ! @ # % ^ & * ( ) in password.");
+
+            return null;
+        };
+    }
+
+    private UnaryOperator<TextFormatter.Change> getNameFilter() {
+        return change -> {
+
+            String text = change.getControlNewText();
+
+            if (text.matches("^[a-zA-Z ]+") || text.isEmpty()) {
+
+
+                if (text.isEmpty()) {
+                    error_lbl.setText("");
+                    check1.setImage(red);
+                }
+
+                else if (text.length() < 3) {
+                    error_lbl.setText("Name cannot be less than 3 characters.");
+                    check1.setImage(red);
+                }
+
+                else {
+                    check1.setImage(green);
+                    error_lbl.setText("");
+                }
+
+                return change;
+            }
+            error_lbl.setText("You can use only a-z, A-Z,\n and space in name.");
+
+            return null;
+        };
+    }
+
+    private UnaryOperator<TextFormatter.Change> getEmailFilter() {
+        return change -> {
+
+            String text = change.getControlNewText();
+
+            if (text.matches("^[a-zA-Z0-9.@_%+-]+$") || text.isEmpty()) {
+
+                if (text.isEmpty()) {
+                    error_lbl.setText("");
+                    check4.setImage(red);
+                }
+
+                else if (!text.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+                    error_lbl.setText("E-mail is invalid.");
+                    check4.setImage(red);
+                }
+
+                else {
+                    Account tmp = data.findByEmail(text);
+                    if ((tmp != null) && !tmp.equals(currentAccount)) {
+                        check4.setImage(red);
+                        error_lbl.setText("User with this e-mail already exists!");
+                    }
+                    else {
+                        check4.setImage(green);
+                        error_lbl.setText("");
+                    }
+                }
+
+                return change;
+            }
+            error_lbl.setText("You cannot use invalid characters in e-mail.");
+
+            return null;
+        };
+    }
+
+    private UnaryOperator<TextFormatter.Change> getCodeFilter() {
+        return change -> {
+
+            String text = change.getControlNewText();
+
+            if (text.matches("^\\d{1,5}$") || text.isEmpty()) {
+
+                if(!send_btn.isDisable()) {
+                    error_lbl.setText("");
+                    check5.setImage(red);
+                }
+
+                else if (text.isEmpty()) {
+                    error_lbl.setText("");
+                    check5.setImage(red);
+                }
+
+
+                else if (text.length() < 5) {
+                    error_lbl.setText("");
+                    check5.setImage(red);
+                }
+
+                else if (data.getEmailValidCode().isEmpty() || !data.getEmailValidCode().get(email_txt.getText()).equals(text)){
+                    error_lbl.setText("");
+                    check5.setImage(red);
+                }
+                else {
+                    error_lbl.setText("");
+                    check5.setImage(green);
+
+                }
+
+                return change;
+            }
+            return null;
+        };
+    }
+
+    private void switchForm(boolean forward) {
+        TranslateTransition firstAnim = new TranslateTransition(Duration.seconds(0.5), form1);
+        TranslateTransition secondAnim = new TranslateTransition(Duration.seconds(0.5), form2);
+
+        if (forward) {
+            firstAnim.setToX(-430);
+            secondAnim.setToX(-430);
+            back_btn.setVisible(true);
+        } else {
+            firstAnim.setToX(0);
+            secondAnim.setToX(0);
+            back_btn.setVisible(false);
+        }
+
+        firstAnim.play();
+        secondAnim.play();
+    }
+
+    @FXML
+    void backClick(MouseEvent event) {
+        switchForm(false);
+    }
+
+    @FXML
+    void sendClick(ActionEvent event) throws Exception {
+        String code = AccountController.getAccountController().generateVerificationCode();
+        data.getEmailValidCode().put(email_txt.getText() , code);
+
+        SendMail sendMail = new SendMail();
+
+        sendMail.send("verify" , "Welcome to Yougram\n\n" +
+                "Your verification code : " + code , email_txt.getText());
+
+        email_txt.setEditable(false);
+        send_btn.disableProperty().unbind();
+        send_btn.setDisable(true);
+
+        new Thread(() -> {
+            try {
+                disable();
+                data.getEmailValidCode().remove(email_txt.getText());
+            } catch (Exception e) {
+                e.printStackTrace(System.err);
+            }
+        }).start();
+    }
+
+    private synchronized void disable() {
+        try {
+            for (int i = 59; i >= 0; i--) {
+                int finalI = i;
+                Platform.runLater(() -> send_btn.setText(String.valueOf(finalI)));
+                Thread.sleep(1000);
+            }
+            Thread.sleep(1000);
+            Platform.runLater(() -> {
+                send_btn.setText("SEND");
+                send_btn.disableProperty().bind(fieldsEmpty2);
+                email_txt.setEditable(true);
+                check5.setImage(red);
+            });
+
+
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
+    }
+
+    @FXML
+    void signupClick(ActionEvent event) throws Exception {
+        String name = name_txt.getText();
+        String username = username_txt.getText();
+        String email = email_txt.getText();
+        String password = password_txt.getText();
+
+        currentAccount.setEmail(email);
+        currentAccount.setName(name);
+        currentAccount.setUsername(username);
+        currentAccount.setPassword(password);
+        currentAccount.setProfilePicture(file);
+
+        profilePageController.getEditProfileStage().close();
+        AccountController.setScene("profilePage.fxml", "Profile");
+
+//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signupPage.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load());
+//        loginPageController.getSignupStage().setScene(scene);
+    }
+
+    @FXML
+    void nextClick(ActionEvent event) {
+        switchForm(true);
+    }
 }
+

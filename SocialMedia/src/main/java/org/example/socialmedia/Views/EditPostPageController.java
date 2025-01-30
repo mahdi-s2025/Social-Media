@@ -77,8 +77,7 @@ public class EditPostPageController implements Initializable {
     }
     @FXML
     void backToProfile(MouseEvent event) throws IOException {
-        editPostStage.hide();
-        //AccountController.setScene("profilePage.fxml", "Profile");
+        editPostStage.close();
     }
 
     @FXML
@@ -106,7 +105,7 @@ public class EditPostPageController implements Initializable {
         AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex).setSubject(subject_txt.getText());
         AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex).setDescription(descriptionTF.getText());
         AccountController.getAccountController().getCurrentAccount().getPosts().get(postIndex).setFile(file);
-        editPostStage.hide();
+        editPostStage.close();
         AccountController.setScene("profilePage.fxml", "Profile");
     }
 

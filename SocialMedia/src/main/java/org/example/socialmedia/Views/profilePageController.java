@@ -47,12 +47,19 @@ public class profilePageController implements Initializable {
 
     @Getter
     private static final Stage editPostStage = new Stage();
+    @Getter
+    private static final Stage editProfileStage = new Stage();
 
     static {
         editPostStage.setResizable(false);
         editPostStage.initModality(Modality.WINDOW_MODAL);
         editPostStage.initOwner(currentStage);
         editPostStage.initStyle(StageStyle.TRANSPARENT);
+
+        editProfileStage.setTitle("Edit Profile");
+        editProfileStage.setResizable(false);
+        editProfileStage.initOwner(currentStage);
+        editProfileStage.initModality(Modality.APPLICATION_MODAL);
     }
 
     @FXML
@@ -173,7 +180,10 @@ public class profilePageController implements Initializable {
                     editPostBT.setOnAction(event -> {
                         EditPostPageController.event = event;
                         try {
-                            AccountController.setScene("EditPostPage.fxml", "Edit Post");
+                            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EditPostPage.fxml"));
+                            Scene scene = new Scene(fxmlLoader.load());
+                            editPostStage.setScene(scene);
+                            editPostStage.show();
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -325,7 +335,10 @@ public class profilePageController implements Initializable {
 
     @FXML
     void editProfile() throws IOException {
-        AccountController.setScene("EditProfilePage.fxml", "Edit Profile");
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EditProfilePage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        editProfileStage.setScene(scene);
+        editProfileStage.show();
     }
 
     @FXML
