@@ -43,7 +43,7 @@ public class HelloApplication extends Application {
         String path4 = Paths.get("src/main/resources/org/example/pictures/diamond.png").toAbsolutePath().toString();
 
 
-        Account account1 = new Account("mohammad" , "mohammad" , "mh","mohammad","file:"+path1);
+        Account account1 = new Account("mohammad" , "mohammad" , "yougerammail@gmail.com","mohammad","file:"+path1);
         Account account2 = new Account("poone" , "poone" , "pm","poone2025!","file:"+path2);
         Account account3 = new Account("Mahdi" , "mahdi" , "mahdisemsar40@gmail.com","mahdi2020","file:"+path3);
 
